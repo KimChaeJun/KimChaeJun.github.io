@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.local
+studio/node_modules
+studio/dist
+studio/.env
+studio/.sanity
+*.local
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+.DS_Store
