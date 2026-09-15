@@ -60,69 +60,101 @@ function Home({ content }: { content: PortfolioContent }) {
   const { profile } = content
 
   return (
-    <div className="site-shell">
+    <div className="site-shell bento-site">
       <SiteHeader />
-      <main>
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-kicker">
-            <span>PORTFOLIO / 2026</span><span>AI · PRODUCT · ENGINEERING</span>
-          </div>
-          <h1 id="hero-title"><span>Build the flow.</span><em>Prove the value.</em></h1>
-          <div className="hero-footer">
-            <div>
+      <main className="bento-main">
+        <section className="bento-hero" aria-labelledby="hero-title">
+          <article className="bento-card bento-intro">
+            <div className="bento-card__top"><span>PORTFOLIO / 2026</span><span>SEOUL · KR</span></div>
+            <h1 id="hero-title"><span>Build the flow.</span><em>Prove the value.</em></h1>
+            <div className="bento-intro__bottom">
               <p>{profile.intro}</p>
-              <span className="hero-signature">{profile.name} · {profile.role}</span>
+              <a href="#work" aria-label="프로젝트 섹션으로 이동">EXPLORE ↓</a>
             </div>
-            <a className="round-link" href="#work" aria-label="프로젝트 보기"><span>View</span><span>work ↓</span></a>
-          </div>
-        </section>
+          </article>
 
-        <section className="projects section" id="work" aria-labelledby="work-title">
-          <div className="section-heading">
-            <p className="eyebrow">Timeline verified</p>
+          <article className="bento-card bento-profile">
+            <div className="profile-orbit" aria-hidden="true"><span>KCJ</span></div>
             <div>
-              <h2 id="work-title">말보다 근거가 남은 프로젝트</h2>
-              <p className="section-note">GitHub 기본 브랜치에 <code>timeline.md</code>가 존재하는 프로젝트만 표시합니다.</p>
+              <p className="eyebrow">Profile</p>
+              <h2>{profile.name}</h2>
+              <p>{profile.role}</p>
             </div>
-          </div>
+            <a href="https://github.com/KimChaeJun" target="_blank" rel="noreferrer">GitHub profile ↗</a>
+          </article>
 
-          <div className="project-list">
-            {timelineProjects.map((project, index) => (
-              <article className="project-card" key={project.slug}>
-                <div className="project-index">{String(index + 1).padStart(2, '0')}</div>
-                <div className="project-copy">
-                  <div className="project-meta"><span>{project.category}</span><span>{project.year}</span></div>
-                  <div className="project-title-row"><h3>{project.title}</h3><span className="award-chip">{project.award}</span></div>
-                  <div className="project-summary-lines">
-                    {project.summaryLines.map((line) => <p key={line}>{line}</p>)}
-                  </div>
-                  <div className="tag-list" aria-label="사용 기술">
-                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
-                  <a className="project-cta" href={`#/projects/${project.slug}`}>프로젝트 상세 보기 <span>↗</span></a>
+          <article className="bento-card bento-source">
+            <div className="source-status"><span aria-hidden="true" /> SOURCE POLICY</div>
+            <strong>{String(timelineProjects.length).padStart(2, '0')}</strong>
+            <p><code>timeline.md</code>로<br />검증된 프로젝트</p>
+          </article>
+        </section>
+
+        <section className="bento-work" id="work" aria-labelledby="work-title">
+          <header className="bento-section-heading">
+            <p className="eyebrow">Selected work</p>
+            <h2 id="work-title">검증 가능한 결과를<br />카드 한 장씩.</h2>
+          </header>
+
+          {timelineProjects.map((project, index) => (
+            <article className="project-bento" key={project.slug}>
+              <a className="bento-card project-name-card" href={`#/projects/${project.slug}`}>
+                <div className="bento-card__top"><span>PROJECT {String(index + 1).padStart(2, '0')}</span><span>{project.year}</span></div>
+                <div>
+                  <span className="award-chip">{project.award}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.subtitle}</p>
                 </div>
-                <MetricArtwork project={project} />
-              </article>
-            ))}
+                <span className="card-arrow">↗</span>
+              </a>
+
+              <div className="bento-card project-summary-card">
+                <p className="eyebrow">Core summary</p>
+                <div>{project.summaryLines.map((line) => <p key={line}>{line}</p>)}</div>
+              </div>
+
+              <MetricArtwork project={project} />
+
+              <div className="bento-card project-metrics-card">
+                <p className="eyebrow">Measured</p>
+                <div className="mini-metrics">
+                  {project.metrics.slice(1).map((metric) => (
+                    <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bento-card project-role-card">
+                <p className="eyebrow">My role</p>
+                <h3>설계를 서비스로,<br />서비스를 운영으로.</h3>
+                <div className="role-chips">
+                  {project.roles.map((role, roleIndex) => <span key={role.title}>{String(roleIndex + 1).padStart(2, '0')} {role.title}</span>)}
+                </div>
+              </div>
+
+              <div className="bento-card project-stack-card">
+                <p className="eyebrow">Stack</p>
+                <div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section className="bento-method" aria-labelledby="principles-title">
+          <header className="bento-section-heading">
+            <p className="eyebrow">Working principles</p>
+            <h2 id="principles-title">구현에서 멈추지 않고<br />운영에서 확인합니다.</h2>
+          </header>
+          <div className="method-grid">
+            <article className="bento-card"><span>01</span><h3>구조화</h3><p>흩어진 요구사항을 데이터 모델과 사용자 흐름으로 연결합니다.</p></article>
+            <article className="bento-card"><span>02</span><h3>통합</h3><p>화면, API, AI, 문서 처리와 배포를 하나의 제품으로 완성합니다.</p></article>
+            <article className="bento-card"><span>03</span><h3>검증</h3><p>운영 환경에서 실패 조건까지 재현하고 근거를 남깁니다.</p></article>
           </div>
         </section>
 
-        <section className="principles section" aria-labelledby="principles-title">
-          <p className="eyebrow">Working principles</p>
-          <h2 id="principles-title">구현에서 멈추지 않고<br />운영에서 확인합니다.</h2>
-          <div className="principle-grid">
-            <article><span>01</span><h3>구조화</h3><p>흩어진 요구사항을 데이터 모델과 사용자 흐름으로 연결합니다.</p></article>
-            <article><span>02</span><h3>통합</h3><p>화면, API, AI, 문서 처리와 배포를 하나의 제품으로 완성합니다.</p></article>
-            <article><span>03</span><h3>검증</h3><p>합성 사용자와 운영 환경에서 실패 조건까지 재현하고 기록합니다.</p></article>
-          </div>
-        </section>
-
-        <section className="contact section">
-          <p className="eyebrow">Open channel</p>
-          <h2>다음 문제를 함께<br />제품으로 바꿔봅시다.</h2>
-          <a className="contact-link" href="https://github.com/KimChaeJun" target="_blank" rel="noreferrer">
-            github.com/KimChaeJun <span>↗</span>
-          </a>
+        <section className="bento-card bento-contact">
+          <div><p className="eyebrow">Open channel</p><h2>다음 문제를 함께<br />제품으로 바꿔봅시다.</h2></div>
+          <a href="https://github.com/KimChaeJun" target="_blank" rel="noreferrer">github.com/KimChaeJun <span>↗</span></a>
         </section>
       </main>
       <SiteFooter />
