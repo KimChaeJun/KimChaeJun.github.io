@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { roleTagsField } from './roleTags'
 
 export const projectType = defineType({
   name: 'project',
@@ -30,6 +31,7 @@ export const projectType = defineType({
       options: { layout: 'tags' },
     }),
     defineField({ name: 'role', title: '담당 역할', type: 'string' }),
+    roleTagsField,
     defineField({ name: 'year', title: '연도', type: 'string' }),
     defineField({ name: 'liveUrl', title: '배포 URL', type: 'url' }),
     defineField({ name: 'githubUrl', title: 'GitHub URL', type: 'url' }),

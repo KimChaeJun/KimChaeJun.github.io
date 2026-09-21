@@ -11,6 +11,14 @@ GitHub 저장소의 `timeline.md`를 근거로 프로젝트를 선별한 React �
 
 현재 반영된 저장소: `KimChaeJun/Sanjae-Oneshot`
 
+## 역할 태그
+
+- 대표 직무는 `Full Stack Developer`입니다. `AI PM`은 선택 가능한 태그로 등록되어 있으며, 기본 화면에는 표시하지 않습니다.
+- 코드에서 추가하려면 `src/data/fallback.ts`의 `profile.roleTags` 또는 `src/data/timelineProjects.ts`의 해당 프로젝트 `roleTags`를 `['AI PM']`으로 설정합니다. 빈 배열이면 대표 직무만 표시됩니다.
+- Sanity를 연결한 경우 프로필·프로젝트 문서의 **추가 역할 태그**에서 `AI PM`을 선택한 뒤 발행합니다. 프로젝트의 주소용 이름(slug)은 `sanjae-oneshot`처럼 현재 노출되는 프로젝트와 일치해야 합니다. CMS에서 빈 배열을 발행하면 추가 태그가 제거됩니다.
+- 새로운 선택지는 `src/data/roleTags.ts`의 `roleTagOptions`에 추가합니다. 웹과 Studio가 같은 선택지 목록을 사용합니다.
+- 중복 태그는 한 번만 표시하며, `Full Stack Developer`가 있으면 `FE Developer`, `BE Developer`, `Infra Developer`는 생략합니다. 담당 업무 설명과 기술 스택은 유지합니다.
+
 ## 로컬 실행
 
 ```bash

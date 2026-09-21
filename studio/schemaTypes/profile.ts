@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { roleTagsField } from './roleTags'
 
 export const profileType = defineType({
   name: 'profile',
@@ -7,6 +8,7 @@ export const profileType = defineType({
   fields: [
     defineField({ name: 'name', title: '이름', type: 'string', validation: (rule) => rule.required() }),
     defineField({ name: 'role', title: '직무', type: 'string', validation: (rule) => rule.required() }),
+    roleTagsField,
     defineField({ name: 'intro', title: '소개', type: 'text', rows: 4, validation: (rule) => rule.required() }),
     defineField({ name: 'email', title: '이메일', type: 'string', validation: (rule) => rule.required().email() }),
     defineField({ name: 'location', title: '활동 지역', type: 'string' }),

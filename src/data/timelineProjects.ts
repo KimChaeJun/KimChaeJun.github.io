@@ -6,6 +6,7 @@ export interface TimelineProject {
   subtitle: string
   category: string
   role: string
+  roleTags: string[]
   year: string
   period: string
   award: string
@@ -27,6 +28,7 @@ export const timelineProjects: TimelineProject[] = [
     subtitle: '산업재해 신청 준비를 돕는 AI 문서 자동화 서비스',
     category: 'AI PRODUCT · FULL-STACK',
     role: developerRole,
+    roleTags: [],
     year: '2026',
     period: '2026.06.30 — 09.03',
     award: 'KDT 프로젝트 최우수상',

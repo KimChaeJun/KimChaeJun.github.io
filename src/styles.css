@@ -1061,17 +1061,29 @@ h2 {
   font-size: 16px;
 }
 
-.developer-role {
+.role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 14px 0 0;
   color: #726180;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
 }
+.role-tags--profile {
+  margin: 0;
+}
+.role-chip {
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: #f3edf8;
+  border: 1px solid #e9dff1;
+}
 .project-art-link {
   align-self: center;
 }
-.detail-hero .developer-role {
+.detail-hero .role-tags {
   margin: 0 0 22px;
   font-size: 14px;
 }
@@ -1153,7 +1165,7 @@ h2 {
     flex-direction: column;
     gap: 12px;
   }
-  .detail-hero .developer-role {
+  .detail-hero .role-tags {
     font-size: 13px;
   }
 }

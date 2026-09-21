@@ -5,6 +5,7 @@ export const fallbackContent: PortfolioContent = {
   profile: {
     name: '김채준',
     role: developerRole,
+    roleTags: [],
     intro:
       'AI와 코드로 일상의 복잡한 과정을 조금 더 쉽게 만들어요. 아이디어를 직접 구현하고, 실제로 잘 쓰이는 순간까지 함께합니다.',
     email: '',

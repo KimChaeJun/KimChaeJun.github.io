@@ -19,6 +19,7 @@ const portfolioQuery = `{
   "profile": *[_type == "profile"][0] {
     name,
     role,
+    roleTags,
     intro,
     email,
     location,
@@ -36,6 +37,7 @@ const portfolioQuery = `{
     "coverImage": coverImage.asset->url,
     tags,
     role,
+    roleTags,
     year,
     liveUrl,
     githubUrl,

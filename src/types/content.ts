@@ -1,6 +1,7 @@
 export interface Profile {
   name: string
   role: string
+  roleTags?: string[]
   intro: string
   email: string
   location: string
@@ -19,6 +20,7 @@ export interface Project {
   coverImage?: string
   tags: string[]
   role: string
+  roleTags?: string[]
   year: string
   liveUrl?: string
   githubUrl?: string

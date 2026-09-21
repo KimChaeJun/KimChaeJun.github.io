@@ -1,6 +1,7 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { fallbackContent } from './data/fallback'
 import { technologyStack, type TechnologyGroup } from './data/engineering'
+import { getRoleTags } from './data/roleTags'
 import { timelineProjects, type TimelineProject } from './data/timelineProjects'
 import { getPortfolioContent } from './lib/sanity'
 import type { PortfolioContent, Profile } from './types/content'
@@ -261,6 +262,26 @@ const metricLabels: Record<string, string> = {
   'FRONTEND QA': '프런트엔드 QA',
 }
 
+function RoleTags({
+  role,
+  additionalTags,
+  profile = false,
+}: {
+  role: string
+  additionalTags?: string[]
+  profile?: boolean
+}) {
+  return (
+    <div className={`role-tags${profile ? ' role-tags--profile' : ''}`} aria-label="개발 역할">
+      {getRoleTags(role, additionalTags).map((tag, index) => (
+        <span className={profile ? 'intro-pill' : 'role-chip'} key={tag}>
+          {profile && index === 0 && <span className="status-dot" />} {tag}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function TechnologyStack({ groups }: { groups: TechnologyGroup[] }) {
   return (
     <div className="technology-grid">
@@ -282,7 +303,7 @@ function TechnologyStack({ groups }: { groups: TechnologyGroup[] }) {
   )
 }
 
-function Home({ content }: { content: PortfolioContent }) {
+function Home({ content, projects }: { content: PortfolioContent; projects: TimelineProject[] }) {
   const { profile } = content
   const github = profile.github || fallbackContent.profile.github!
   const knownTechnologies = new Set(technologyStack.flatMap((group) => group.technologies))
@@ -295,9 +316,7 @@ function Home({ content }: { content: PortfolioContent }) {
       <main className="home-main" id="main-content" tabIndex={-1}>
         <section className="hero page-width" id="hello" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <span className="intro-pill">
-              <span className="status-dot" /> {profile.role}
-            </span>
+            <RoleTags role={profile.role} additionalTags={profile.roleTags} profile />
             <p className="hero-greeting">
               안녕하세요, {profile.name}입니다{' '}
               <span className="wave" aria-hidden="true">
@@ -338,12 +357,12 @@ function Home({ content }: { content: PortfolioContent }) {
               </h2>
             </div>
             <span className="section-count">
-              {String(timelineProjects.length).padStart(2, '0')} PROJECT
-              {timelineProjects.length > 1 ? 'S' : ''}
+              {String(projects.length).padStart(2, '0')} PROJECT
+              {projects.length > 1 ? 'S' : ''}
             </span>
           </div>
           <div className="project-list">
-            {timelineProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <article className="project-card" key={project.slug}>
                 <div className="project-main">
                   <a
@@ -365,7 +384,7 @@ function Home({ content }: { content: PortfolioContent }) {
                       </a>
                     </h3>
                     <p className="project-subtitle">{project.subtitle}</p>
-                    <p className="developer-role">{project.role}</p>
+                    <RoleTags role={project.role} additionalTags={project.roleTags} />
                     <p className="project-description">
                       프런트엔드, 백엔드, 인프라를 아우르는 풀스택 개발을 맡아 정보 입력부터 문서
                       완성, 배포와 운영까지 하나의 서비스로 연결했습니다.
@@ -542,7 +561,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
             <span className="accent-dot">.</span>
           </h1>
           <p>{project.subtitle}</p>
-          <p className="developer-role">{project.role}</p>
+          <RoleTags role={project.role} additionalTags={project.roleTags} />
           <span className="award-chip">
             <span aria-hidden="true">✳</span> {project.award}
           </span>
@@ -718,12 +737,21 @@ function App() {
     }
   }, [])
   const projectSlug = route.match(/^\/projects\/([^/]+)$/)?.[1]
-  const project = timelineProjects.find((item) => item.slug === projectSlug)
+  const projects = useMemo(
+    () =>
+      timelineProjects.map((item) => ({
+        ...item,
+        roleTags:
+          content.projects.find((managed) => managed.slug === item.slug)?.roleTags ?? item.roleTags,
+      })),
+    [content.projects],
+  )
+  const project = projects.find((item) => item.slug === projectSlug)
   useEffect(() => {
     document.title = project
       ? `${project.title} | ${content.profile.name} 포트폴리오`
-      : `${content.profile.name} | ${content.profile.role}`
-  }, [project, content.profile.name, content.profile.role])
+      : `${content.profile.name} | ${getRoleTags(content.profile.role, content.profile.roleTags).join(' · ')}`
+  }, [project, content.profile.name, content.profile.role, content.profile.roleTags])
   return (
     <>
       <a
@@ -741,7 +769,7 @@ function App() {
       {project ? (
         <ProjectDetail project={project} profile={content.profile} />
       ) : (
-        <Home content={content} />
+        <Home content={content} projects={projects} />
       )}
     </>
   )
