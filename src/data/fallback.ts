@@ -5,7 +5,7 @@ export const fallbackContent: PortfolioContent = {
     name: '김채준',
     role: 'AI Product Engineer',
     intro:
-      '복잡한 업무 흐름을 사용자가 끝까지 완주할 수 있는 제품으로 만들고, 운영 환경의 근거로 결과를 증명합니다.',
+      'AI와 코드로 일상의 복잡한 과정을 조금 더 쉽게 만들어요. 아이디어를 직접 구현하고, 실제로 잘 쓰이는 순간까지 함께합니다.',
     email: '',
     location: 'Seoul, Korea',
     availability: 'Available for opportunities',
