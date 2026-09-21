@@ -1,17 +1,18 @@
-import { developerRoles, technologyStack, type TechnologyGroup } from './engineering'
+import { developerRole, technologyStack, type TechnologyGroup } from './engineering'
 
 export interface TimelineProject {
   slug: string
   title: string
   subtitle: string
   category: string
+  role: string
   year: string
   period: string
   award: string
   summaryLines: string[]
   overviewLines: string[]
   tags: string[]
-  roles: Array<{ label: string; title: string; description: string }>
+  roles: Array<{ title: string; description: string }>
   technologyStack: TechnologyGroup[]
   metrics: Array<{ value: string; label: string; note: string }>
   pipeline: Array<{ label: string; description: string }>
@@ -25,6 +26,7 @@ export const timelineProjects: TimelineProject[] = [
     title: '산재원샷',
     subtitle: '산업재해 신청 준비를 돕는 AI 문서 자동화 서비스',
     category: 'AI PRODUCT · FULL-STACK',
+    role: developerRole,
     year: '2026',
     period: '2026.06.30 — 09.03',
     award: 'KDT 프로젝트 최우수상',
@@ -43,10 +45,10 @@ export const timelineProjects: TimelineProject[] = [
     tags: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Supabase', 'Docker', 'AWS ECS'],
     technologyStack,
     roles: [
-      { label: developerRoles[0], title: '사용자 웹·관리자 화면 구현', description: 'React·TypeScript로 신청 위저드와 8개 언어 UI를 구현하고, 재접속 흐름과 Tauri 관리자 앱을 연결했습니다.' },
-      { label: developerRoles[1], title: 'API·데이터·AI 처리 구현', description: 'FastAPI와 PostgreSQL을 기반으로 인증, DB, Storage를 연결하고 OCR·AI 초안·PDF 생성까지 이어지는 처리 경로를 구현했습니다.' },
-      { label: developerRoles[2], title: '배포·운영 환경 구축', description: 'Docker·Nginx 실행 환경과 GitHub Actions·AWS ECS 배포를 구성하고, 비용 추적과 공개 체험·시연 환경을 완성했습니다.' },
-      { label: developerRoles[3], title: '설계부터 통합·품질 검증까지', description: '팀의 서식·시나리오·AI 산출물을 신청 중심 데이터 모델과 서비스 흐름으로 통합했습니다. E2E로 데이터 누락, 외부 AI 실패, PDF 출력과 재접속 문제까지 검증하고 복구했습니다.' },
+      { title: '사용자 웹·관리자 화면 구현', description: 'React·TypeScript로 신청 위저드와 8개 언어 UI를 구현하고, 재접속 흐름과 Tauri 관리자 앱을 연결했습니다.' },
+      { title: 'API·데이터·AI 처리 구현', description: 'FastAPI와 PostgreSQL을 기반으로 인증, DB, Storage를 연결하고 OCR·AI 초안·PDF 생성까지 이어지는 처리 경로를 구현했습니다.' },
+      { title: '배포·운영 환경 구축', description: 'Docker·Nginx 실행 환경과 GitHub Actions·AWS ECS 배포를 구성하고, 비용 추적과 공개 체험·시연 환경을 완성했습니다.' },
+      { title: '설계부터 통합·품질 검증까지', description: '팀의 서식·시나리오·AI 산출물을 신청 중심 데이터 모델과 서비스 흐름으로 통합했습니다. E2E로 데이터 누락, 외부 AI 실패, PDF 출력과 재접속 문제까지 검증하고 복구했습니다.' },
     ],
     metrics: [
       { value: '182,183', label: 'DATA ROWS', note: '13종 공공데이터 원본 행을 적재하고 SHA-256으로 전수 대조' },

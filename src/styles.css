@@ -1061,39 +1061,19 @@ h2 {
   font-size: 16px;
 }
 
-.developer-roles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px 0;
-  padding: 0;
-  margin: 0 0 26px;
-  list-style: none;
+.developer-role {
+  margin: 14px 0 0;
   color: #726180;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
-}
-.developer-roles li:not(:last-child) {
-  padding-right: 10px;
-  margin-right: 10px;
-  border-right: 1px solid #d9cfdf;
-}
-.project-copy .developer-roles {
-  margin: 14px 0 0;
-  font-size: 12px;
 }
 .project-art-link {
   align-self: center;
 }
-.detail-hero .developer-roles {
+.detail-hero .developer-role {
   margin: 0 0 22px;
   font-size: 14px;
-}
-.role-list .role-label {
-  margin: 0 0 10px;
-  color: var(--purple);
-  font-size: 13px;
-  font-weight: 600;
 }
 .stack-section {
   padding-top: 80px;
@@ -1173,10 +1153,7 @@ h2 {
     flex-direction: column;
     gap: 12px;
   }
-  .developer-roles {
-    font-size: 12px;
-  }
-  .detail-hero .developer-roles {
+  .detail-hero .developer-role {
     font-size: 13px;
   }
 }

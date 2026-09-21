@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { fallbackContent } from './data/fallback'
-import { developerRoles, technologyStack, type TechnologyGroup } from './data/engineering'
+import { technologyStack, type TechnologyGroup } from './data/engineering'
 import { timelineProjects, type TimelineProject } from './data/timelineProjects'
 import { getPortfolioContent } from './lib/sanity'
 import type { PortfolioContent, Profile } from './types/content'
@@ -261,16 +261,6 @@ const metricLabels: Record<string, string> = {
   'FRONTEND QA': '프런트엔드 QA',
 }
 
-function DeveloperRoles({ roles }: { roles: readonly string[] }) {
-  return (
-    <ul className="developer-roles" aria-label="개발 역할">
-      {roles.map((role) => (
-        <li key={role}>{role}</li>
-      ))}
-    </ul>
-  )
-}
-
 function TechnologyStack({ groups }: { groups: TechnologyGroup[] }) {
   return (
     <div className="technology-grid">
@@ -320,7 +310,6 @@ function Home({ content }: { content: PortfolioContent }) {
               <span className="highlight">가볍게</span> 풀어내요.
             </h1>
             <p className="hero-description">{profile.intro}</p>
-            <DeveloperRoles roles={developerRoles} />
             <div className="hero-actions">
               <a className="button button-dark" href="#work">
                 만든 것들 둘러보기 <Icon name="arrow" />
@@ -376,7 +365,7 @@ function Home({ content }: { content: PortfolioContent }) {
                       </a>
                     </h3>
                     <p className="project-subtitle">{project.subtitle}</p>
-                    <DeveloperRoles roles={project.roles.map((role) => role.label)} />
+                    <p className="developer-role">{project.role}</p>
                     <p className="project-description">
                       프런트엔드, 백엔드, 인프라를 아우르는 풀스택 개발을 맡아 정보 입력부터 문서
                       완성, 배포와 운영까지 하나의 서비스로 연결했습니다.
@@ -553,7 +542,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
             <span className="accent-dot">.</span>
           </h1>
           <p>{project.subtitle}</p>
-          <DeveloperRoles roles={project.roles.map((role) => role.label)} />
+          <p className="developer-role">{project.role}</p>
           <span className="award-chip">
             <span aria-hidden="true">✳</span> {project.award}
           </span>
@@ -591,7 +580,6 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
               <li key={role.title}>
                 <span className="role-number">0{index + 1}</span>
                 <div>
-                  <p className="role-label">{role.label}</p>
                   <h3>{role.title}</h3>
                   <p>{role.description}</p>
                 </div>

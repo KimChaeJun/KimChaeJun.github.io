@@ -1,9 +1,4 @@
-export const developerRoles = [
-  'FE Developer',
-  'BE Developer',
-  'Infra Developer',
-  'Full Stack Developer',
-] as const
+export const developerRole = 'Full Stack Developer'
 
 export interface TechnologyGroup {
   category: string
