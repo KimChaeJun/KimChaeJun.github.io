@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { fallbackContent } from './data/fallback'
+import { developerRoles, technologyStack, type TechnologyGroup } from './data/engineering'
 import { timelineProjects, type TimelineProject } from './data/timelineProjects'
 import { getPortfolioContent } from './lib/sanity'
 import type { PortfolioContent, Profile } from './types/content'
@@ -260,9 +261,44 @@ const metricLabels: Record<string, string> = {
   'FRONTEND QA': '프런트엔드 QA',
 }
 
+function DeveloperRoles({ roles }: { roles: readonly string[] }) {
+  return (
+    <ul className="developer-roles" aria-label="개발 역할">
+      {roles.map((role) => (
+        <li key={role}>{role}</li>
+      ))}
+    </ul>
+  )
+}
+
+function TechnologyStack({ groups }: { groups: TechnologyGroup[] }) {
+  return (
+    <div className="technology-grid">
+      {groups.map((group, index) => (
+        <article className="technology-card" key={group.category}>
+          <div className="technology-heading">
+            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{group.category}</h3>
+          </div>
+          <p>{group.description}</p>
+          <ul className="technology-tags" aria-label={`${group.category} 기술`}>
+            {group.technologies.map((technology) => (
+              <li key={technology}>{technology}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 function Home({ content }: { content: PortfolioContent }) {
   const { profile } = content
   const github = profile.github || fallbackContent.profile.github!
+  const knownTechnologies = new Set(technologyStack.flatMap((group) => group.technologies))
+  const additionalSkills = [...new Set(profile.skills)].filter(
+    (skill) => !knownTechnologies.has(skill),
+  )
   return (
     <>
       <SiteHeader profile={profile} />
@@ -284,6 +320,7 @@ function Home({ content }: { content: PortfolioContent }) {
               <span className="highlight">가볍게</span> 풀어내요.
             </h1>
             <p className="hero-description">{profile.intro}</p>
+            <DeveloperRoles roles={developerRoles} />
             <div className="hero-actions">
               <a className="button button-dark" href="#work">
                 만든 것들 둘러보기 <Icon name="arrow" />
@@ -339,9 +376,10 @@ function Home({ content }: { content: PortfolioContent }) {
                       </a>
                     </h3>
                     <p className="project-subtitle">{project.subtitle}</p>
+                    <DeveloperRoles roles={project.roles.map((role) => role.label)} />
                     <p className="project-description">
-                      정보 입력부터 문서 완성까지, 복잡했던 산재 신청을 하나의 흐름으로
-                      연결했습니다.
+                      프런트엔드, 백엔드, 인프라를 아우르는 풀스택 개발을 맡아 정보 입력부터 문서
+                      완성, 배포와 운영까지 하나의 서비스로 연결했습니다.
                     </p>
                     <div className="tag-list">
                       {project.tags.map((tag) => (
@@ -434,16 +472,32 @@ function Home({ content }: { content: PortfolioContent }) {
               </article>
             ))}
           </div>
-          <div className="toolbox">
-            <span>
-              손에 익은 도구들 <Icon name="code" />
-            </span>
+        </section>
+        <section className="stack-section page-width" id="stack" aria-labelledby="stack-title">
+          <div className="section-heading">
             <div>
-              {profile.skills.map((skill) => (
-                <span key={skill}>{skill}</span>
-              ))}
+              <p className="eyebrow">MY TECH STACK</p>
+              <h2 id="stack-title">
+                화면부터 서버, 운영까지<span className="accent-dot">.</span>
+              </h2>
             </div>
+            <a className="text-link stack-project-link" href="#/projects/sanjae-oneshot">
+              산재원샷에서 어떻게 썼나요 <Icon name="diagonal" />
+            </a>
           </div>
+          <TechnologyStack groups={technologyStack} />
+          {additionalSkills.length > 0 && (
+            <div className="toolbox">
+              <span>
+                함께 쓰는 도구들 <Icon name="code" />
+              </span>
+              <div>
+                {additionalSkills.map((skill) => (
+                  <span key={skill}>{skill}</span>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
         <section
           className="contact-section page-width"
@@ -499,6 +553,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
             <span className="accent-dot">.</span>
           </h1>
           <p>{project.subtitle}</p>
+          <DeveloperRoles roles={project.roles.map((role) => role.label)} />
           <span className="award-chip">
             <span aria-hidden="true">✳</span> {project.award}
           </span>
@@ -528,7 +583,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
           <div className="section-heading">
             <div>
               <p className="eyebrow">02 / MY PART</p>
-              <h2 id="role-title">제가 연결한 조각들이에요.</h2>
+              <h2 id="role-title">풀스택으로, 서비스의 처음부터 끝까지.</h2>
             </div>
           </div>
           <ol className="role-list">
@@ -536,12 +591,22 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
               <li key={role.title}>
                 <span className="role-number">0{index + 1}</span>
                 <div>
+                  <p className="role-label">{role.label}</p>
                   <h3>{role.title}</h3>
                   <p>{role.description}</p>
                 </div>
               </li>
             ))}
           </ol>
+        </section>
+        <section className="detail-section" aria-labelledby="project-stack-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">PROJECT TECH STACK</p>
+              <h2 id="project-stack-title">이 서비스에 사용한 기술들.</h2>
+            </div>
+          </div>
+          <TechnologyStack groups={project.technologyStack} />
         </section>
         <section className="detail-section evidence-section" aria-labelledby="evidence-title">
           <div className="section-heading">

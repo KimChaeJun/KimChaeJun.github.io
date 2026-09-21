@@ -1061,6 +1061,126 @@ h2 {
   font-size: 16px;
 }
 
+.developer-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 0;
+  padding: 0;
+  margin: 0 0 26px;
+  list-style: none;
+  color: #726180;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.developer-roles li:not(:last-child) {
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: 1px solid #d9cfdf;
+}
+.project-copy .developer-roles {
+  margin: 14px 0 0;
+  font-size: 12px;
+}
+.project-art-link {
+  align-self: center;
+}
+.detail-hero .developer-roles {
+  margin: 0 0 22px;
+  font-size: 14px;
+}
+.role-list .role-label {
+  margin: 0 0 10px;
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 600;
+}
+.stack-section {
+  padding-top: 80px;
+}
+.stack-project-link {
+  color: #726180;
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+.technology-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.technology-card {
+  min-width: 0;
+  padding: 25px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fffdfa;
+}
+.technology-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.technology-heading > span {
+  color: #9a82b0;
+  font: 12px/1.5 var(--mono);
+}
+.technology-heading h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.technology-card > p {
+  margin: 12px 0 20px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.technology-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.technology-tags li {
+  padding: 6px 10px;
+  border: 1px solid #e9e1ef;
+  border-radius: 7px;
+  background: #f7f3fa;
+  color: #6e5d7a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+@media (max-width: 950px) {
+  .technology-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .technology-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .technology-card {
+    padding: 23px;
+  }
+  .stack-section {
+    padding-top: 60px;
+  }
+  .stack-section .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .developer-roles {
+    font-size: 12px;
+  }
+  .detail-hero .developer-roles {
+    font-size: 13px;
+  }
+}
+
 /* Project stories share the homepage typography and palette. */
 .detail-main {
   padding-top: 38px;

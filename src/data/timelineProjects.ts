@@ -1,3 +1,5 @@
+import { developerRoles, technologyStack, type TechnologyGroup } from './engineering'
+
 export interface TimelineProject {
   slug: string
   title: string
@@ -9,7 +11,8 @@ export interface TimelineProject {
   summaryLines: string[]
   overviewLines: string[]
   tags: string[]
-  roles: Array<{ title: string; description: string }>
+  roles: Array<{ label: string; title: string; description: string }>
+  technologyStack: TechnologyGroup[]
   metrics: Array<{ value: string; label: string; note: string }>
   pipeline: Array<{ label: string; description: string }>
   improvements: Array<{ before: string; after: string; evidence: string }>
@@ -37,12 +40,13 @@ export const timelineProjects: TimelineProject[] = [
       '최종 입력값을 원본 서식 위에 합성해 제출 준비 PDF와 ZIP으로 연결했습니다.',
       '실패·재접속·중복 요청까지 운영 환경에서 검증하며 신청 흐름을 안정화했습니다.',
     ],
-    tags: ['React', 'TypeScript', 'FastAPI', 'Supabase', 'OCR', 'LLM', 'AWS ECS'],
+    tags: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Supabase', 'Docker', 'AWS ECS'],
+    technologyStack,
     roles: [
-      { title: '서비스 구조와 데이터 흐름 설계', description: '팀의 서식·시나리오·AI 산출물을 신청 중심 데이터 모델과 API 구조로 구체화했습니다.' },
-      { title: '프런트엔드·백엔드 통합 구현', description: 'React 사용자 웹과 FastAPI를 연결하고 인증, DB, Storage, OCR, AI, PDF 처리 경로를 구현했습니다.' },
-      { title: '운영 장애 분석과 품질 검증', description: '합성 페르소나 E2E로 DB 누락, 외부 AI 실패, PDF 출력과 재접속 문제를 발견하고 복구했습니다.' },
-      { title: '배포·관리·시연 환경 완성', description: 'GitHub Actions와 AWS ECS 배포, 관리자 앱, 비용 추적, 공개 체험과 본선 시연 환경을 연결했습니다.' },
+      { label: developerRoles[0], title: '사용자 웹·관리자 화면 구현', description: 'React·TypeScript로 신청 위저드와 8개 언어 UI를 구현하고, 재접속 흐름과 Tauri 관리자 앱을 연결했습니다.' },
+      { label: developerRoles[1], title: 'API·데이터·AI 처리 구현', description: 'FastAPI와 PostgreSQL을 기반으로 인증, DB, Storage를 연결하고 OCR·AI 초안·PDF 생성까지 이어지는 처리 경로를 구현했습니다.' },
+      { label: developerRoles[2], title: '배포·운영 환경 구축', description: 'Docker·Nginx 실행 환경과 GitHub Actions·AWS ECS 배포를 구성하고, 비용 추적과 공개 체험·시연 환경을 완성했습니다.' },
+      { label: developerRoles[3], title: '설계부터 통합·품질 검증까지', description: '팀의 서식·시나리오·AI 산출물을 신청 중심 데이터 모델과 서비스 흐름으로 통합했습니다. E2E로 데이터 누락, 외부 AI 실패, PDF 출력과 재접속 문제까지 검증하고 복구했습니다.' },
     ],
     metrics: [
       { value: '182,183', label: 'DATA ROWS', note: '13종 공공데이터 원본 행을 적재하고 SHA-256으로 전수 대조' },
