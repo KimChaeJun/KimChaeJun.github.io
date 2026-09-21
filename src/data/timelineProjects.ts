@@ -1,4 +1,5 @@
 import { developerRole, technologyStack, type TechnologyGroup } from './engineering'
+import { lyrikanaProject } from './lyrikana'
 
 export interface TimelineProject {
   slug: string
@@ -79,4 +80,5 @@ export const timelineProjects: TimelineProject[] = [
       { date: '09.09', title: '최우수상 확인', description: '구현·검증·운영·시연을 연결한 팀 프로젝트의 성과를 확인했습니다.' },
     ],
   },
+  lyrikanaProject,
 ]

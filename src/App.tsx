@@ -190,7 +190,64 @@ function DeveloperArtwork({ profile }: { profile: Profile }) {
   )
 }
 
+function LyricArtwork() {
+  return (
+    <div
+      className="project-art lyric-art"
+      role="img"
+      aria-label="LyriKana: 재생 중인 음악에 가사와 읽기·발음을 맞춰 보여주는 오버레이를 표현한 일러스트"
+    >
+      <div aria-hidden="true">
+        <span className="project-art-label">
+          <span /> 좋아하는 노래를 더 가까이
+        </span>
+        <div className="lyric-record">
+          <span>♪</span>
+        </div>
+        <span className="lyric-sticker">
+          find your
+          <br />
+          rhythm.
+        </span>
+        <div className="lyric-window">
+          <div className="lyric-window-heading">
+            <span>♪ LyriKana</span>
+            <span>•••</span>
+          </div>
+          <p className="lyric-muted-line">원문을 그대로,</p>
+          <strong>가사를 따라, 내 리듬대로.</strong>
+          <div className="lyric-reading">
+            <span>일본어 읽기</span>
+            <span>한글 발음</span>
+            <span>로마자</span>
+          </div>
+          <div className="lyric-wave">
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+          </div>
+          <div className="lyric-progress">
+            <span />
+          </div>
+          <div className="lyric-player">
+            <span>LYRICS IN SYNC</span>
+            <span>Ⅱ</span>
+          </div>
+        </div>
+        <span className="project-art-footnote">BROWSER ↔ DESKTOP · YOUR OWN RHYTHM</span>
+      </div>
+    </div>
+  )
+}
+
 function ProjectArtwork({ project }: { project: TimelineProject }) {
+  if (project.slug === 'lyrikana') return <LyricArtwork />
   return (
     <div
       className="project-art"
@@ -244,9 +301,11 @@ function ProjectArtwork({ project }: { project: TimelineProject }) {
           신청 준비, 한 걸음 더 <Icon name="arrow" />
         </div>
       </div>
-      <span className="art-award">
-        <span aria-hidden="true">✳</span> {project.award}
-      </span>
+      {project.award && (
+        <span className="art-award">
+          <span aria-hidden="true">✳</span> {project.award}
+        </span>
+      )}
       <span className="art-pdf" aria-hidden="true">
         <Icon name="check" /> PDF ready!
       </span>
@@ -374,7 +433,9 @@ function Home({ content, projects }: { content: PortfolioContent; projects: Time
                   </a>
                   <div className="project-copy">
                     <div className="project-meta">
-                      <span>0{index + 1} / AI · FULL-STACK</span>
+                      <span>
+                        {String(index + 1).padStart(2, '0')} / {project.category}
+                      </span>
                       <span>{project.year}</span>
                     </div>
                     <h3>
@@ -385,10 +446,7 @@ function Home({ content, projects }: { content: PortfolioContent; projects: Time
                     </h3>
                     <p className="project-subtitle">{project.subtitle}</p>
                     <RoleTags role={project.role} additionalTags={project.roleTags} />
-                    <p className="project-description">
-                      프런트엔드, 백엔드, 인프라를 아우르는 풀스택 개발을 맡아 정보 입력부터 문서
-                      완성, 배포와 운영까지 하나의 서비스로 연결했습니다.
-                    </p>
+                    <p className="project-description">{project.summaryLines[0]}</p>
                     <div className="tag-list">
                       {project.tags.map((tag) => (
                         <span key={tag}>{tag}</span>
@@ -402,28 +460,30 @@ function Home({ content, projects }: { content: PortfolioContent; projects: Time
                     </a>
                   </div>
                 </div>
-                <div className="project-stats">
-                  {project.metrics.map((metric) => (
-                    <div key={metric.label}>
-                      <strong>
-                        {metric.value}
-                        <span>
-                          {metric.label === 'UI LANGUAGES'
-                            ? '개'
-                            : metric.label === 'DATA ROWS'
-                              ? '행'
-                              : '건'}
-                        </span>
-                      </strong>
-                      <span>{metricLabels[metric.label] || metric.label}</span>
-                    </div>
-                  ))}
-                </div>
+                {project.metrics.length > 0 && (
+                  <div className="project-stats">
+                    {project.metrics.map((metric) => (
+                      <div key={metric.label}>
+                        <strong>
+                          {metric.value}
+                          <span>
+                            {metric.label === 'UI LANGUAGES'
+                              ? '개'
+                              : metric.label === 'DATA ROWS'
+                                ? '행'
+                                : '건'}
+                          </span>
+                        </strong>
+                        <span>{metricLabels[metric.label] || metric.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </article>
             ))}
           </div>
           <p className="work-note">
-            <Icon name="check" /> 직접 만들고, 운영하며 확인한 기록을 담았습니다.
+            <Icon name="check" /> 직접 만들고, 확인하며 쌓은 기록을 담았습니다.
           </p>
         </section>
         <section className="about-section page-width" id="about" aria-labelledby="about-title">
@@ -544,6 +604,8 @@ function Home({ content, projects }: { content: PortfolioContent; projects: Time
 }
 
 function ProjectDetail({ project, profile }: { project: TimelineProject; profile: Profile }) {
+  const isLyricProject = project.slug === 'lyrikana'
+  const hasMetrics = project.metrics.length > 0
   return (
     <>
       <SiteHeader profile={profile} detail />
@@ -554,7 +616,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
           </a>
           <div className="detail-hero-meta">
             <span className="intro-pill">{project.category}</span>
-            <span>{project.period}</span>
+            {project.period && <span>{project.period}</span>}
           </div>
           <h1>
             {project.title}
@@ -562,17 +624,19 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
           </h1>
           <p>{project.subtitle}</p>
           <RoleTags role={project.role} additionalTags={project.roleTags} />
-          <span className="award-chip">
-            <span aria-hidden="true">✳</span> {project.award}
-          </span>
+          {project.award && (
+            <span className="award-chip">
+              <span aria-hidden="true">✳</span> {project.award}
+            </span>
+          )}
         </section>
         <section className="detail-overview detail-section" aria-labelledby="overview-title">
           <div>
             <p className="eyebrow">01 / THE IDEA</p>
             <h2 id="overview-title">
-              복잡한 산재 신청,
+              {isLyricProject ? '좋아하는 일본어 노래,' : '복잡한 산재 신청,'}
               <br />
-              조금 더 쉬워질 수 없을까?
+              {isLyricProject ? '더 편하게 따라 부를 수 없을까?' : '조금 더 쉬워질 수 없을까?'}
             </h2>
             <div className="overview-lines">
               {project.overviewLines.map((line) => (
@@ -615,30 +679,36 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
           </div>
           <TechnologyStack groups={project.technologyStack} />
         </section>
-        <section className="detail-section evidence-section" aria-labelledby="evidence-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">03 / IN NUMBERS</p>
-              <h2 id="evidence-title">직접 확인한 결과.</h2>
+        {hasMetrics && (
+          <section className="detail-section evidence-section" aria-labelledby="evidence-title">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">03 / IN NUMBERS</p>
+                <h2 id="evidence-title">직접 확인한 결과.</h2>
+              </div>
             </div>
-          </div>
-          <div className="metric-grid">
-            {project.metrics.map((metric) => (
-              <figure className="metric-card" key={metric.label}>
-                <figcaption>{metricLabels[metric.label] || metric.label}</figcaption>
-                <strong>{metric.value}</strong>
-                <p>{metric.note}</p>
-              </figure>
-            ))}
-          </div>
-          <p className="evidence-note">
-            백엔드 테스트와 프런트엔드 QA는 서로 다른 검사 집합이며, 각각의 수치입니다.
-          </p>
-        </section>
+            <div className="metric-grid">
+              {project.metrics.map((metric) => (
+                <figure className="metric-card" key={metric.label}>
+                  <figcaption>{metricLabels[metric.label] || metric.label}</figcaption>
+                  <strong>{metric.value}</strong>
+                  <p>{metric.note}</p>
+                </figure>
+              ))}
+            </div>
+            <p className="evidence-note">
+              백엔드 테스트와 프런트엔드 QA는 서로 다른 검사 집합이며, 각각의 수치입니다.
+            </p>
+          </section>
+        )}
         <section className="detail-section" aria-labelledby="pipeline-title">
-          <p className="eyebrow">04 / HOW IT WORKS</p>
-          <h2 id="pipeline-title">이야기가 한 장의 문서가 되기까지.</h2>
-          <div className="pipeline">
+          <p className="eyebrow">{hasMetrics ? '04' : '03'} / HOW IT WORKS</p>
+          <h2 id="pipeline-title">
+            {isLyricProject
+              ? '재생 중인 노래와 가사가 만나기까지.'
+              : '이야기가 한 장의 문서가 되기까지.'}
+          </h2>
+          <div className={`pipeline${project.pipeline.length > 4 ? ' pipeline--extended' : ''}`}>
             {project.pipeline.map((step, index) => (
               <div className="pipeline-step" key={step.label}>
                 <span>0{index + 1}</span>
@@ -650,7 +720,7 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
           </div>
         </section>
         <section className="detail-section" aria-labelledby="evolution-title">
-          <p className="eyebrow">05 / MAKING IT BETTER</p>
+          <p className="eyebrow">{hasMetrics ? '05' : '04'} / MAKING IT BETTER</p>
           <h2 id="evolution-title">막히는 순간에도, 계속 이어지도록.</h2>
           <div className="evolution-list">
             {project.improvements.map((item) => (
@@ -674,15 +744,18 @@ function ProjectDetail({ project, profile }: { project: TimelineProject; profile
         </section>
         <section className="detail-section timeline-section" aria-labelledby="timeline-title">
           <div>
-            <p className="eyebrow">06 / THE JOURNEY</p>
+            <p className="eyebrow">{hasMetrics ? '06' : '05'} / THE JOURNEY</p>
             <h2 id="timeline-title">
-              첫 아이디어부터
+              {isLyricProject ? '가사 표시에서' : '첫 아이디어부터'}
               <br />
-              최우수상까지.
+              {isLyricProject ? '나만의 노래방 도구까지.' : '최우수상까지.'}
             </h2>
             <p className="timeline-intro">만들고, 확인하고, 다시 다듬은 기록.</p>
+            {isLyricProject && (
+              <p className="timeline-intro">날짜는 코드 변경이 기록된 시점입니다.</p>
+            )}
           </div>
-          <ol className="build-timeline">
+          <ol className={`build-timeline${isLyricProject ? ' build-timeline--full-date' : ''}`}>
             {project.timeline.map((item) => (
               <li key={item.date}>
                 <time>{item.date}</time>

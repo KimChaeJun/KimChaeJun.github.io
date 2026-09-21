@@ -751,11 +751,15 @@ h2 {
 .project-meta {
   display: flex;
   align-items: center;
+  gap: 16px;
   justify-content: space-between;
   width: 100%;
   color: #99909e;
   font: 10px/1.5 var(--mono);
   letter-spacing: 0.04em;
+}
+.project-meta > span:last-child {
+  flex-shrink: 0;
 }
 .project-copy h3 {
   margin: 24px 0 8px;
@@ -1083,6 +1087,142 @@ h2 {
 .project-art-link {
   align-self: center;
 }
+.lyric-art {
+  background: #e4ede5;
+  min-height: 425px;
+}
+.lyric-art .project-art-label,
+.lyric-art .project-art-footnote {
+  color: #5e7a6e;
+}
+.lyric-art .project-art-label > span {
+  background: #749482;
+}
+.lyric-record {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  top: 48px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  transform: translateX(-70%) rotate(-15deg);
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #34443e 0 2px, #40554a 3px 4px);
+  box-shadow: 10px 10px 0 #cddbd1;
+}
+.lyric-record > span {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border: 12px solid #ebbe95;
+  border-radius: 50%;
+  background: #f7d4ac;
+  font-size: 34px;
+  color: #6c583f;
+}
+.lyric-sticker {
+  position: absolute;
+  top: 62px;
+  right: 25px;
+  color: #42624f;
+  transform: rotate(10deg);
+  font: italic 18px/1.2 var(--mono);
+}
+.lyric-window {
+  position: absolute;
+  top: 125px;
+  left: 50%;
+  width: min(330px, calc(100% - 36px));
+  padding: 19px 22px;
+  background: #fffdf6;
+  border: 1px solid #fff;
+  border-radius: 14px;
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 15px 30px #324e3920;
+  transition: transform 0.3s;
+}
+.project-art-link:hover .lyric-window {
+  transform: translateX(-50%) rotate(-1deg) translateY(-4px);
+}
+.lyric-window-heading,
+.lyric-player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #56715e;
+  font: 11px/1.5 var(--mono);
+}
+.lyric-window-heading > span:first-child {
+  font-weight: 600;
+  font-size: 13px;
+}
+.lyric-muted-line {
+  font-size: 12px;
+  color: #9ca598;
+  margin: 20px 0 4px;
+}
+.lyric-window > strong {
+  font-size: clamp(15px, 2vw, 19px);
+  color: #354d3d;
+  letter-spacing: -0.04em;
+}
+.lyric-reading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 11px;
+}
+.lyric-reading > span {
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: #eef2e8;
+  color: #698065;
+}
+.lyric-wave {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 13px 0 8px;
+}
+.lyric-wave i {
+  width: 4px;
+  height: 12px;
+  border-radius: 4px;
+  background: #a8bb9e;
+}
+.lyric-wave i:nth-child(3n) {
+  height: 24px;
+}
+.lyric-wave i:nth-child(3n + 1) {
+  height: 7px;
+}
+.lyric-wave i:nth-child(4n) {
+  height: 18px;
+}
+.lyric-progress {
+  height: 3px;
+  background: #e8ebdf;
+  border-radius: 4px;
+}
+.lyric-progress > span {
+  display: block;
+  width: 57%;
+  height: 100%;
+  background: #7a9471;
+  border-radius: inherit;
+}
+.lyric-player {
+  margin-top: 8px;
+  font-size: 8px;
+  letter-spacing: 0.07em;
+}
+.lyric-player > span:last-child {
+  font-size: 13px;
+}
 .detail-hero .role-tags {
   margin: 0 0 22px;
   font-size: 14px;
@@ -1322,6 +1462,16 @@ h2 {
   gap: 23px;
   margin-top: 32px;
 }
+.pipeline--extended {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 15px;
+}
+.pipeline--extended .pipeline-step {
+  padding: 22px 18px;
+}
+.pipeline--extended .pipeline-step > .icon {
+  display: none;
+}
 .pipeline-step {
   position: relative;
   padding: 23px;
@@ -1446,6 +1596,10 @@ h2 {
   font: 12px/2 var(--mono);
   color: #a18bb6;
 }
+.build-timeline--full-date li {
+  grid-template-columns: 84px 1fr;
+  gap: 16px;
+}
 .build-timeline h3 {
   margin: 0;
   font-size: 16px;
@@ -1510,6 +1664,9 @@ h2 {
   }
 }
 @media (max-width: 1050px) {
+  .pipeline--extended {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .page-width,
   .header-inner {
     width: calc(100% - 64px);
@@ -1963,6 +2120,16 @@ h2 {
   }
   .pipeline-step {
     padding: 20px 17px;
+  }
+  .pipeline--extended {
+    grid-template-columns: 1fr;
+  }
+  .build-timeline--full-date li {
+    grid-template-columns: 80px 1fr;
+  }
+  .lyric-sticker {
+    right: 16px;
+    font-size: 15px;
   }
 }
 

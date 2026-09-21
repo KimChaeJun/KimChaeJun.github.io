@@ -9,7 +9,9 @@ GitHub 저장소의 `timeline.md`를 근거로 프로젝트를 선별한 React �
 - 측정값이 없는 작업은 임의의 개선율 대신 전후 변화와 검증 근거를 설명합니다.
 - 비공개 저장소의 코드나 민감한 경로는 공개하지 않고 포트폴리오용 서술만 반영합니다.
 
-현재 반영된 저장소: `KimChaeJun/Sanjae-Oneshot`
+현재 반영된 저장소: `KimChaeJun/Sanjae-Oneshot`, `KimChaeJun/LyriKana`
+
+LyriKana는 루트 `timeline.md`의 공개용 JSON에서 구현 방식과 개인 기여만 반영했습니다. 미확인 참여 기간·수상·공개 수치 카드는 표시하지 않으며, 연혁의 날짜는 개발 기간이나 배포일이 아닌 코드 변경 기록일입니다.
 
 ## 역할 태그
 
