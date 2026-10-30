@@ -21,6 +21,21 @@ LyriKana는 루트 `timeline.md`의 공개용 JSON에서 구현 방식과 개인
 - 새로운 선택지는 `src/data/roleTags.ts`의 `roleTagOptions`에 추가합니다. 웹과 Studio가 같은 선택지 목록을 사용합니다.
 - 중복 태그는 한 번만 표시하며, `Full Stack Developer`가 있으면 `FE Developer`, `BE Developer`, `Infra Developer`는 생략합니다. 담당 업무 설명과 기술 스택은 유지합니다.
 
+## 화면과 탐색
+
+Stitch의 프로젝트 목록·소개 화면을 기준으로 아이보리, 네이비, 민트 색상과 터미널·문서 패널을 적용했습니다.
+
+- `#/`: 소개와 대표 프로젝트, 최근 작업 기록
+- `#/projects`: 분야별 필터, 구성도, 기여 요약
+- `#/projects/{slug}`: 기술 스택, 검증 수치, 개선 전후와 전체 연혁
+- `#/timeline`: 프로젝트별 타임라인과 공개 기록 복사·Markdown 다운로드
+- `#/about`: 소개, 기술 스택, 프로젝트 경험과 인쇄/PDF 저장용 화면
+- `#/contact`: 실제 프로필에 등록된 연락 채널
+
+`Ctrl+K` 또는 `⌘K`로 빠른 메뉴를 열 수 있습니다. 상단 터미널은 `help`, `projects`, `about`, `stack`, `timeline`, `contact`, `home` 명령으로 페이지를 탐색합니다. 기존 `#work`, `#about`, `#stack`, `#contact` 주소도 지원합니다.
+
+시안의 가상 인물, 학력, 경력, 실시간 상태와 숙련도 수치는 사용하지 않습니다. 소개의 집계는 현재 수록된 프로젝트와 주력 기술 목록 기준입니다. 이력서 버튼은 현재 소개 화면의 브라우저 인쇄 창을 열며, PDF 저장은 해당 창에서 선택합니다.
+
 ## 로컬 실행
 
 ```bash
