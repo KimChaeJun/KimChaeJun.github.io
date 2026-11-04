@@ -38,7 +38,7 @@ Stitch의 프로젝트 목록·소개 화면을 기준으로 아이보리, 네�
 
 ## 기술 스택 아이콘
 
-소개·프로젝트 상세의 기술 스택은 공통 `TechnologyBadge` 컴포넌트를 사용합니다. 호버, 키보드 포커스 또는 터치로 기술명을 표시하고, Esc·포커스 이동·바깥쪽 터치로 닫습니다. 인쇄/PDF에서는 이름을 항상 표시합니다. 로고 출처는 `public/icons/technology/README.md`에 기록했습니다. 새 기술은 `src/components/TechnologyBadge.tsx`의 로고 매핑에 추가하며, 매핑이 없으면 기본 코드 아이콘과 기술명이 표시됩니다.
+메인 프로젝트 카드·소개·프로젝트 상세의 기술 스택은 공통 `TechnologyBadge` 컴포넌트를 사용합니다. 호버, 키보드 포커스 또는 터치로 기술명을 표시하고, Esc·포커스 이동·바깥쪽 터치로 닫습니다. 인쇄/PDF에서는 이름을 항상 표시합니다. 로고 출처는 `public/icons/technology/README.md`에 기록했습니다. 새 기술은 `src/components/TechnologyBadge.tsx`의 로고 매핑에 추가하며, 매핑이 없으면 기본 코드 아이콘과 기술명이 표시됩니다.
 
 ## 로컬 실행
 

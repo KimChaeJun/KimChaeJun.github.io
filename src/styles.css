@@ -815,7 +815,7 @@ kbd {
   margin: 12px 0 18px;
   min-height: 36px;
 }
-.stack-card .technology-list {
+.technology-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -823,20 +823,26 @@ kbd {
   flex-wrap: wrap;
   gap: 10px;
 }
-.stack-card .technology-item {
+.technology-item {
   position: relative;
   padding: 0;
   border: 0;
   background: transparent;
   flex: 0 0 auto;
 }
+.technology-list-compact {
+  --technology-button-size: 40px;
+  --technology-logo-size: 24px;
+  --technology-padding: 7px;
+  gap: 6px;
+}
 .technology-button {
   position: relative;
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
-  padding: 11px;
+  width: var(--technology-button-size, 54px);
+  height: var(--technology-button-size, 54px);
+  padding: var(--technology-padding, 11px);
   border: 1px solid #dce4ed;
   border-radius: 12px;
   background: #fcfdfe;
@@ -846,8 +852,8 @@ kbd {
 .technology-logo,
 .technology-symbol {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: var(--technology-logo-size, 30px);
+  height: var(--technology-logo-size, 30px);
   object-fit: contain;
   filter: saturate(.45);
   opacity: .78;
@@ -3301,12 +3307,12 @@ kbd {
     min-height: 0;
     margin-block: 10px;
   }
-  .stack-card .technology-list {
+  .technology-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 7px;
   }
-  .stack-card .technology-item {
+  .technology-item {
     display: flex;
     align-items: center;
     gap: 6px;

@@ -828,11 +828,11 @@ function ProjectSummary({ project }: { project: TimelineProject }) {
           </>
         )}
       </div>
-      <div className="tag-list">
+      <ul className="technology-list technology-list-compact" aria-label={project.title + " 기술 스택"}>
         {project.tags.slice(0, 6).map((tag) => (
-          <span key={tag}>{tag}</span>
+          <TechnologyBadge key={tag} name={tag} />
         ))}
-      </div>
+      </ul>
       <div className="summary-bottom">
         <span>{project.role}</span>
         <a className="text-link" href={`#/projects/${project.slug}`}>
