@@ -815,31 +815,133 @@ kbd {
   margin: 12px 0 18px;
   min-height: 36px;
 }
-.stack-card ul {
+.stack-card .technology-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  gap: 7px;
-}
-.stack-card li {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 9px;
-  border: 1px solid #e0e6ee;
-  border-radius: 4px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.stack-card .technology-item {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  flex: 0 0 auto;
+}
+.technology-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 11px;
+  border: 1px solid #dce4ed;
+  border-radius: 12px;
   background: #fcfdfe;
-  padding: 9px 10px;
-  font-size: 10px;
-  line-height: 1.5;
+  box-shadow: 0 2px 3px #172d4b04;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.technology-logo,
+.technology-symbol {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: saturate(.45);
+  opacity: .78;
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+.technology-symbol {
+  color: #3c658e;
+}
+.technology-submark {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 16px;
+  height: 16px;
+  padding: 1px;
+  border-radius: 4px;
+  color: #327268;
+  background: #fcfdfe;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.technology-item[data-open] {
+  z-index: 3;
+}
+.technology-item[data-open] .technology-button {
+  transform: translateY(-4px);
+  border-color: #7aafa0;
+  background: #fff;
+  box-shadow: 0 7px 16px #1a365d14, 0 0 0 3px #6baf9520;
+}
+.technology-item[data-open] .technology-logo,
+.technology-item[data-open] .technology-symbol {
+  filter: saturate(1);
+  opacity: 1;
+}
+.technology-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  z-index: 4;
+  width: max-content;
+  max-width: min(220px, calc(100vw - 32px));
+  padding: 8px 11px;
+  border: 1px solid #2e4867;
+  border-radius: 7px;
+  background: var(--ink);
+  box-shadow: 0 5px 14px #172d4b20;
+  color: #fff;
+  font: 500 11px/1.5 "Inter", "Noto Sans KR", sans-serif;
+  text-align: center;
   overflow-wrap: anywhere;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(calc(-50% + var(--tooltip-shift)), 4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  pointer-events: none;
 }
-.stack-card li .icon {
-  width: 11px;
-  height: 11px;
-  color: #7a94ae;
+.technology-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(50% - var(--tooltip-shift));
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
 }
+.technology-tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+.technology-item[data-open] .technology-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(calc(-50% + var(--tooltip-shift)), 0);
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .technology-button,
+  .technology-logo,
+  .technology-symbol,
+  .technology-tooltip {
+    transition: none;
+  }
+  .technology-item[data-open] .technology-button {
+    transform: none;
+  }
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3199,13 +3301,56 @@ kbd {
     min-height: 0;
     margin-block: 10px;
   }
-  .stack-card ul {
+  .stack-card .technology-list {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    gap: 7px;
   }
-  .stack-card li {
-    padding: 6px;
+  .stack-card .technology-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .technology-button,
+  .technology-item[data-open] .technology-button {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+  .technology-logo,
+  .technology-symbol {
+    width: 18px;
+    height: 18px;
+    filter: none;
+    opacity: 1;
+  }
+  .technology-submark {
+    display: none;
+  }
+  .technology-tooltip,
+  .technology-item[data-open] .technology-tooltip {
+    position: static;
+    width: auto;
+    max-width: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--ink);
     font-size: 8px;
+    text-align: left;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .technology-tooltip::before,
+  .technology-tooltip::after {
+    display: none;
   }
   .experience-grid,
   .summary-grid {

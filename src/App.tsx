@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { fallbackContent } from "./data/fallback";
 import { technologyStack, type TechnologyGroup } from "./data/engineering";
+import { TechnologyBadge } from "./components/TechnologyBadge";
 import { getRoleTags } from "./data/roleTags";
 import {
   timelineProjects,
@@ -707,12 +708,9 @@ function Stack({
             <span>{group.technologies.length} STACKS</span>
           </div>
           <p>{group.description}</p>
-          <ul>
+          <ul className="technology-list" aria-label={group.category + " 기술 스택"}>
             {group.technologies.map((tech) => (
-              <li key={tech}>
-                <span>{tech}</span>
-                <Icon name="check" />
-              </li>
+              <TechnologyBadge key={tech} name={tech} />
             ))}
           </ul>
         </article>
