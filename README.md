@@ -1,56 +1,66 @@
 # 김채준 포트폴리오
 
-GitHub 저장소의 `timeline.md`를 근거로 프로젝트를 선별한 React 포트폴리오입니다.
+React + Vite로 만든 GitHub Pages 포트폴리오입니다. Sanity의 발행된 콘텐츠를 읽고, 연결에 실패하면 저장소의 공개용 기본 데이터를 표시합니다.
 
-## 콘텐츠 원칙
+## 콘텐츠 기준
 
-- 소유한 저장소의 기본 브랜치 루트에 `timeline.md`가 있는 프로젝트만 노출합니다.
-- 수치는 타임라인에서 검증된 값만 사용하며 서로 다른 테스트 집합은 합산하지 않습니다.
-- 측정값이 없는 작업은 임의의 개선율 대신 전후 변화와 검증 근거를 설명합니다.
-- 비공개 저장소의 코드나 민감한 경로는 공개하지 않고 포트폴리오용 서술만 반영합니다.
+기존 산재원샷·LyriKana에 119 보이는 ARS, 흡연·건강지표 분석 대시보드, 대사증후군 위험군 분석, 건강관리 실습 앱, AI Health Web Service, POCKET SSAFY, SPOANY, Tickget을 추가했습니다.
 
-현재 반영된 저장소: `KimChaeJun/Sanjae-Oneshot`, `KimChaeJun/LyriKana`
+- 각 저장소 기본 브랜치 루트의 정확한 `timeline.md`에서 공개용으로 정리한 내용만 반영했습니다.
+- 새 8개 프로젝트의 미확인 개인 역할·기여·참여 기간·수상·성과 수치는 빈 값으로 유지하고 해당 화면을 숨깁니다.
+- 새 프로젝트와 LyriKana의 연혁은 코드 변경 기록일입니다. 참여 기간이나 실제 배포일로 해석하지 않습니다.
+- 건강관리 실습 앱은 제공된 완성 예제·실습 코드라는 맥락을 유지합니다. 분석·의료 관련 프로젝트에 검증되지 않은 임상 성능이나 인과관계를 부여하지 않습니다.
+- 비공개 소스코드·내부 경로·인증 정보는 공개 데이터에 포함하지 않습니다.
 
-LyriKana는 루트 `timeline.md`의 공개용 JSON에서 구현 방식과 개인 기여만 반영했습니다. 미확인 참여 기간·수상·공개 수치 카드는 표시하지 않으며, 연혁의 날짜는 개발 기간이나 배포일이 아닌 코드 변경 기록일입니다.
+## 관리자 모드
 
-## 역할 태그
+운영 사이트 하단 **관리자 모드** 또는 [관리자 주소](https://kimchaejun.github.io/admin/)로 이동합니다.
 
-- 대표 직무는 `Full Stack Developer`입니다. `AI PM`은 선택 가능한 태그로 등록되어 있으며, 기본 화면에는 표시하지 않습니다.
-- 코드에서 추가하려면 `src/data/fallback.ts`의 `profile.roleTags` 또는 `src/data/timelineProjects.ts`의 해당 프로젝트 `roleTags`를 `['AI PM']`으로 설정합니다. 빈 배열이면 대표 직무만 표시됩니다.
-- Sanity를 연결한 경우 프로필·프로젝트 문서의 **추가 역할 태그**에서 `AI PM`을 선택한 뒤 발행합니다. 프로젝트의 주소용 이름(slug)은 `sanjae-oneshot`처럼 현재 노출되는 프로젝트와 일치해야 합니다. CMS에서 빈 배열을 발행하면 추가 태그가 제거됩니다.
-- 새로운 선택지는 `src/data/roleTags.ts`의 `roleTagOptions`에 추가합니다. 웹과 Studio가 같은 선택지 목록을 사용합니다.
-- 중복 태그는 한 번만 표시하며, `Full Stack Developer`가 있으면 `FE Developer`, `BE Developer`, `Infra Developer`는 생략합니다. 담당 업무 설명과 기술 스택은 유지합니다.
+1. GitHub로 Sanity에 로그인합니다. `KimChaeJun Portfolio` 프로젝트 구성원만 접근할 수 있습니다.
+2. 실제 홈페이지 미리보기의 점선 문구를 클릭합니다. 왼쪽 목록에서도 프로필·홈페이지 문구·프로젝트 항목을 선택할 수 있습니다.
+3. 텍스트를 수정합니다. 발행 전에는 이 관리자 화면에서만 미리 보이며, **변경 취소**로 되돌릴 수 있습니다.
+4. **발행**을 누르면 방문자 화면에 반영됩니다. 문구만 바꾸는 작업에는 Git 커밋이나 사이트 재배포가 필요하지 않습니다.
+
+프로필·프로젝트의 **추가 역할 태그**에서 AI PM을 선택할 수 있습니다. 기본은 미선택이며 Full Stack Developer가 있으면 FE·BE·Infra 역할 중복 표시는 생략합니다.
+
+발행된 콘텐츠는 Sanity의 `production` 데이터셋, `portfolio` 문서의 `content` 필드에 저장합니다. 데이터셋은 공개 읽기이며 수정은 Sanity가 인증·권한을 검증합니다. 프로젝트 ID는 공개 식별자이고, 쓰기 토큰을 사이트 번들·GitHub Secrets에 넣지 않습니다. 로그인은 공식 Sanity Studio가 처리합니다.
+
+수정 충돌을 감지하면 발행을 거부하고 작성 내용을 화면에 유지합니다. 해당 문구를 복사해 보관하고 변경을 취소한 뒤 **최신 콘텐츠 다시 불러오기**를 이용하세요. 입력한 미발행 변경은 브라우저를 닫으면 사라집니다. URL·이메일·날짜 형식 오류와 허용하지 않은 필드 변경도 차단합니다.
+
+같은 출처의 관리자 iframe만 미리보기 메시지를 주고받습니다. 프로젝트 주소(slug)와 연혁 기준은 관리자 텍스트 편집으로 바뀌지 않습니다. 새 프로젝트 추가·구조 변경은 코드와 CMS 데이터 마이그레이션 작업으로 처리합니다. CMS의 기존 내용을 기본 데이터로 무조건 덮어쓰지 마세요.
 
 ## 화면과 탐색
 
-Stitch의 프로젝트 목록·소개 화면을 기준으로 아이보리, 네이비, 민트 색상과 터미널·문서 패널을 적용했습니다.
+- `#/`: 소개, 10개 프로젝트, 최근 작업 기록
+- `#/projects`: 기술 분야 필터, 구성도, 확인된 프로젝트 설명
+- `#/projects/{slug}`: 기술, 개요, 개인 기여·성과·개선 기록(있는 경우), 전체 연혁
+- `#/timeline`: 전체 코드·작업 기록, 공개용 Markdown 다운로드
+- `#/about`: 소개·주력 기술·확인된 프로젝트 경험, 인쇄/PDF
+- `#/contact`: 실제 등록한 연락 채널
+- `/admin/`: Sanity 로그인과 홈페이지 편집
 
-- `#/`: 소개와 대표 프로젝트, 최근 작업 기록
-- `#/projects`: 분야별 필터, 구성도, 기여 요약
-- `#/projects/{slug}`: 기술 스택, 검증 수치, 개선 전후와 전체 연혁
-- `#/timeline`: 프로젝트별 타임라인과 공개 기록 복사·Markdown 다운로드
-- `#/about`: 소개, 기술 스택, 프로젝트 경험과 인쇄/PDF 저장용 화면
-- `#/contact`: 실제 프로필에 등록된 연락 채널
+`Ctrl+K` / `⌘K` 또는 상단 터미널로 이동할 수 있습니다. 기술 아이콘은 호버·키보드 포커스·터치로 이름을 표시하며 인쇄 시 이름을 함께 표시합니다. 로고 출처는 `public/icons/technology/README.md`를 참고하세요. 등록되지 않은 기술에는 공통 코드 아이콘을 사용합니다.
 
-`Ctrl+K` 또는 `⌘K`로 빠른 메뉴를 열 수 있습니다. 상단 터미널은 `help`, `projects`, `about`, `stack`, `timeline`, `contact`, `home` 명령으로 페이지를 탐색합니다. 기존 `#work`, `#about`, `#stack`, `#contact` 주소도 지원합니다.
-
-시안의 가상 인물, 학력, 경력, 실시간 상태와 숙련도 수치는 사용하지 않습니다. 소개의 집계는 현재 수록된 프로젝트와 주력 기술 목록 기준입니다. 이력서 버튼은 현재 소개 화면의 브라우저 인쇄 창을 열며, PDF 저장은 해당 창에서 선택합니다.
-
-## 기술 스택 아이콘
-
-메인 프로젝트 카드·소개·프로젝트 상세의 기술 스택은 공통 `TechnologyBadge` 컴포넌트를 사용합니다. 호버, 키보드 포커스 또는 터치로 기술명을 표시하고, Esc·포커스 이동·바깥쪽 터치로 닫습니다. 인쇄/PDF에서는 이름을 항상 표시합니다. 로고 출처는 `public/icons/technology/README.md`에 기록했습니다. 새 기술은 `src/components/TechnologyBadge.tsx`의 로고 매핑에 추가하며, 매핑이 없으면 기본 코드 아이콘과 기술명이 표시됩니다.
-
-## 로컬 실행
+## 개발과 배포
 
 ```bash
-npm install
+npm ci
+npm ci --prefix studio
 npm run dev
+npm test
+npm run build
 ```
 
-Sanity를 연결하지 않아도 기본 프로필과 프로젝트가 표시됩니다. 프로필과 경력 CMS를 사용할 경우 `.env.example`을 `.env.local`로 복사하고 Sanity 프로젝트 ID를 설정합니다.
+`npm run build`는 사이트, 관리자 타입 검사, 관리자 정적 번들을 순서대로 실행합니다. 사이트는 `dist/`, 관리자는 `dist/admin/`에 생성됩니다. Sanity CLI의 `project.basePath`가 관리자 정적 자산 경로를 설정합니다. GitHub Pages의 깊은 관리자 경로 요청은 `404.html`에서 관리자 진입점으로 복구합니다.
 
-## GitHub Pages
+`main`에 푸시하면 GitHub Actions가 두 의존성을 설치하고 검증·빌드한 뒤 Pages에 배포합니다. 공개 CMS 설정은 `src/lib/cmsConfig.ts`에 있습니다. 관리자 검증용 로컬 주소에 인증 CORS를 허용했다면 작업 후 제거합니다.
 
-`main` 브랜치에 변경사항이 올라오면 `.github/workflows/deploy-pages.yml`이 사이트를 빌드하고 GitHub Pages에 배포합니다.
+최초 콘텐츠 등록은 로그인한 공식 CLI에서만 실행합니다:
 
-GitHub 저장소 Settings > Pages > Build and deployment에서 Source를 `GitHub Actions`로 설정합니다.
+```bash
+cd studio
+npx sanity login
+npx sanity exec scripts/seed.ts --with-user-token
+```
+
+초기화 스크립트는 기존 프로젝트·프로필을 덮어쓰지 않고 누락된 기본 문구 키만 추가합니다. 인증정보를 파일·채팅·사이트 코드에 복사하지 마세요.

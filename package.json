@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run build:site && npm run studio:check && npm run studio:build",
     "preview": "vite preview",
     "studio:dev": "npm --prefix studio run dev",
-    "studio:deploy": "npm --prefix studio run deploy"
+    "studio:deploy": "npm --prefix studio run deploy",
+    "build:site": "tsc -b && vite build",
+    "studio:check": "tsc --noEmit -p studio/tsconfig.json",
+    "studio:build": "npm --prefix studio run build -- ../dist/admin --yes",
+    "test": "node --experimental-strip-types --test tests/editor.test.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.0.0",

@@ -1,15 +1,12 @@
-import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemaTypes'
-
+import { defineConfig } from "sanity";
+import { schemaTypes } from "./schemaTypes";
+import { HomepageEditor } from "./components/HomepageEditor";
+import { cmsConfig } from "../src/lib/cmsConfig";
 export default defineConfig({
-  name: 'portfolio',
-  title: 'Portfolio CMS',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || '',
-  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
-  plugins: [structureTool(), visionTool()],
-  schema: {
-    types: schemaTypes,
-  },
-})
+  name: "portfolio",
+  title: "김채준 포트폴리오",
+  projectId: cmsConfig.projectId,
+  dataset: cmsConfig.dataset,
+  tools: [{ name: "edit", title: "홈페이지 편집", component: HomepageEditor }],
+  schema: { types: schemaTypes },
+});

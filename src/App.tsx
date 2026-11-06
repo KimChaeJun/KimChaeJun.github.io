@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { fallbackContent } from "./data/fallback";
 import { technologyStack, type TechnologyGroup } from "./data/engineering";
 import { TechnologyBadge } from "./components/TechnologyBadge";
 import { getRoleTags } from "./data/roleTags";
-import {
-  timelineProjects,
-  type TimelineProject,
-} from "./data/timelineProjects";
-import { getPortfolioContent } from "./lib/sanity";
+import { type TimelineProject } from "./data/timelineProjects";
+import { getPortfolioContent, subscribePortfolio } from "./lib/sanity";
+import { EditorBridge, Editable, Copy } from "./components/Editable";
 import type { PortfolioContent, Profile } from "./types/content";
 
 type IconName =
@@ -455,7 +453,7 @@ function SectionTitle({
   children,
 }: {
   label: string;
-  title: string;
+  title: ReactNode;
   icon?: IconName;
   children?: ReactNode;
 }) {
@@ -504,7 +502,14 @@ function Hero({
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-content">
         <div className="hero-badges">
-          {profile.availability && <Badge mint>{profile.availability}</Badge>}
+          {profile.availability && (
+            <Badge mint>
+              <Editable
+                value={profile.availability}
+                path={["profile", "availability"]}
+              />
+            </Badge>
+          )}
           <span className="mono subtle">
             <Icon name="branch" />
             {about ? "about / resume" : "ideas → products"}
@@ -513,22 +518,29 @@ function Hero({
         <h1 id="hero-title">
           {about ? (
             <>
-              끝까지 만들고,
-              <br />더 나은 경험으로 다듬는
+              <Copy name="aboutLead" />
               <br />
-              <em>풀스택 개발자 김채준</em>
+              <Copy name="aboutMiddle" />
+              <br />
+              <em>
+                <Copy name="aboutAccent" />
+              </em>
             </>
           ) : (
             <>
-              복잡한 과정을 단순하게,
+              <Copy name="heroLead" />
               <br />
-              아이디어를
+              <Copy name="heroMiddle" />
               <br />
-              <em>작동하는 서비스로.</em>
+              <em>
+                <Copy name="heroAccent" />
+              </em>
             </>
           )}
         </h1>
-        <p className="hero-description">{profile.intro}</p>
+        <p className="hero-description">
+          <Editable value={profile.intro} path={["profile", "intro"]} />
+        </p>
         <Roles role={profile.role} tags={profile.roleTags} />
         <div className="button-row">
           <a
@@ -583,7 +595,9 @@ function Hero({
             <i />
             Web · API · AI · Infra
           </span>
-          <span>{profile.location}</span>
+          <span>
+            <Editable value={profile.location} path={["profile", "location"]} />
+          </span>
         </div>
         <p>포트폴리오에 수록한 프로젝트 기록 기준</p>
       </aside>
@@ -651,12 +665,18 @@ function Pillars() {
                 {["DISCOVERY", "CONNECTION", "RESILIENCE", "CRAFT"][i]}
               </span>
             </div>
-            <h3>{pillar.title}</h3>
-            <p className="pillar-english">{pillar.english}</p>
-            <p>{pillar.text}</p>
+            <h3>
+              <Copy name={"pillar" + i + "Title"} />
+            </h3>
+            <p className="pillar-english">
+              <Copy name={"pillar" + i + "English"} />
+            </p>
+            <p>
+              <Copy name={"pillar" + i + "Text"} />
+            </p>
             <div className="pillar-caption">
               <Icon name="check" />
-              {pillar.caption}
+              <Copy name={"pillar" + i + "Caption"} />
             </div>
           </article>
         ))}
@@ -708,7 +728,10 @@ function Stack({
             <span>{group.technologies.length} STACKS</span>
           </div>
           <p>{group.description}</p>
-          <ul className="technology-list" aria-label={group.category + " 기술 스택"}>
+          <ul
+            className="technology-list"
+            aria-label={group.category + " 기술 스택"}
+          >
             {group.technologies.map((tech) => (
               <TechnologyBadge key={tech} name={tech} />
             ))}
@@ -720,6 +743,35 @@ function Stack({
 }
 
 function Architecture({ project }: { project: TimelineProject }) {
+  if (!["sanjae-oneshot", "lyrikana"].includes(project.slug))
+    return (
+      <div className="architecture generic-architecture">
+        <div className="architecture-heading">
+          <span>
+            <Icon name="branch" />
+            Project flow
+          </span>
+          <span className="mono">구성 요약</span>
+        </div>
+        <ol>
+          {project.pipeline.map((step, index) => (
+            <li key={index}>
+              <span className="micro-label">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <strong>
+                  <Editable scope={project.slug} value={step.label} />
+                </strong>
+                <p>
+                  <Editable scope={project.slug} value={step.description} />
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    );
   const lyric = project.slug === "lyrikana";
   const nodes = lyric
     ? [
@@ -788,61 +840,56 @@ function Architecture({ project }: { project: TimelineProject }) {
 function ProjectSummary({ project }: { project: TimelineProject }) {
   return (
     <article
-      className={`summary-card ${project.slug === "lyrikana" ? "mint-card" : ""}`}
+      className={
+        "summary-card " + (project.slug === "lyrikana" ? "mint-card" : "")
+      }
     >
       <div className="summary-top">
         <span className="micro-label">
-          {project.slug === "lyrikana" ? "DESKTOP & AUDIO" : "AI & DOCUMENTS"}
+          <Editable scope={project.slug} value={project.category} />
         </span>
-        <span className="mono">{project.year}</span>
+        {project.year && <span className="mono">{project.year}</span>}
       </div>
       <h3>
-        <a href={`#/projects/${project.slug}`}>
-          {project.title}
+        <a href={"#/projects/" + project.slug}>
+          <Editable scope={project.slug} value={project.title} />
           <Icon name="external" />
         </a>
       </h3>
-      <p>{project.subtitle}</p>
-      <div className="summary-evidence">
-        {project.metrics.length ? (
-          project.metrics.slice(0, 3).map((metric) => (
+      <p>
+        <Editable scope={project.slug} value={project.subtitle} />
+      </p>
+      {project.metrics.length > 0 && (
+        <div className="summary-evidence">
+          {project.metrics.slice(0, 3).map((metric) => (
             <div key={metric.label}>
-              <span>{metric.label}</span>
-              <strong>{metric.value}</strong>
+              <span>
+                <Editable scope={project.slug} value={metric.label} />
+              </span>
+              <strong>
+                <Editable scope={project.slug} value={metric.value} />
+              </strong>
             </div>
-          ))
-        ) : (
-          <>
-            <div>
-              <span>BROWSER</span>
-              <strong>Extension</strong>
-            </div>
-            <div>
-              <span>DESKTOP</span>
-              <strong>Electron</strong>
-            </div>
-            <div>
-              <span>API</span>
-              <strong>FastAPI</strong>
-            </div>
-          </>
-        )}
-      </div>
-      <ul className="technology-list technology-list-compact" aria-label={project.title + " 기술 스택"}>
+          ))}
+        </div>
+      )}
+      <ul
+        className="technology-list technology-list-compact"
+        aria-label={project.title + " 기술 스택"}
+      >
         {project.tags.slice(0, 6).map((tag) => (
           <TechnologyBadge key={tag} name={tag} />
         ))}
       </ul>
       <div className="summary-bottom">
         <span>{project.role}</span>
-        <a className="text-link" href={`#/projects/${project.slug}`}>
+        <a className="text-link" href={"#/projects/" + project.slug}>
           상세 보기 <Icon name="arrow" />
         </a>
       </div>
     </article>
   );
 }
-
 function ProjectCard({
   project,
   index,
@@ -850,104 +897,127 @@ function ProjectCard({
   project: TimelineProject;
   index: number;
 }) {
-  const lyric = project.slug === "lyrikana";
   return (
     <article
-      className={`engineering-card${lyric ? " engineering-card-mint" : ""}`}
+      className={
+        "engineering-card" +
+        (project.slug === "lyrikana" ? " engineering-card-mint" : "")
+      }
     >
       <div className="engineering-card-bar">
         <div>
-          <Badge mint={lyric}>
-            {lyric ? "PERSONAL WORKSPACE" : "FEATURED WORKSPACE"}
-          </Badge>
-          <span className="mono">project / 0{index + 1}</span>
+          <Badge mint={project.slug === "lyrikana"}>PROJECT WORKSPACE</Badge>
+          <span className="mono">
+            project / {String(index + 1).padStart(2, "0")}
+          </span>
           {project.award && (
-            <span className="award-label">{project.award}</span>
+            <span className="award-label">
+              <Editable scope={project.slug} value={project.award} />
+            </span>
           )}
         </div>
-        <span className="mono card-category">
-          <Icon name="branch" />
-          {lyric ? "Browser · Desktop · Audio" : "Web · API · AI · Cloud"}
-        </span>
+        <span className="mono card-category">{project.category}</span>
       </div>
       <div className="engineering-card-grid">
         <div className="project-system">
           <div className="project-name">
             <h2>
-              <a href={`#/projects/${project.slug}`}>{project.title}</a>
+              <a href={"#/projects/" + project.slug}>
+                <Editable scope={project.slug} value={project.title} />
+              </a>
             </h2>
-            <span className="micro-label">
-              {lyric ? "Electron + FastAPI" : "React + FastAPI"}
-            </span>
           </div>
-          <p className="project-subtitle">{project.subtitle}</p>
+          <p className="project-subtitle">
+            <Editable scope={project.slug} value={project.subtitle} />
+          </p>
           <Architecture project={project} />
           <div className="project-facts">
-            <div>
-              <span>ROLE & CONTRIBUTION</span>
-              <Roles role={project.role} tags={project.roleTags} />
-              <small>
-                {lyric
-                  ? "개인 프로젝트 · 서비스 전체 구현"
-                  : "화면 · API · 인프라 · 통합 검증"}
-              </small>
-            </div>
+            {project.role && (
+              <div>
+                <span>ROLE & CONTRIBUTION</span>
+                <Roles role={project.role} tags={project.roleTags} />
+              </div>
+            )}
             <div>
               <span>
                 {project.period ? "DEVELOPMENT WINDOW" : "PROJECT RECORDS"}
               </span>
               <strong>
-                {project.period ||
-                  `${project.year} · ${project.timeline.length} milestones`}
+                {project.period || project.timeline.length + " milestones"}
               </strong>
-              <small>
-                {project.period
-                  ? "기획부터 배포·운영까지"
-                  : "코드 변경 기록 기준"}
-              </small>
+              {!project.period && <small>코드 변경 기록 기준</small>}
             </div>
           </div>
-          <div className="tag-list">
+          <ul
+            className="technology-list technology-list-compact"
+            aria-label={project.title + " 기술 스택"}
+          >
             {project.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
+              <TechnologyBadge key={tag} name={tag} />
             ))}
-          </div>
+          </ul>
         </div>
         <div className="project-contributions">
           <h3>
-            <Icon name={lyric ? "spark" : "layers"} />
-            직접 구현하고 해결한 것 <span>WHAT I DID</span>
+            <Icon name="layers" />
+            {project.roles.length
+              ? "직접 구현하고 해결한 것"
+              : "프로젝트에서 다루는 것"}
+            <span>
+              {project.roles.length ? "WHAT I DID" : "PROJECT OVERVIEW"}
+            </span>
           </h3>
           <div className="contribution-list">
-            {project.roles.slice(0, 3).map((role, i) => (
-              <div className="contribution" key={role.title}>
-                <span className="contribution-icon">
-                  <Icon name={(["code", "database", "cloud"] as const)[i]} />
-                </span>
-                <div>
-                  <h4>{role.title}</h4>
-                  <p>{role.description}</p>
-                </div>
+            {project.roles.length
+              ? project.roles.slice(0, 3).map((role, i) => (
+                  <div className="contribution" key={i}>
+                    <span className="contribution-icon">
+                      <Icon name="code" />
+                    </span>
+                    <div>
+                      <h4>
+                        <Editable scope={project.slug} value={role.title} />
+                      </h4>
+                      <p>
+                        <Editable
+                          scope={project.slug}
+                          value={role.description}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                ))
+              : project.overviewLines.slice(0, 4).map((line, i) => (
+                  <div className="contribution" key={i}>
+                    <span className="contribution-icon">
+                      <Icon name="file" />
+                    </span>
+                    <p>
+                      <Editable scope={project.slug} value={line} />
+                    </p>
+                  </div>
+                ))}
+          </div>
+          {project.improvements[0] && (
+            <div className="project-callout">
+              <Icon name="check" />
+              <div>
+                <strong>개선 기록</strong>
+                <p>
+                  <Editable
+                    scope={project.slug}
+                    value={project.improvements[0].after}
+                  />
+                </p>
               </div>
-            ))}
-          </div>
-          <div className="project-callout">
-            <Icon name="check" />
-            <div>
-              <strong>
-                {lyric
-                  ? "재생 흐름을 끊지 않는 가사 처리"
-                  : "실패와 재접속까지 이어지는 신청 흐름"}
-              </strong>
-              <p>{project.improvements[0].after}</p>
             </div>
-          </div>
+          )}
           <a
             className="button primary project-inspect"
-            href={`#/projects/${project.slug}`}
+            href={"#/projects/" + project.slug}
           >
             <Icon name="file" />
-            기여 {project.roles.length}개 · 기술 구성 · 검증 근거 살펴보기
+            기술 구성과 프로젝트 기록 살펴보기
             <Icon name="arrow" />
           </a>
         </div>
@@ -976,7 +1046,52 @@ function getMilestones(projects: TimelineProject[]): Milestone[] {
 }
 
 function notesMarkdown(project: TimelineProject) {
-  return `# ${project.title}\n\n${project.subtitle}\n\n## Overview\n${project.overviewLines.map((x) => `- ${x}`).join("\n")}\n\n## Role\n${getRoleTags(project.role, project.roleTags).join(" · ")}\n\n## Contributions\n${project.roles.map((x) => `### ${x.title}\n${x.description}`).join("\n\n")}\n\n## Technology\n${project.technologyStack.map((g) => `- ${g.category}: ${g.technologies.join(", ")}`).join("\n")}\n\n## Evidence\n${project.metrics.map((x) => `- ${x.label}: ${x.value} — ${x.note}`).join("\n")}\n\n## Improvements\n${project.improvements.map((x) => `- Before: ${x.before}\n- After: ${x.after}\n- Evidence: ${x.evidence}`).join("\n\n")}\n\n## Timeline\n${project.timeline.map((x) => `- ${x.date} · ${x.title}: ${x.description}`).join("\n")}\n\n${project.slug === "lyrikana" ? "날짜는 코드 변경 기록일이며 프로젝트 참여 기간이나 배포일을 뜻하지 않습니다.\n\n" : ""}포트폴리오 공개용 프로젝트 기록입니다.\n`;
+  const sections = [
+    "# " + project.title + "\n\n" + project.subtitle,
+    "## Overview\n" + project.overviewLines.map((x) => "- " + x).join("\n"),
+    project.role || project.roleTags.length
+      ? "## Role\n" + getRoleTags(project.role, project.roleTags).join(" · ")
+      : "",
+    project.roles.length
+      ? "## Contributions\n" +
+        project.roles
+          .map((x) => "### " + x.title + "\n" + x.description)
+          .join("\n\n")
+      : "",
+    "## Technology\n" +
+      project.technologyStack
+        .map((g) => "- " + g.category + ": " + g.technologies.join(", "))
+        .join("\n"),
+    project.metrics.length
+      ? "## Evidence\n" +
+        project.metrics
+          .map((x) => "- " + x.label + ": " + x.value + " — " + x.note)
+          .join("\n")
+      : "",
+    project.improvements.length
+      ? "## Improvements\n" +
+        project.improvements
+          .map(
+            (x) =>
+              "- Before: " +
+              x.before +
+              "\n- After: " +
+              x.after +
+              "\n- Evidence: " +
+              x.evidence,
+          )
+          .join("\n\n")
+      : "",
+    "## Timeline\n" +
+      project.timeline
+        .map((x) => "- " + x.date + " · " + x.title + ": " + x.description)
+        .join("\n"),
+    project.timelineBasis === "code"
+      ? "날짜는 코드 변경 기록일이며 참여 기간이나 실제 배포일을 뜻하지 않습니다."
+      : "",
+    "포트폴리오 공개용 프로젝트 기록입니다.",
+  ];
+  return sections.filter(Boolean).join("\n\n") + "\n";
 }
 
 function downloadNotes(project: TimelineProject) {
@@ -1024,7 +1139,9 @@ function NotesPanel({ project }: { project: TimelineProject }) {
       </div>
       <div className="notes-content">
         <span className="micro-label">PUBLIC PROJECT NOTES</span>
-        <h3># {project.title}</h3>
+        <h3>
+          # <Editable scope={project.slug} value={project.title} />
+        </h3>
         <p>{project.summaryLines[0]}</p>
         <blockquote>{project.summaryLines[1]}</blockquote>
         <div className="code-note">
@@ -1033,40 +1150,33 @@ function NotesPanel({ project }: { project: TimelineProject }) {
           </div>
           <pre>
             <code>
-              <span className="code-comment">
-                {"// 프로젝트 공개 기록에서"}
-              </span>
-              {"\n"}
-              <span className="code-blue">project</span>
-              {" {\n  name: "}
-              <span className="code-green">"{project.title}"</span>
-              {",\n  role: "}
-              <span className="code-green">"{project.role}"</span>
-              {",\n  interfaces: ["}
-              <span className="code-green">
-                {project.slug === "lyrikana"
-                  ? '"Browser", "Desktop", "API"'
-                  : '"Web", "Admin", "API"'}
-              </span>
-              {"],\n  focus: ["}
-              <span className="code-green">
-                {project.slug === "lyrikana"
-                  ? '"Sync", "Reading", "Audio"'
-                  : '"Accessibility", "Recovery"'}
-              </span>
-              {"]\n}"}
+              {JSON.stringify(
+                {
+                  name: project.title,
+                  ...(project.role ? { role: project.role } : {}),
+                  technologies: project.tags,
+                },
+                null,
+                2,
+              )}
             </code>
           </pre>
         </div>
-        <h4>## 구현과 검증의 기록</h4>
-        <ul className="check-list">
-          {project.improvements.map((item) => (
-            <li key={item.after}>
-              <Icon name="check" />
-              <span>{item.evidence}</span>
-            </li>
-          ))}
-        </ul>
+        {project.improvements.length > 0 && (
+          <>
+            <h4>## 구현과 검증의 기록</h4>
+            <ul className="check-list">
+              {project.improvements.map((item, index) => (
+                <li key={index}>
+                  <Icon name="check" />
+                  <span>
+                    <Editable scope={project.slug} value={item.evidence} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
         <div className="notes-actions">
           <button
             className="button small"
@@ -1135,8 +1245,8 @@ function Timeline({
         <div className="timeline-layout">
           <div>
             <ol className="milestone-list">
-              {visible.map((item) => (
-                <li key={`${item.project.slug}-${item.date}`}>
+              {visible.map((item, index) => (
+                <li key={item.project.slug + "-" + index}>
                   <div className="milestone-meta">
                     <time dateTime={item.normalizedDate}>
                       {item.normalizedDate.replaceAll("-", ".")}
@@ -1157,7 +1267,8 @@ function Timeline({
               ))}
             </ol>
             <p className="timeline-caption">
-              LyriKana의 날짜는 코드 변경이 기록된 시점입니다.
+              산재원샷을 제외한 프로젝트의 날짜는 코드 변경 기록일이며, 참여
+              기간이나 실제 배포일을 뜻하지 않습니다.
             </p>
           </div>
           <div>
@@ -1193,8 +1304,8 @@ function Home({
         <Hero profile={profile} projects={projects} />
         <section className="section">
           <SectionTitle
-            label="SELECTED WORK / 2026"
-            title="직접 만들고, 끝까지 연결한 프로젝트"
+            label="PROJECTS / SELECTED RECORDS"
+            title={<Copy name="projectHeading" />}
             icon="layers"
           >
             <a className="text-link" href="#/projects">
@@ -1240,7 +1351,13 @@ function About({
           산재원샷에서 실제로 사용한 기술입니다. 프로젝트 상세에서 각 기술의
           쓰임을 확인할 수 있습니다.
         </p>
-        <Stack compact />
+        <Stack
+          compact
+          groups={
+            projects.find((p) => p.slug === "sanjae-oneshot")
+              ?.technologyStack || technologyStack
+          }
+        />
       </section>
       <section className="section">
         <SectionTitle
@@ -1249,28 +1366,35 @@ function About({
           icon="branch"
         />
         <div className="experience-grid">
-          {projects.map((project) => (
-            <article className="experience-card" key={project.slug}>
-              <div className="experience-meta">
-                <span className="micro-label">
-                  {project.period || `${project.year} · 코드 변경 기록 기준`}
-                </span>
-                {project.award && <span>{project.award}</span>}
-              </div>
-              <h3>
-                {project.title} <span> / {project.role}</span>
-              </h3>
-              <p>{project.summaryLines[0]}</p>
-              <div className="tag-list">
-                {project.tags.slice(0, 5).map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-              <a className="text-link" href={`#/projects/${project.slug}`}>
-                기여와 검증 기록 <Icon name="arrow" />
-              </a>
-            </article>
-          ))}
+          {projects
+            .filter((project) => project.roles.length > 0)
+            .map((project) => (
+              <article className="experience-card" key={project.slug}>
+                <div className="experience-meta">
+                  <span className="micro-label">
+                    {project.period || `${project.year} · 코드 변경 기록 기준`}
+                  </span>
+                  {project.award && (
+                    <span>
+                      <Editable scope={project.slug} value={project.award} />
+                    </span>
+                  )}
+                </div>
+                <h3>
+                  <Editable scope={project.slug} value={project.title} />{" "}
+                  <span> / {project.role}</span>
+                </h3>
+                <p>{project.summaryLines[0]}</p>
+                <div className="tag-list">
+                  {project.tags.slice(0, 5).map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+                <a className="text-link" href={`#/projects/${project.slug}`}>
+                  기여와 검증 기록 <Icon name="arrow" />
+                </a>
+              </article>
+            ))}
           {experiences.map((e) => (
             <article className="experience-card" key={e._id}>
               <span className="micro-label">
@@ -1321,15 +1445,32 @@ function Projects({ projects }: { projects: TimelineProject[] }) {
   const filters = [
     "All Projects",
     "Full Stack",
-    "AI & Documents",
+    "AI & Data",
+    "Realtime",
     "Desktop & Audio",
   ];
   const matches = (p: TimelineProject, value: string) =>
     value === "All Projects" ||
     (value === "Full Stack" &&
       getRoleTags(p.role, p.roleTags).includes("Full Stack Developer")) ||
-    (value === "AI & Documents" &&
-      p.technologyStack.some((g) => g.technologies.includes("OpenAI API"))) ||
+    (value === "AI & Data" &&
+      p.technologyStack.some((g) =>
+        g.technologies.some((t) =>
+          [
+            "OpenAI API",
+            "PyTorch",
+            "PaddleOCR",
+            "scikit-learn",
+            "Chart.js",
+          ].includes(t),
+        ),
+      )) ||
+    (value === "Realtime" &&
+      p.technologyStack.some((g) =>
+        g.technologies.some((t) =>
+          ["WebSocket", "WebRTC", "Kafka"].includes(t),
+        ),
+      )) ||
     (value === "Desktop & Audio" &&
       p.technologyStack.some((g) => g.technologies.includes("Electron")));
   const shown = projects.filter((p) => matches(p, filter));
@@ -1400,18 +1541,28 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
         <div>
           <p className="eyebrow">
             <Icon name="code" />
-            PROJECT DEEP DIVE / {project.year}
+            PROJECT DEEP DIVE{project.year ? " / " + project.year : ""}
           </p>
           <h1>
-            {project.title}
+            <Editable scope={project.slug} value={project.title} />
             <span className="blue-dot">.</span>
           </h1>
-          <p>{project.subtitle}</p>
+          <p>
+            <Editable scope={project.slug} value={project.subtitle} />
+          </p>
           <Roles role={project.role} tags={project.roleTags} />
         </div>
         <div className="detail-meta">
-          {project.award && <Badge mint>{project.award}</Badge>}
-          {project.period && <span className="mono">{project.period}</span>}
+          {project.award && (
+            <Badge mint>
+              <Editable scope={project.slug} value={project.award} />
+            </Badge>
+          )}
+          {project.period && (
+            <span className="mono">
+              <Editable scope={project.slug} value={project.period} />
+            </span>
+          )}
           <button
             className="button small"
             onClick={() => downloadNotes(project)}
@@ -1426,7 +1577,9 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           <p className="eyebrow">01 / PROBLEM & APPROACH</p>
           <h2>어떤 문제를 해결했나요?</h2>
           {project.overviewLines.map((line) => (
-            <p key={line}>{line}</p>
+            <p key={line}>
+              <Editable scope={project.slug} value={line} />
+            </p>
           ))}
           <div className="tag-list">
             {project.tags.map((tag) => (
@@ -1436,24 +1589,30 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
         </div>
         <Architecture project={project} />
       </section>
-      <section className="section">
-        <SectionTitle
-          label="02 / ROLE & CONTRIBUTIONS"
-          title="서비스의 처음부터 끝까지, 직접 구현한 것"
-          icon="layers"
-        />
-        <div className="detail-role-grid">
-          {project.roles.map((role, i) => (
-            <article key={role.title}>
-              <span className="micro-label">
-                CONTRIBUTION / {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3>{role.title}</h3>
-              <p>{role.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {project.roles.length > 0 && (
+        <section className="section">
+          <SectionTitle
+            label="02 / ROLE & CONTRIBUTIONS"
+            title="서비스의 처음부터 끝까지, 직접 구현한 것"
+            icon="layers"
+          />
+          <div className="detail-role-grid">
+            {project.roles.map((role, i) => (
+              <article key={role.title}>
+                <span className="micro-label">
+                  CONTRIBUTION / {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3>
+                  <Editable scope={project.slug} value={role.title} />
+                </h3>
+                <p>
+                  <Editable scope={project.slug} value={role.description} />
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="section">
         <SectionTitle
           label="03 / TECHNOLOGY IN CONTEXT"
@@ -1471,9 +1630,15 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           <div className="metric-grid">
             {project.metrics.map((metric) => (
               <figure key={metric.label}>
-                <figcaption>{metric.label}</figcaption>
-                <strong>{metric.value}</strong>
-                <p>{metric.note}</p>
+                <figcaption>
+                  <Editable scope={project.slug} value={metric.label} />
+                </figcaption>
+                <strong>
+                  <Editable scope={project.slug} value={metric.value} />
+                </strong>
+                <p>
+                  <Editable scope={project.slug} value={metric.note} />
+                </p>
               </figure>
             ))}
           </div>
@@ -1495,63 +1660,78 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
               <span className="micro-label">
                 STEP {String(i + 1).padStart(2, "0")}
               </span>
-              <h3>{step.label}</h3>
-              <p>{step.description}</p>
+              <h3>
+                <Editable scope={project.slug} value={step.label} />
+              </h3>
+              <p>
+                <Editable scope={project.slug} value={step.description} />
+              </p>
             </li>
           ))}
         </ol>
       </section>
-      <section className="section">
-        <SectionTitle
-          label="05 / ITERATION & VERIFICATION"
-          title="막히는 순간을 더 나은 흐름으로"
-          icon="shield"
-        />
-        <div className="improvements">
-          {project.improvements.map((item) => (
-            <article key={item.after}>
-              <div className="before">
-                <span className="micro-label">BEFORE</span>
-                <p>{item.before}</p>
-              </div>
-              <div className="improvement-arrow">
-                <Icon name="arrow" />
-              </div>
-              <div className="after">
-                <span className="micro-label">AFTER</span>
-                <h3>{item.after}</h3>
-                <p>
-                  <Icon name="check" />
-                  {item.evidence}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      {project.improvements.length > 0 && (
+        <section className="section">
+          <SectionTitle
+            label="05 / ITERATION & VERIFICATION"
+            title="막히는 순간을 더 나은 흐름으로"
+            icon="shield"
+          />
+          <div className="improvements">
+            {project.improvements.map((item) => (
+              <article key={item.after}>
+                <div className="before">
+                  <span className="micro-label">BEFORE</span>
+                  <p>
+                    <Editable scope={project.slug} value={item.before} />
+                  </p>
+                </div>
+                <div className="improvement-arrow">
+                  <Icon name="arrow" />
+                </div>
+                <div className="after">
+                  <span className="micro-label">AFTER</span>
+                  <h3>
+                    <Editable scope={project.slug} value={item.after} />
+                  </h3>
+                  <p>
+                    <Icon name="check" />
+                    <Editable scope={project.slug} value={item.evidence} />
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="section detail-timeline">
         <SectionTitle
           label="06 / PROJECT MILESTONES"
           title="만들고, 확인하고, 다시 다듬은 기록"
           icon="branch"
         />
-        {project.slug === "lyrikana" && (
+        {project.timelineBasis === "code" && (
           <p className="section-description">
-            날짜는 코드 변경이 기록된 시점입니다.
+            날짜는 코드 변경 기록일이며, 참여 기간이나 실제 배포일을 뜻하지
+            않습니다.
           </p>
         )}
         <ol className="milestone-list">
           {getMilestones([project])
             .reverse()
-            .map((item) => (
-              <li key={item.date}>
+            .map((item, index) => (
+              <li key={index}>
                 <div className="milestone-meta">
                   <time dateTime={item.normalizedDate}>
                     {item.normalizedDate.replaceAll("-", ".")}
                   </time>
                 </div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <h3>
+                  <Editable scope={project.slug} value={item.title} />
+                </h3>
+                <p>
+                  <Editable scope={project.slug} value={item.description} />
+                </p>
               </li>
             ))}
         </ol>
@@ -1579,11 +1759,13 @@ function ContactBanner({ profile }: { profile: Profile }) {
           LET'S BUILD SOMETHING
         </p>
         <h2>
-          다음 아이디어는,
+          <Copy name="contactLead" />
           <br />
-          함께 만들어 볼까요?
+          <Copy name="contactAccent" />
         </h2>
-        <p>좋은 아이디어도, 작은 질문도 반갑습니다.</p>
+        <p>
+          <Copy name="contactDescription" />
+        </p>
       </div>
       <a
         className="button primary"
@@ -1611,13 +1793,14 @@ function Contact({ profile }: { profile: Profile }) {
         CONTACT / NEW CONNECTIONS
       </p>
       <h1>
-        좋은 아이디어는
+        <Copy name="contactPageLead" />
         <br />
-        <em>대화에서 시작되니까요.</em>
+        <em>
+          <Copy name="contactPageAccent" />
+        </em>
       </h1>
       <p className="hero-description">
-        함께 만들고 싶은 서비스, 프로젝트에 대한 궁금한 점이 있다면 편하게
-        이야기해 주세요.
+        <Copy name="contactPageDescription" />
       </p>
       <div className="contact-links">
         <a
@@ -1642,7 +1825,9 @@ function Contact({ profile }: { profile: Profile }) {
             </span>
             <div>
               <span className="micro-label">EMAIL</span>
-              <strong>{profile.email}</strong>
+              <strong>
+                <Editable value={profile.email} path={["profile", "email"]} />
+              </strong>
               <p>협업과 기회에 관한 이야기를 기다립니다.</p>
             </div>
             <Icon name="arrow" />
@@ -1655,7 +1840,9 @@ function Contact({ profile }: { profile: Profile }) {
             </span>
             <div>
               <span className="micro-label">LINKEDIN</span>
-              <strong>{profile.name}</strong>
+              <strong>
+                <Editable value={profile.name} path={["profile", "name"]} />
+              </strong>
             </div>
             <Icon name="external" />
           </a>
@@ -1663,7 +1850,9 @@ function Contact({ profile }: { profile: Profile }) {
       </div>
       <div className="contact-location">
         <Badge mint>{profile.availability || "LET’S CONNECT"}</Badge>
-        <span className="mono">{profile.location}</span>
+        <span className="mono">
+          <Editable value={profile.location} path={["profile", "location"]} />
+        </span>
       </div>
     </section>
   );
@@ -1674,7 +1863,9 @@ function Footer({ profile }: { profile: Profile }) {
     <footer className="site-footer">
       <div className="page-width footer-inner">
         <span>
-          © {new Date().getFullYear()} {profile.name}. Built with care.
+          © {new Date().getFullYear()}{" "}
+          <Editable value={profile.name} path={["profile", "name"]} />. Built
+          with care.
         </span>
         <a
           href={profile.github || "https://github.com/KimChaeJun"}
@@ -1684,9 +1875,12 @@ function Footer({ profile }: { profile: Profile }) {
           <Icon name="github" />
           github.com/KimChaeJun
         </a>
+        <a href="/admin/" className="admin-link">
+          관리자 모드
+        </a>
         <span className="footer-note">
           <Icon name="branch" />
-          Ideas → Code → Better experiences
+          <Copy name="footer" />
         </span>
       </div>
     </footer>
@@ -1698,14 +1892,30 @@ function App() {
   const [commandOpen, setCommandOpen] = useState(false);
   const route = useRoute();
   useEffect(() => {
+    if (
+      window.parent !== window &&
+      new URLSearchParams(location.search).get("edit") === "1"
+    )
+      return;
     let active = true;
-    getPortfolioContent()
-      .then((next) => {
-        if (active) setContent(next);
-      })
-      .catch(() => undefined);
+    const refresh = () =>
+      getPortfolioContent()
+        .then((next) => {
+          if (active) setContent(next);
+        })
+        .catch(() => undefined);
+    void refresh();
+    const unsubscribe = subscribePortfolio(refresh);
+    const onVisible = () => {
+      if (!document.hidden) void refresh();
+    };
+    window.addEventListener("focus", onVisible);
+    document.addEventListener("visibilitychange", onVisible);
     return () => {
       active = false;
+      unsubscribe();
+      window.removeEventListener("focus", onVisible);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
   useEffect(() => {
@@ -1718,16 +1928,7 @@ function App() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-  const projects = useMemo(
-    () =>
-      timelineProjects.map((p) => ({
-        ...p,
-        roleTags:
-          content.projects.find((managed) => managed.slug === p.slug)
-            ?.roleTags ?? p.roleTags,
-      })),
-    [content.projects],
-  );
+  const projects = content.projects;
   const slug = route.match(/^\/projects\/([^/]+)$/)?.[1];
   const project = projects.find((p) => p.slug === slug);
   const knownRoute =
@@ -1737,7 +1938,7 @@ function App() {
     document.title = `${project?.title || navigation.find((n) => n.href === `#${route}`)?.title || "Portfolio"} | ${content.profile.name}`;
   }, [route, project, content.profile.name]);
   return (
-    <>
+    <EditorBridge content={content} onPreview={setContent}>
       <a
         className="skip-link"
         href="#main-content"
@@ -1800,7 +2001,7 @@ function App() {
           onClose={() => setCommandOpen(false)}
         />
       )}
-    </>
+    </EditorBridge>
   );
 }
 

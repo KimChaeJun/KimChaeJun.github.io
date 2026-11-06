@@ -1,44 +1,46 @@
 export interface Profile {
-  name: string
-  role: string
-  roleTags?: string[]
-  intro: string
-  email: string
-  location: string
-  availability: string
-  github?: string
-  linkedin?: string
-  skills: string[]
+  name: string;
+  role: string;
+  roleTags?: string[];
+  intro: string;
+  email: string;
+  location: string;
+  availability: string;
+  github?: string;
+  linkedin?: string;
+  skills: string[];
 }
 
 export interface Project {
-  _id: string
-  title: string
-  slug: string
-  summary: string
-  description: string
-  coverImage?: string
-  tags: string[]
-  role: string
-  roleTags?: string[]
-  year: string
-  liveUrl?: string
-  githubUrl?: string
-  featured: boolean
+  _id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  description: string;
+  coverImage?: string;
+  tags: string[];
+  role: string;
+  roleTags?: string[];
+  year: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  featured: boolean;
 }
 
 export interface Experience {
-  _id: string
-  company: string
-  position: string
-  summary: string
-  startDate: string
-  endDate?: string
-  current: boolean
+  _id: string;
+  company: string;
+  position: string;
+  summary: string;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
 }
 
 export interface PortfolioContent {
-  profile: Profile
-  projects: Project[]
-  experiences: Experience[]
+  profile: Profile;
+  projects: TimelineProject[];
+  experiences: Experience[];
+  copy: Record<string, string>;
 }
+import type { TimelineProject } from "../data/timelineProjects";

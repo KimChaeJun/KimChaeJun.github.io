@@ -1,71 +1,29 @@
-import { createClient } from '@sanity/client'
-import { fallbackContent } from '../data/fallback'
-import type { PortfolioContent } from '../types/content'
-
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID
-const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
-
-const client = projectId
-  ? createClient({
-      projectId,
-      dataset,
-      apiVersion: '2026-08-10',
-      useCdn: true,
-      perspective: 'published',
-    })
-  : null
-
-const portfolioQuery = `{
-  "profile": *[_type == "profile"][0] {
-    name,
-    role,
-    roleTags,
-    intro,
-    email,
-    location,
-    availability,
-    github,
-    linkedin,
-    skills
-  },
-  "projects": *[_type == "project" && coalesce(visible, true) == true] | order(order asc, _createdAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    summary,
-    description,
-    "coverImage": coverImage.asset->url,
-    tags,
-    role,
-    roleTags,
-    year,
-    liveUrl,
-    githubUrl,
-    featured
-  },
-  "experiences": *[_type == "experience" && coalesce(visible, true) == true] | order(order asc, startDate desc) {
-    _id,
-    company,
-    position,
-    summary,
-    startDate,
-    endDate,
-    current
-  }
-}`
-
+import { createClient } from "@sanity/client";
+import { fallbackContent } from "../data/fallback";
+import { cmsConfig } from "./cmsConfig";
+import { isPortfolioContent } from "../../shared/editor";
+import type { PortfolioContent } from "../types/content";
+const client = createClient({
+  ...cmsConfig,
+  useCdn: false,
+  perspective: "published",
+});
 export async function getPortfolioContent(): Promise<PortfolioContent> {
-  if (!client) {
-    return fallbackContent
-  }
-
-  const content = await client.fetch<Partial<PortfolioContent>>(portfolioQuery)
-
-  return {
-    profile: content.profile ?? fallbackContent.profile,
-    projects: content.projects?.length ? content.projects : fallbackContent.projects,
-    experiences: content.experiences?.length
-      ? content.experiences
-      : fallbackContent.experiences,
-  }
+  const content: unknown = await client.fetch(
+    '*[_id == $id && _type == "portfolio"][0].content',
+    { id: cmsConfig.documentId },
+  );
+  return isPortfolioContent(content)
+    ? (content as PortfolioContent)
+    : fallbackContent;
+}
+export function subscribePortfolio(onChange: () => void) {
+  const sub = client
+    .listen(
+      "*[_id == $id]",
+      { id: cmsConfig.documentId },
+      { includeResult: false, visibility: "query" },
+    )
+    .subscribe({ next: onChange, error: () => undefined });
+  return () => sub.unsubscribe();
 }

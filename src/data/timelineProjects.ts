@@ -1,7 +1,9 @@
 import { developerRole, technologyStack, type TechnologyGroup } from './engineering'
 import { lyrikanaProject } from './lyrikana'
+import verifiedProjects from './verifiedProjects.json'
 
 export interface TimelineProject {
+  timelineBasis?: string
   slug: string
   title: string
   subtitle: string
@@ -80,5 +82,6 @@ export const timelineProjects: TimelineProject[] = [
       { date: '09.09', title: '최우수상 확인', description: '구현·검증·운영·시연을 연결한 팀 프로젝트의 성과를 확인했습니다.' },
     ],
   },
-  lyrikanaProject,
+  { ...lyrikanaProject, timelineBasis: 'code' },
+  ...verifiedProjects,
 ]
