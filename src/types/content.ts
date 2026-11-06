@@ -40,6 +40,7 @@ export interface Experience {
 export interface PortfolioContent {
   profile: Profile;
   projects: TimelineProject[];
+  archivedProjects?: TimelineProject[];
   experiences: Experience[];
   copy: Record<string, string>;
 }

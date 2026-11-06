@@ -4,6 +4,7 @@ import { cmsConfig } from "../../src/lib/cmsConfig";
 import type { PortfolioContent } from "../../src/types/content";
 import {
   fieldId,
+  rebaseProjectField,
   isPortfolioContent,
   setText,
   setRoleTags,
@@ -12,6 +13,7 @@ import {
 } from "../../shared/editor";
 import { roleTagOptions } from "../../src/data/roleTags";
 import "./editor.css";
+import { ProjectManager } from "./ProjectManager";
 
 type Document = { _id: string; _rev: string; content: PortfolioContent };
 const labels: Record<string, string> = {
@@ -84,6 +86,10 @@ export function HomepageEditor() {
   const [text, setTextInput] = useState("");
   const [route, setRoute] = useState("/");
   const [mobile, setMobile] = useState(false);
+  const [mode, setMode] = useState<"text" | "projects">("text");
+  const [projectFormPending, setProjectFormPending] = useState(false);
+  const [managerVersion, setManagerVersion] = useState(0);
+  const [previewVersion, setPreviewVersion] = useState(0);
   const frame = useRef<HTMLIFrameElement>(null);
   const dirty =
     !!saved &&
@@ -102,6 +108,9 @@ export function HomepageEditor() {
         throw new Error("초기 콘텐츠를 불러오지 못했습니다.");
       setSaved(doc);
       setDraft(doc.content);
+      setGroup("profile");
+      setSelected('["profile","intro"]');
+      setTextInput(doc.content.profile.intro);
       setStatus("발행된 콘텐츠를 불러왔습니다.");
     } catch {
       setError(
@@ -134,10 +143,17 @@ export function HomepageEditor() {
         const id = fieldId(event.data.path);
         const match = fields.find((f) => fieldId(f.path) === id);
         if (match) {
+          if (
+            match.path[0] === "projects" &&
+            event.data.projectSlug !==
+              draft?.projects[Number(match.path[1])]?.slug
+          )
+            return;
+          setMode("text");
           setSelected(id);
           setGroup(
             match.path[0] === "projects"
-              ? "project:" + match.path[1]
+              ? "project:" + draft?.projects[Number(match.path[1])]?.slug
               : String(match.path[0]),
           );
         }
@@ -145,17 +161,17 @@ export function HomepageEditor() {
     };
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
-  }, [preview, fields]);
+  }, [preview, fields, draft]);
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
-      if (dirty) {
+      if (dirty || projectFormPending) {
         event.preventDefault();
         event.returnValue = "";
       }
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
-  }, [dirty]);
+  }, [dirty, projectFormPending]);
   function change(value: string) {
     setTextInput(value);
     setError("");
@@ -168,7 +184,7 @@ export function HomepageEditor() {
     }
   }
   async function publish() {
-    if (!saved || !draft || !dirty || error) return;
+    if (!saved || !draft || !dirty || error || projectFormPending) return;
     setBusy(true);
     setError("");
     try {
@@ -197,21 +213,69 @@ export function HomepageEditor() {
     setGroup(value);
     const first = fields.find((f) =>
       value.startsWith("project:")
-        ? f.path[0] === "projects" && f.path[1] === Number(value.split(":")[1])
+        ? f.path[0] === "projects" &&
+          f.path[1] ===
+            draft?.projects.findIndex((p) => p.slug === value.slice(8))
         : f.path[0] === value,
     );
     if (first) setSelected(fieldId(first.path));
   }
+  function editProject(slug: string) {
+    if (!draft) return;
+    const index = draft.projects.findIndex((p) => p.slug === slug);
+    if (index < 0) return;
+    setMode("text");
+    setGroup("project:" + slug);
+    setSelected(fieldId(["projects", index, "title"]));
+    setRoute("/projects/" + slug);
+  }
+  function applyProjects(
+    next: PortfolioContent,
+    message: string,
+    focusSlug?: string,
+  ) {
+    if (!draft) return;
+    const path = rebaseProjectField(draft, next, JSON.parse(selected));
+    setSelected(fieldId(path));
+    setTextInput(
+      textFields(next).find((f) => fieldId(f.path) === fieldId(path))?.value ??
+        "",
+    );
+    setGroup(
+      path[0] === "projects"
+        ? "project:" + next.projects[Number(path[1])].slug
+        : String(path[0]),
+    );
+    if (
+      draft.projects.some((p) => !next.projects.some((n) => n.slug === p.slug))
+    ) {
+      setRoute("/projects");
+      setPreviewVersion((v) => v + 1);
+    }
+    if (focusSlug) {
+      const index = next.projects.findIndex((p) => p.slug === focusSlug);
+      setGroup("project:" + focusSlug);
+      setSelected(fieldId(["projects", index, "title"]));
+      setTextInput(next.projects[index].title);
+      setRoute("/projects/" + focusSlug);
+      setMode("text");
+    }
+    setDraft(next);
+    setStatus(message);
+    setError("");
+  }
   const visible = fields.filter((f) =>
     group.startsWith("project:")
-      ? f.path[0] === "projects" && f.path[1] === Number(group.split(":")[1])
+      ? f.path[0] === "projects" &&
+        f.path[1] ===
+          draft?.projects.findIndex((p) => p.slug === group.slice(8))
       : f.path[0] === group,
   );
   const roleTarget =
     group === "profile"
       ? draft?.profile
       : group.startsWith("project:")
-        ? draft?.projects[Number(group.split(":")[1])]
+        ? draft?.projects.find((p) => p.slug === group.slice(8))
         : null;
   const label = (path: Array<string | number>) =>
     path
@@ -233,11 +297,12 @@ export function HomepageEditor() {
             사이트 열기 ↗
           </a>
           <button
-            disabled={busy || !dirty}
+            disabled={busy || (!dirty && !projectFormPending)}
             onClick={() => {
               if (saved) {
-                setDraft(saved.content);
-                setTextInput("");
+                applyProjects(saved.content, "발행 전 변경을 취소했습니다.");
+                setManagerVersion((v) => v + 1);
+                setProjectFormPending(false);
                 setError("");
                 setStatus("발행 전 변경을 취소했습니다.");
               }
@@ -247,7 +312,7 @@ export function HomepageEditor() {
           </button>
           <button
             className="cms-publish"
-            disabled={busy || !dirty || !!error}
+            disabled={busy || !dirty || !!error || projectFormPending}
             onClick={publish}
           >
             {busy ? "처리 중…" : "발행"}
@@ -256,91 +321,146 @@ export function HomepageEditor() {
       </header>
       <div className="cms-body">
         <aside className="cms-sidebar">
-          <h2>문구를 선택해 수정하세요</h2>
-          <p>
-            오른쪽 화면의 점선 문구를 클릭하거나 아래 목록에서 선택하세요. 발행
-            전에는 방문자에게 보이지 않습니다.
-          </p>
-          {draft && (
-            <>
-              <label htmlFor="cms-group">편집 영역</label>
-              <select
-                id="cms-group"
-                value={group}
-                onChange={(e) => chooseGroup(e.target.value)}
-              >
-                <option value="profile">프로필</option>
-                <option value="copy">홈페이지 문구</option>
-                {draft.projects.map((p, i) => (
-                  <option key={p.slug} value={"project:" + i}>
-                    {p.title}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="cms-field">수정할 항목</label>
-              <select
-                id="cms-field"
-                value={selected}
-                onChange={(e) => setSelected(e.target.value)}
-              >
-                {visible.map((f) => (
-                  <option key={fieldId(f.path)} value={fieldId(f.path)}>
-                    {label(f.path)}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="cms-text">
-                {field ? label(field.path) : "텍스트"}
-              </label>
-              <textarea
-                id="cms-text"
-                value={text}
-                maxLength={12000}
-                onChange={(e) => change(e.target.value)}
-                disabled={busy || !field}
-                rows={8}
+          <div
+            className="cms-mode-tabs"
+            role="tablist"
+            aria-label="관리자 작업"
+          >
+            <button
+              role="tab"
+              id="cms-text-tab"
+              aria-selected={mode === "text"}
+              aria-controls="cms-text-panel"
+              onClick={() => setMode("text")}
+            >
+              문구 편집
+            </button>
+            <button
+              role="tab"
+              id="cms-projects-tab"
+              aria-selected={mode === "projects"}
+              aria-controls="cms-projects-panel"
+              onClick={() => setMode("projects")}
+            >
+              프로젝트 관리
+            </button>
+          </div>
+          <div
+            role="tabpanel"
+            id="cms-projects-panel"
+            aria-labelledby="cms-projects-tab"
+            hidden={mode !== "projects"}
+          >
+            {draft && (
+              <ProjectManager
+                key={managerVersion}
+                content={draft}
+                disabled={busy}
+                onChange={applyProjects}
+                onEdit={editProject}
+                onPending={setProjectFormPending}
               />
-              {roleTarget && (
-                <fieldset className="cms-role-tags">
-                  <legend>추가 역할 태그</legend>
-                  {roleTagOptions.map((option) => (
-                    <label key={option.value}>
-                      <input
-                        type="checkbox"
-                        checked={
-                          roleTarget.roleTags?.includes(option.value) ?? false
-                        }
-                        disabled={busy}
-                        onChange={(e) => {
-                          if (!draft) return;
-                          const tags = e.target.checked
-                            ? [...(roleTarget.roleTags ?? []), option.value]
-                            : (roleTarget.roleTags ?? []).filter(
-                                (tag) => tag !== option.value,
-                              );
-                          setDraft(
-                            setRoleTags(
-                              draft,
-                              group === "profile"
-                                ? null
-                                : Number(group.split(":")[1]),
-                              tags,
-                            ),
-                          );
-                          setStatus("");
-                          setError("");
-                        }}
-                      />
-                      {option.title}
-                    </label>
+            )}
+          </div>
+          <div
+            role="tabpanel"
+            id="cms-text-panel"
+            aria-labelledby="cms-text-tab"
+            hidden={mode !== "text"}
+          >
+            <h2>문구를 선택해 수정하세요</h2>
+            <p>
+              오른쪽 화면의 점선 문구를 클릭하거나 아래 목록에서 선택하세요.
+              발행 전에는 방문자에게 보이지 않습니다.
+            </p>
+            {draft && (
+              <>
+                <label htmlFor="cms-group">편집 영역</label>
+                <select
+                  id="cms-group"
+                  value={group}
+                  onChange={(e) => chooseGroup(e.target.value)}
+                >
+                  <option value="profile">프로필</option>
+                  <option value="copy">홈페이지 문구</option>
+                  {draft.projects.map((p) => (
+                    <option key={p.slug} value={"project:" + p.slug}>
+                      {p.title}
+                    </option>
                   ))}
-                </fieldset>
-              )}
-              <small>
-                프로젝트 주소와 코드 기록 기준은 고정됩니다. 확인된 내용만
-                입력해 주세요.
-              </small>
-            </>
+                </select>
+                <label htmlFor="cms-field">수정할 항목</label>
+                <select
+                  id="cms-field"
+                  value={selected}
+                  onChange={(e) => setSelected(e.target.value)}
+                >
+                  {visible.map((f) => (
+                    <option key={fieldId(f.path)} value={fieldId(f.path)}>
+                      {label(f.path)}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="cms-text">
+                  {field ? label(field.path) : "텍스트"}
+                </label>
+                <textarea
+                  id="cms-text"
+                  value={text}
+                  maxLength={12000}
+                  onChange={(e) => change(e.target.value)}
+                  disabled={busy || !field}
+                  rows={8}
+                />
+                {roleTarget && (
+                  <fieldset className="cms-role-tags">
+                    <legend>추가 역할 태그</legend>
+                    {roleTagOptions.map((option) => (
+                      <label key={option.value}>
+                        <input
+                          type="checkbox"
+                          checked={
+                            roleTarget.roleTags?.includes(option.value) ?? false
+                          }
+                          disabled={busy}
+                          onChange={(e) => {
+                            if (!draft) return;
+                            const tags = e.target.checked
+                              ? [...(roleTarget.roleTags ?? []), option.value]
+                              : (roleTarget.roleTags ?? []).filter(
+                                  (tag) => tag !== option.value,
+                                );
+                            setDraft(
+                              setRoleTags(
+                                draft,
+                                group === "profile"
+                                  ? null
+                                  : draft.projects.findIndex(
+                                      (p) => p.slug === group.slice(8),
+                                    ),
+                                tags,
+                              ),
+                            );
+                            setStatus("");
+                            setError("");
+                          }}
+                        />
+                        {option.title}
+                      </label>
+                    ))}
+                  </fieldset>
+                )}
+                <small>
+                  프로젝트 주소와 코드 기록 기준은 고정됩니다. 확인된 내용만
+                  입력해 주세요.
+                </small>
+              </>
+            )}
+          </div>
+          {projectFormPending && (
+            <p className="cms-form-note">
+              작성 중인 프로젝트를 추가하거나 취소한 뒤 발행해 주세요.
+            </p>
           )}
           {error && (
             <p className="cms-error" role="alert">
@@ -352,7 +472,7 @@ export function HomepageEditor() {
           </p>
           <button
             className="cms-reload"
-            disabled={busy || dirty}
+            disabled={busy || dirty || projectFormPending}
             onClick={load}
           >
             최신 콘텐츠 다시 불러오기
@@ -385,6 +505,7 @@ export function HomepageEditor() {
           </div>
           <iframe
             ref={frame}
+            key={previewVersion}
             title="편집할 포트폴리오"
             src={"/?edit=1#" + route}
             onLoad={preview}

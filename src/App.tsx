@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { fallbackContent } from "./data/fallback";
 import { technologyStack, type TechnologyGroup } from "./data/engineering";
 import { TechnologyBadge } from "./components/TechnologyBadge";
@@ -743,6 +749,7 @@ function Stack({
 }
 
 function Architecture({ project }: { project: TimelineProject }) {
+  if (!project.pipeline.length) return null;
   if (!["sanjae-oneshot", "lyrikana"].includes(project.slug))
     return (
       <div className="architecture generic-architecture">
@@ -1205,13 +1212,26 @@ function Timeline({
   full?: boolean;
 }) {
   const [selected, setSelected] = useState("all");
-  const [documentSlug, setDocumentSlug] = useState(projects[0].slug);
+  const [documentSlug, setDocumentSlug] = useState(projects[0]?.slug ?? "");
+  const activeFilter = projects.some((p) => p.slug === selected)
+    ? selected
+    : "all";
   const filtered =
-    selected === "all" ? projects : projects.filter((p) => p.slug === selected);
+    activeFilter === "all"
+      ? projects
+      : projects.filter((p) => p.slug === activeFilter);
   const milestones = getMilestones(filtered);
   const visible = full ? milestones : milestones.slice(0, 4);
   const documentProject =
     projects.find((p) => p.slug === documentSlug) || projects[0];
+  if (!projects.length)
+    return (
+      <section className="timeline-area">
+        <div className="page-width">
+          <p className="empty-state">아직 공개된 프로젝트가 없습니다.</p>
+        </div>
+      </section>
+    );
   return (
     <section className={`timeline-area${full ? " timeline-full" : ""}`}>
       <div className="page-width">
@@ -1231,7 +1251,7 @@ function Timeline({
             {[{ slug: "all", title: "All projects" }, ...projects].map((p) => (
               <button
                 key={p.slug}
-                aria-pressed={selected === p.slug}
+                aria-pressed={activeFilter === p.slug}
                 onClick={() => {
                   setSelected(p.slug);
                   if (p.slug !== "all") setDocumentSlug(p.slug);
@@ -1251,6 +1271,9 @@ function Timeline({
                     <time dateTime={item.normalizedDate}>
                       {item.normalizedDate.replaceAll("-", ".")}
                     </time>
+                    {item.project.timelineBasis === "code" && (
+                      <span className="micro-label">코드 변경</span>
+                    )}
                     <button
                       className={`micro-label${documentSlug === item.project.slug ? " selected" : ""}`}
                       onClick={() => setDocumentSlug(item.project.slug)}
@@ -1266,9 +1289,12 @@ function Timeline({
                 </li>
               ))}
             </ol>
+            {!visible.length && (
+              <p className="empty-state">등록된 연혁이 없습니다.</p>
+            )}
             <p className="timeline-caption">
-              산재원샷을 제외한 프로젝트의 날짜는 코드 변경 기록일이며, 참여
-              기간이나 실제 배포일을 뜻하지 않습니다.
+              코드 변경 기록으로 표시된 날짜는 참여 기간이나 실제 배포일을
+              뜻하지 않습니다.
             </p>
           </div>
           <div>
@@ -1276,7 +1302,7 @@ function Timeline({
               {projects.map((p) => (
                 <button
                   key={p.slug}
-                  aria-pressed={documentSlug === p.slug}
+                  aria-pressed={documentProject.slug === p.slug}
                   onClick={() => setDocumentSlug(p.slug)}
                 >
                   {p.title}
@@ -1613,13 +1639,15 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </div>
         </section>
       )}
-      <section className="section">
-        <SectionTitle
-          label="03 / TECHNOLOGY IN CONTEXT"
-          title="이 프로젝트에 사용한 기술"
-        />
-        <Stack groups={project.technologyStack} />
-      </section>
+      {project.technologyStack.length > 0 && (
+        <section className="section">
+          <SectionTitle
+            label="03 / TECHNOLOGY IN CONTEXT"
+            title="이 프로젝트에 사용한 기술"
+          />
+          <Stack groups={project.technologyStack} />
+        </section>
+      )}
       {project.metrics.length > 0 && (
         <section className="section">
           <SectionTitle
@@ -1648,28 +1676,30 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </p>
         </section>
       )}
-      <section className="section">
-        <SectionTitle
-          label="04 / HOW IT WORKS"
-          title="사용자 경험을 연결하는 처리 흐름"
-          icon="branch"
-        />
-        <ol className="pipeline">
-          {project.pipeline.map((step, i) => (
-            <li key={step.label}>
-              <span className="micro-label">
-                STEP {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3>
-                <Editable scope={project.slug} value={step.label} />
-              </h3>
-              <p>
-                <Editable scope={project.slug} value={step.description} />
-              </p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {project.pipeline.length > 0 && (
+        <section className="section">
+          <SectionTitle
+            label="04 / HOW IT WORKS"
+            title="사용자 경험을 연결하는 처리 흐름"
+            icon="branch"
+          />
+          <ol className="pipeline">
+            {project.pipeline.map((step, i) => (
+              <li key={step.label}>
+                <span className="micro-label">
+                  STEP {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3>
+                  <Editable scope={project.slug} value={step.label} />
+                </h3>
+                <p>
+                  <Editable scope={project.slug} value={step.description} />
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
       {project.improvements.length > 0 && (
         <section className="section">
           <SectionTitle
@@ -1704,43 +1734,45 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </div>
         </section>
       )}
-      <section className="section detail-timeline">
-        <SectionTitle
-          label="06 / PROJECT MILESTONES"
-          title="만들고, 확인하고, 다시 다듬은 기록"
-          icon="branch"
-        />
-        {project.timelineBasis === "code" && (
-          <p className="section-description">
-            날짜는 코드 변경 기록일이며, 참여 기간이나 실제 배포일을 뜻하지
-            않습니다.
-          </p>
-        )}
-        <ol className="milestone-list">
-          {getMilestones([project])
-            .reverse()
-            .map((item, index) => (
-              <li key={index}>
-                <div className="milestone-meta">
-                  <time dateTime={item.normalizedDate}>
-                    {item.normalizedDate.replaceAll("-", ".")}
-                  </time>
-                </div>
-                <h3>
-                  <Editable scope={project.slug} value={item.title} />
-                </h3>
-                <p>
-                  <Editable scope={project.slug} value={item.description} />
-                </p>
-              </li>
-            ))}
-        </ol>
-      </section>
+      {project.timeline.length > 0 && (
+        <section className="section detail-timeline">
+          <SectionTitle
+            label="06 / PROJECT MILESTONES"
+            title="만들고, 확인하고, 다시 다듬은 기록"
+            icon="branch"
+          />
+          {project.timelineBasis === "code" && (
+            <p className="section-description">
+              날짜는 코드 변경 기록일이며, 참여 기간이나 실제 배포일을 뜻하지
+              않습니다.
+            </p>
+          )}
+          <ol className="milestone-list">
+            {getMilestones([project])
+              .reverse()
+              .map((item, index) => (
+                <li key={index}>
+                  <div className="milestone-meta">
+                    <time dateTime={item.normalizedDate}>
+                      {item.normalizedDate.replaceAll("-", ".")}
+                    </time>
+                  </div>
+                  <h3>
+                    <Editable scope={project.slug} value={item.title} />
+                  </h3>
+                  <p>
+                    <Editable scope={project.slug} value={item.description} />
+                  </p>
+                </li>
+              ))}
+          </ol>
+        </section>
+      )}
       <div className="record-banner">
         <Icon name="file" />
         <div>
           <strong>결과만큼, 만드는 과정도 중요하니까요.</strong>
-          <p>프로젝트 기록: timeline.md의 공개용 내용 기준</p>
+          <p>포트폴리오 공개용 프로젝트 기록</p>
         </div>
         <a className="button primary" href="#/projects">
           다른 프로젝트 보기 <Icon name="arrow" />
@@ -1888,7 +1920,17 @@ function Footer({ profile }: { profile: Profile }) {
 }
 
 function App() {
-  const [content, setContent] = useState<PortfolioContent>(fallbackContent);
+  const [content, setContent] = useState<PortfolioContent>({
+    ...fallbackContent,
+    projects: [],
+  });
+  const [loadState, setLoadState] = useState<"loading" | "ready" | "error">(
+    "loading",
+  );
+  const acceptContent = useCallback((next: PortfolioContent) => {
+    setContent(next);
+    setLoadState("ready");
+  }, []);
   const [commandOpen, setCommandOpen] = useState(false);
   const route = useRoute();
   useEffect(() => {
@@ -1898,12 +1940,20 @@ function App() {
     )
       return;
     let active = true;
-    const refresh = () =>
-      getPortfolioContent()
+    let generation = 0;
+    const refresh = () => {
+      const request = ++generation;
+      return getPortfolioContent()
         .then((next) => {
-          if (active) setContent(next);
+          if (active && request === generation) acceptContent(next);
         })
-        .catch(() => undefined);
+        .catch(() => {
+          if (active && request === generation)
+            setLoadState((current) =>
+              current === "ready" ? "ready" : "error",
+            );
+        });
+    };
     void refresh();
     const unsubscribe = subscribePortfolio(refresh);
     const onVisible = () => {
@@ -1917,7 +1967,7 @@ function App() {
       window.removeEventListener("focus", onVisible);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, []);
+  }, [acceptContent]);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -1938,7 +1988,7 @@ function App() {
     document.title = `${project?.title || navigation.find((n) => n.href === `#${route}`)?.title || "Portfolio"} | ${content.profile.name}`;
   }, [route, project, content.profile.name]);
   return (
-    <EditorBridge content={content} onPreview={setContent}>
+    <EditorBridge content={content} onPreview={acceptContent}>
       <a
         className="skip-link"
         href="#main-content"
@@ -1958,7 +2008,20 @@ function App() {
         <div className="terminal-shell page-width">
           <Terminal route={route} />
         </div>
-        {project ? (
+        {loadState !== "ready" ? (
+          <section className="page-width not-found" role="status">
+            <p>
+              {loadState === "loading"
+                ? "포트폴리오를 불러오는 중입니다."
+                : "콘텐츠를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."}
+            </p>
+            {loadState === "error" && (
+              <button className="button" onClick={() => location.reload()}>
+                다시 불러오기
+              </button>
+            )}
+          </section>
+        ) : project ? (
           <ProjectDetail project={project} />
         ) : route === "/projects" ? (
           <Projects projects={projects} />

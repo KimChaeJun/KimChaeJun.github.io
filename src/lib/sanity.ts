@@ -1,5 +1,4 @@
 import { createClient } from "@sanity/client";
-import { fallbackContent } from "../data/fallback";
 import { cmsConfig } from "./cmsConfig";
 import { isPortfolioContent } from "../../shared/editor";
 import type { PortfolioContent } from "../types/content";
@@ -13,9 +12,9 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
     '*[_id == $id && _type == "portfolio"][0].content',
     { id: cmsConfig.documentId },
   );
-  return isPortfolioContent(content)
-    ? (content as PortfolioContent)
-    : fallbackContent;
+  if (!isPortfolioContent(content))
+    throw new Error("공개 콘텐츠를 불러오지 못했습니다.");
+  return content as PortfolioContent;
 }
 export function subscribePortfolio(onChange: () => void) {
   const sub = client

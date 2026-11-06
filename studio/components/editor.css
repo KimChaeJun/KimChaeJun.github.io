@@ -162,13 +162,20 @@
 }
 @media (max-width: 850px) {
   .cms-body {
-    grid-template-columns: 1fr;
+    display: block;
     overflow: auto;
   }
   .cms-sidebar {
     border-right: 0;
+    overflow: visible;
+  }
+  .cms-preview {
+    min-height: 720px;
+    overflow: visible;
   }
   .cms-preview iframe {
+    flex: none;
+    height: 700px;
     min-height: 700px;
   }
   .cms-toolbar {
@@ -202,4 +209,158 @@
   align-items: center;
   margin: 6px 0;
   font-size: 12px;
+}
+
+.cms-mode-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 22px;
+  border-bottom: 1px solid #d9e3ee;
+  padding-bottom: 12px;
+}
+.cms-mode-tabs button {
+  flex: 1;
+  font-size: 12px;
+  padding: 8px;
+}
+.cms-mode-tabs button[aria-selected="true"] {
+  background: #e9f0ff;
+  border-color: #7d9edb;
+  color: #1f53b9;
+  font-weight: 700;
+}
+.cms-manager-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cms-manager-heading span {
+  font-size: 11px;
+  white-space: nowrap;
+  color: #63798d;
+}
+.cms-project-manager .cms-add-project {
+  width: 100%;
+  margin: 8px 0 16px;
+  border-style: dashed;
+  color: #2459df;
+}
+.cms-project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.cms-project-list > li {
+  border: 1px solid #d5dfeb;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcff;
+}
+.cms-project-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+.cms-order {
+  font-size: 11px;
+  color: #66809a;
+  min-width: 16px;
+  line-height: 28px;
+}
+.cms-project-manager .cms-project-title {
+  border: 0;
+  padding: 3px 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 650;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.cms-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.cms-row-actions button {
+  font-size: 11px;
+  padding: 5px 8px;
+}
+.cms-project-manager .cms-delete {
+  color: #a43b37;
+  margin-left: auto;
+}
+.cms-delete-confirm {
+  margin-top: 10px;
+  border-top: 1px solid #e8c3be;
+  padding-top: 8px;
+}
+.cms-delete-confirm p {
+  font-size: 12px;
+}
+.cms-project-form {
+  padding: 14px;
+  border: 1px solid #bed0eb;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+.cms-project-form h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.cms-project-form label {
+  font-size: 12px;
+  margin-top: 14px;
+}
+.cms-project-form input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #b9cddd;
+  border-radius: 6px;
+  padding: 9px;
+  background: #fff;
+  color: #233a51;
+  font: inherit;
+  font-size: 13px;
+}
+.cms-project-form textarea {
+  min-height: 120px;
+  font-size: 13px;
+}
+.cms-trash {
+  border-top: 1px solid #d9e3ee;
+  margin-top: 24px;
+  padding-top: 18px;
+}
+.cms-trash summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.cms-trash p {
+  font-size: 12px;
+  color: #63798d;
+}
+.cms-trash-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 0;
+  font-size: 12px;
+}
+.cms-trash-row span {
+  overflow-wrap: anywhere;
+}
+.cms-trash-row button {
+  font-size: 11px;
+  padding: 5px 9px;
+}
+.cms-form-note,
+.cms-empty {
+  font-size: 12px;
+  color: #63798d;
 }

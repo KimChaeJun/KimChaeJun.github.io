@@ -88,6 +88,49 @@ export const portfolioType = defineType({
             },
           ],
         },
+        {
+          name: "archivedProjects",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                ...strings([
+                  "slug",
+                  "title",
+                  "subtitle",
+                  "category",
+                  "role",
+                  "year",
+                  "period",
+                  "award",
+                  "timelineBasis",
+                ]),
+                ...["summaryLines", "overviewLines", "tags", "roleTags"].map(
+                  stringList,
+                ),
+                list("roles", ["title", "description"]),
+                {
+                  name: "technologyStack",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      fields: [
+                        ...strings(["category", "description"]),
+                        stringList("technologies"),
+                      ],
+                    },
+                  ],
+                },
+                list("metrics", ["value", "label", "note"]),
+                list("pipeline", ["label", "description"]),
+                list("improvements", ["before", "after", "evidence"]),
+                list("timeline", ["date", "title", "description"]),
+              ],
+            },
+          ],
+        },
         list("experiences", [
           "company",
           "position",

@@ -55,7 +55,14 @@ export function EditorBridge({
       active,
       select: (path: FieldPath) =>
         window.parent.postMessage(
-          { type: "portfolio:select", path },
+          {
+            type: "portfolio:select",
+            path,
+            projectSlug:
+              path[0] === "projects"
+                ? content.projects[Number(path[1])]?.slug
+                : undefined,
+          },
           location.origin,
         ),
     }),

@@ -8,6 +8,7 @@ const blocked = new Set([
   "timelineBasis",
   "skills",
   "roleTags",
+  "archivedProjects",
 ]);
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === "object" && !Array.isArray(value);
@@ -49,14 +50,19 @@ export function isPortfolioContent(value: unknown): boolean {
     !Array.isArray(value.experiences)
   )
     return false;
+  if (!Array.isArray(value.projects) || value.projects.length > 100)
+    return false;
   if (
-    !Array.isArray(value.projects) ||
-    !value.projects.length ||
-    value.projects.length > 100
+    value.archivedProjects !== undefined &&
+    (!Array.isArray(value.archivedProjects) ||
+      value.archivedProjects.length > 500)
   )
     return false;
   const slugs = new Set();
-  for (const project of value.projects) {
+  for (const project of [
+    ...value.projects,
+    ...((value.archivedProjects as unknown[]) ?? []),
+  ]) {
     if (
       !record(project) ||
       ![
@@ -182,4 +188,172 @@ export function setRoleTags<T>(
   if (!target) throw new Error("프로젝트를 찾을 수 없습니다.");
   target.roleTags = [...new Set(tags)];
   return next;
+}
+import type { TimelineProject } from "../src/data/timelineProjects";
+
+type ProjectContent = {
+  projects: TimelineProject[];
+  archivedProjects?: TimelineProject[];
+};
+export type NewProject = {
+  title: string;
+  slug: string;
+  subtitle: string;
+  description: string;
+  category: string;
+  technologies: string;
+  role: string;
+  period: string;
+};
+export const emptyProjectInput: NewProject = {
+  title: "",
+  slug: "",
+  subtitle: "",
+  description: "",
+  category: "",
+  technologies: "",
+  role: "",
+  period: "",
+};
+function checkedProjects<T extends ProjectContent>(content: T): T {
+  if (!isPortfolioContent(content))
+    throw new Error("프로젝트 데이터 형식이 올바르지 않습니다.");
+  return content;
+}
+export function addProject<T extends ProjectContent>(
+  content: T,
+  input: NewProject,
+): T {
+  checkedProjects(content);
+  if (
+    Object.keys(emptyProjectInput).some(
+      (key) =>
+        typeof input[key as keyof NewProject] !== "string" ||
+        input[key as keyof NewProject].length > 12000,
+    )
+  )
+    throw new Error("입력 내용을 확인해 주세요.");
+  const title = input.title.trim(),
+    slug = input.slug.trim();
+  if (!title || title.length > 120)
+    throw new Error("프로젝트 이름을 1~120자로 입력해 주세요.");
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || slug.length > 80)
+    throw new Error("주소에는 영문 소문자·숫자·하이픈을 사용해 주세요.");
+  if (
+    [...content.projects, ...(content.archivedProjects ?? [])].some(
+      (p) => p.slug === slug,
+    )
+  )
+    throw new Error("이미 사용 중인 주소입니다. 휴지통도 확인해 주세요.");
+  if (content.projects.length >= 100)
+    throw new Error("프로젝트는 최대 100개까지 노출할 수 있습니다.");
+  const tags = [
+    ...new Set(
+      input.technologies
+        .split(/[,\n]/)
+        .map((s) => s.trim())
+        .filter(Boolean),
+    ),
+  ];
+  if (tags.length > 30 || tags.some((t) => t.length > 100))
+    throw new Error("기술은 이름당 100자, 최대 30개까지 입력해 주세요.");
+  const overviewLines = input.description
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const project: TimelineProject & { _key: string } = {
+    _key: "project-" + slug,
+    slug,
+    title,
+    subtitle: input.subtitle.trim(),
+    category: input.category.trim(),
+    role: input.role.trim(),
+    roleTags: [],
+    year: "",
+    period: input.period.trim(),
+    award: "",
+    summaryLines: overviewLines.length
+      ? overviewLines.slice(0, 2)
+      : input.subtitle.trim()
+        ? [input.subtitle.trim()]
+        : [],
+    overviewLines,
+    tags,
+    roles: [],
+    metrics: [],
+    pipeline: [],
+    improvements: [],
+    timeline: [],
+    technologyStack: tags.length
+      ? [
+          {
+            _key: "technologies",
+            category: "Technologies",
+            description: "",
+            technologies: tags,
+          } as TimelineProject["technologyStack"][number],
+        ]
+      : [],
+  };
+  return checkedProjects({
+    ...content,
+    projects: [...content.projects, project],
+  });
+}
+export function moveProject<T extends ProjectContent>(
+  content: T,
+  slug: string,
+  offset: -1 | 1,
+): T {
+  checkedProjects(content);
+  const index = content.projects.findIndex((p) => p.slug === slug);
+  if (index < 0 || (offset !== -1 && offset !== 1))
+    throw new Error("이동할 프로젝트를 찾을 수 없습니다.");
+  const target = index + offset;
+  if (target < 0 || target >= content.projects.length) return content;
+  const projects = [...content.projects];
+  [projects[index], projects[target]] = [projects[target], projects[index]];
+  return checkedProjects({ ...content, projects });
+}
+export function archiveProject<T extends ProjectContent>(
+  content: T,
+  slug: string,
+): T {
+  checkedProjects(content);
+  const project = content.projects.find((p) => p.slug === slug);
+  if (!project) throw new Error("삭제할 프로젝트를 찾을 수 없습니다.");
+  if ((content.archivedProjects?.length ?? 0) >= 500)
+    throw new Error("휴지통이 가득 찼습니다.");
+  return checkedProjects({
+    ...content,
+    projects: content.projects.filter((p) => p.slug !== slug),
+    archivedProjects: [...(content.archivedProjects ?? []), project],
+  });
+}
+export function restoreProject<T extends ProjectContent>(
+  content: T,
+  slug: string,
+): T {
+  checkedProjects(content);
+  const project = content.archivedProjects?.find((p) => p.slug === slug);
+  if (!project) throw new Error("복원할 프로젝트를 찾을 수 없습니다.");
+  if (content.projects.length >= 100)
+    throw new Error("프로젝트는 최대 100개까지 노출할 수 있습니다.");
+  return checkedProjects({
+    ...content,
+    projects: [...content.projects, project],
+    archivedProjects: content.archivedProjects?.filter((p) => p.slug !== slug),
+  });
+}
+export function rebaseProjectField(
+  previous: ProjectContent,
+  next: ProjectContent,
+  path: FieldPath,
+): FieldPath {
+  if (path[0] !== "projects") return path;
+  const slug = previous.projects[Number(path[1])]?.slug;
+  const index = next.projects.findIndex((p) => p.slug === slug);
+  return index < 0
+    ? ["profile", "intro"]
+    : ["projects", index, ...path.slice(2)];
 }
