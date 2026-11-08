@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700;750;800&family=IBM+Plex+Mono:wght@400;450;500;600&family=Noto+Sans+KR:wght@400;450;500;550;600;650;700;750;800&display=swap");
 
 :root {
+  font-size: 17px;
   font-family: "Inter", "Noto Sans KR", sans-serif;
   color: #1a2d48;
   background: #faf9f6;
@@ -131,13 +132,13 @@ kbd {
   font-family: var(--mono);
 }
 .mono {
-  font-size: 11px;
+  font-size: 14px;
 }
 .subtle {
   color: var(--muted);
 }
 .micro-label {
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.6;
   letter-spacing: 0.04em;
   font-weight: 500;
@@ -147,7 +148,7 @@ kbd {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.7;
@@ -197,7 +198,7 @@ kbd {
   align-items: center;
   gap: 11px;
   flex: 0 0 auto;
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: -0.04em;
   font-weight: 750;
 }
@@ -224,14 +225,14 @@ kbd {
   display: block;
   margin-top: 2px;
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.09em;
   color: var(--muted);
 }
 .header-build {
   color: var(--muted);
-  font: 8px/1.6 var(--mono);
+  font: 13px/1.6 var(--mono);
   letter-spacing: 0.05em;
 }
 .header-build i,
@@ -259,7 +260,7 @@ kbd {
   padding: 11px 14px;
   border-radius: 5px;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   color: #536175;
   transition:
@@ -302,7 +303,7 @@ kbd {
   border: 0;
   background: transparent;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 13px;
   padding: 7px 0;
 }
 .command-trigger .icon {
@@ -310,7 +311,7 @@ kbd {
   height: 16px;
 }
 kbd {
-  font-size: 10px;
+  font-size: 13px;
   background: #f4f6f8;
   padding: 3px 5px;
   border: 1px solid var(--line);
@@ -341,7 +342,7 @@ kbd {
   padding: 9px 16px;
   border-bottom: 1px solid var(--line);
   background: #f4f6f8;
-  font: 10px var(--mono);
+  font: 13px var(--mono);
   color: #596b80;
 }
 .window-caption {
@@ -381,7 +382,7 @@ kbd {
   display: flex;
   gap: 7px;
   align-items: center;
-  font-size: 9px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .terminal-form {
@@ -389,7 +390,7 @@ kbd {
   align-items: center;
   padding: 20px 22px 9px;
   gap: 14px;
-  font: 13px var(--mono);
+  font: 14px var(--mono);
 }
 .terminal-form label {
   white-space: nowrap;
@@ -405,7 +406,7 @@ kbd {
   background: transparent;
   border: 0;
   color: var(--ink);
-  font-size: 12px;
+  font-size: 16px;
   padding: 6px;
 }
 .terminal-form input::placeholder {
@@ -422,7 +423,7 @@ kbd {
   border-radius: 5px;
   white-space: nowrap;
   padding: 7px 11px;
-  font-size: 10px;
+  font-size: 13px;
 }
 .terminal-run span {
   margin-left: 10px;
@@ -435,11 +436,11 @@ kbd {
   gap: 12px;
   align-items: flex-start;
   padding: 0 22px 18px;
-  font: 10px/1.8 var(--mono);
+  font: 13px/1.8 var(--mono);
   color: #65758b;
 }
 .terminal-output-label {
-  font-size: 8px;
+  font-size: 13px;
   border: 1px solid var(--line);
   padding: 0 4px;
   flex-shrink: 0;
@@ -452,7 +453,7 @@ kbd {
   gap: 7px;
   padding: 5px 9px;
   color: #365c89;
-  font: 9px/1.4 var(--mono);
+  font: 13px/1.4 var(--mono);
   font-weight: 500;
   background: #e6eef7;
   border: 1px solid #cfddec;
@@ -489,7 +490,7 @@ kbd {
   display: flex;
   gap: 7px;
   align-items: center;
-  font-size: 10px;
+  font-size: 13px;
 }
 .hero-badges .icon {
   width: 13px;
@@ -503,7 +504,7 @@ kbd {
 }
 .hero-description {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 18px;
   max-width: 590px;
   line-height: 1.95;
 }
@@ -518,7 +519,7 @@ kbd {
 }
 .role-tags > span {
   color: #355a86;
-  font: 10px/1.6 var(--mono);
+  font: 13px/1.6 var(--mono);
   font-weight: 500;
   background: #e8eef5;
   border: 1px solid #d8e2ec;
@@ -541,7 +542,7 @@ kbd {
   background: #fff;
   border: 1px solid #d4dde7;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.6;
   transition:
@@ -575,14 +576,14 @@ kbd {
 }
 .button.small {
   padding: 9px 12px;
-  font-size: 10px;
+  font-size: 13px;
 }
 .text-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   color: var(--blue);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
 }
@@ -612,7 +613,7 @@ kbd {
   display: flex;
   align-items: center;
   gap: 7px;
-  font: 10px var(--mono);
+  font: 13px var(--mono);
   font-weight: 600;
 }
 .snapshot-heading .icon {
@@ -620,7 +621,7 @@ kbd {
   height: 15px;
 }
 .snapshot-heading .badge {
-  font-size: 8px;
+  font-size: 13px;
   padding: 4px 6px;
 }
 .snapshot-grid {
@@ -645,7 +646,7 @@ kbd {
   display: block;
   margin-top: 8px;
   color: #566b85;
-  font: 9px var(--mono);
+  font: 13px var(--mono);
 }
 .snapshot-bottom {
   display: flex;
@@ -653,14 +654,14 @@ kbd {
   justify-content: space-between;
   gap: 8px;
   margin-top: 20px;
-  font: 9px/1.8 var(--mono);
+  font: 13px/1.8 var(--mono);
   color: #526881;
 }
 .snapshot-bottom i {
   margin-right: 4px;
 }
 .snapshot > p {
-  font: 9px/1.8 var(--mono);
+  font: 13px/1.8 var(--mono);
   color: #667b90;
   margin-top: 9px;
 }
@@ -675,7 +676,7 @@ kbd {
   margin-bottom: 26px;
 }
 .section-heading .eyebrow {
-  font-size: 9px;
+  font-size: 13px;
   margin-bottom: 10px;
 }
 .section-heading h2 {
@@ -687,7 +688,7 @@ kbd {
   margin-bottom: 4px;
 }
 .section-description {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--muted);
   margin: -12px 0 24px;
 }
@@ -716,7 +717,7 @@ kbd {
   margin-bottom: 22px;
 }
 .pillar-top .micro-label {
-  font-size: 8px;
+  font-size: 13px;
   color: #637b96;
 }
 .square-icon {
@@ -745,12 +746,12 @@ kbd {
   margin-bottom: 5px;
 }
 .pillar-card .pillar-english {
-  font: 8px/1.5 var(--mono);
+  font: 13px/1.5 var(--mono);
   color: #527091;
   margin-bottom: 16px;
 }
 .pillar-card > p:not(.pillar-english) {
-  font-size: 12px;
+  font-size: 16px;
   color: #5b6e83;
   line-height: 1.95;
   padding-bottom: 24px;
@@ -762,7 +763,7 @@ kbd {
   gap: 6px;
   padding: 14px 0;
   border-top: 1px solid #d6e0eb;
-  font: 9px/1.7 var(--mono);
+  font: 13px/1.7 var(--mono);
   color: #4e6987;
 }
 .pillar-caption .icon {
@@ -793,7 +794,7 @@ kbd {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 650;
   line-height: 1.5;
 }
@@ -804,13 +805,13 @@ kbd {
   color: #3a6696;
 }
 .stack-heading > span {
-  font: 8px/1.8 var(--mono);
+  font: 13px/1.8 var(--mono);
   color: #60778f;
   flex-shrink: 0;
   padding-top: 2px;
 }
 .stack-card > p {
-  font-size: 10px;
+  font-size: 13px;
   color: #65778c;
   margin: 12px 0 18px;
   min-height: 36px;
@@ -904,7 +905,7 @@ kbd {
   background: var(--ink);
   box-shadow: 0 5px 14px #172d4b20;
   color: #fff;
-  font: 500 11px/1.5 "Inter", "Noto Sans KR", sans-serif;
+  font: 500 14px/1.5 "Inter", "Noto Sans KR", sans-serif;
   text-align: center;
   overflow-wrap: anywhere;
   visibility: hidden;
@@ -968,7 +969,7 @@ kbd {
   color: #607993;
 }
 .summary-top .micro-label {
-  font-size: 9px;
+  font-size: 13px;
 }
 .summary-card h3 {
   font-size: 24px;
@@ -989,7 +990,7 @@ kbd {
   color: var(--blue);
 }
 .summary-card > p {
-  font-size: 12px;
+  font-size: 16px;
   color: #5e6e83;
   min-height: 46px;
 }
@@ -1011,7 +1012,7 @@ kbd {
 }
 .summary-evidence span {
   display: block;
-  font: 8px/1.6 var(--mono);
+  font: 13px/1.6 var(--mono);
   color: #667d96;
   margin-bottom: 6px;
 }
@@ -1028,7 +1029,7 @@ kbd {
   border-top: 1px solid #d8e3eb;
 }
 .summary-bottom > span {
-  font: 9px/1.6 var(--mono);
+  font: 13px/1.6 var(--mono);
   color: #637b90;
 }
 .tag-list {
@@ -1038,7 +1039,7 @@ kbd {
 }
 .tag-list > span {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.6;
   padding: 4px 8px;
   color: #506a86;
@@ -1071,7 +1072,7 @@ kbd {
   color: #57718e;
 }
 .experience-meta > span:last-child:not(:first-child) {
-  font-size: 9px;
+  font-size: 13px;
   color: #46765c;
   background: #eaf4ee;
   border-radius: 3px;
@@ -1082,13 +1083,13 @@ kbd {
   margin-bottom: 13px;
 }
 .experience-card h3 span {
-  font-size: 10px;
+  font-size: 13px;
   color: #677c92;
   font-family: var(--mono);
   font-weight: 400;
 }
 .experience-card p {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--muted);
   margin-bottom: 18px;
 }
@@ -1106,10 +1107,10 @@ kbd {
   align-items: center;
 }
 .record-banner strong {
-  font-size: 13px;
+  font-size: 16px;
 }
 .record-banner p {
-  font: 9px/1.8 var(--mono);
+  font: 13px/1.8 var(--mono);
   color: #647c96;
   margin-top: 6px;
 }
@@ -1132,7 +1133,7 @@ kbd {
   letter-spacing: -0.05em;
 }
 .projects-heading .eyebrow {
-  font-size: 9px;
+  font-size: 13px;
 }
 .intro-note {
   display: flex;
@@ -1150,7 +1151,7 @@ kbd {
 }
 .intro-note p {
   color: #63738a;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.9;
 }
 .intro-note strong {
@@ -1171,7 +1172,7 @@ kbd {
 }
 .projects-filter-line > p {
   color: #657b92;
-  font-size: 9px;
+  font-size: 13px;
 }
 .filter-row {
   display: flex;
@@ -1187,7 +1188,7 @@ kbd {
   border: 1px solid transparent;
   background: transparent;
   color: #64768c;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 550;
 }
 .filter-row button[aria-pressed="true"] {
@@ -1199,7 +1200,7 @@ kbd {
   background: #e9eef4;
 }
 .filter-row button > span {
-  font: 8px var(--mono);
+  font: 13px var(--mono);
   border-radius: 3px;
   padding: 2px 4px;
   background: #ffffff16;
@@ -1241,10 +1242,10 @@ kbd {
 }
 .engineering-card-bar .mono {
   color: #5d748d;
-  font-size: 9px;
+  font-size: 13px;
 }
 .award-label {
-  font-size: 9px;
+  font-size: 13px;
   color: #4b6e60;
   border-left: 1px solid #c5d7cd;
   padding-left: 12px;
@@ -1283,11 +1284,11 @@ kbd {
   border-radius: 3px;
   padding: 3px 6px;
   color: #5e7793;
-  font-size: 8px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .project-subtitle {
-  font-size: 12px;
+  font-size: 16px;
   margin-top: 12px;
   margin-bottom: 23px;
   color: #5b6f86;
@@ -1313,14 +1314,14 @@ kbd {
   display: flex;
   align-items: center;
   gap: 6px;
-  font: 8px/1.6 var(--mono);
+  font: 13px/1.6 var(--mono);
 }
 .architecture-heading .icon {
   width: 12px;
   height: 12px;
 }
 .architecture-heading .mono {
-  font-size: 8px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .architecture-canvas {
@@ -1360,7 +1361,7 @@ kbd {
   box-shadow: 0 2px 5px #243b5210;
 }
 .architecture-node strong {
-  font: 500 9px/1.5 var(--mono);
+  font: 500 13px/1.5 var(--mono);
   color: #33597f;
 }
 .architecture-node strong i {
@@ -1375,11 +1376,11 @@ kbd {
 .architecture-node > span {
   display: block;
   margin-top: 3px;
-  font: 7px/1.4 var(--mono);
+  font: 13px/1.4 var(--mono);
   color: #617f9a;
 }
 .architecture-node small {
-  font-size: 8px;
+  font-size: 13px;
   margin-top: 4px;
   color: #698099;
 }
@@ -1397,7 +1398,7 @@ kbd {
 .architecture-footer {
   padding: 10px 13px;
   border-top: 1px solid #e0e8f0;
-  font: 8px/1.7 var(--mono);
+  font: 13px/1.7 var(--mono);
   color: #637d99;
   display: flex;
   align-items: center;
@@ -1429,22 +1430,22 @@ kbd {
 .project-facts > div > span {
   display: block;
   color: #6a8098;
-  font: 8px var(--mono);
+  font: 13px var(--mono);
   margin-bottom: 10px;
 }
 .project-facts strong {
   display: block;
-  font: 500 10px/1.6 var(--mono);
+  font: 500 13px/1.6 var(--mono);
 }
 .project-facts .role-tags > span {
   padding: 0;
   background: transparent;
   border: 0;
-  font-size: 10px;
+  font-size: 13px;
 }
 .project-facts small {
   display: block;
-  font-size: 9px;
+  font-size: 13px;
   margin-top: 7px;
   color: #6a7e91;
   line-height: 1.6;
@@ -1455,7 +1456,7 @@ kbd {
   padding-top: 7px;
 }
 .project-contributions > h3 {
-  font-size: 14px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -1468,7 +1469,7 @@ kbd {
 }
 .project-contributions > h3 > span {
   margin-left: auto;
-  font: 8px var(--mono);
+  font: 13px var(--mono);
   color: #6b8096;
 }
 .contribution-list {
@@ -1500,14 +1501,14 @@ kbd {
   height: 15px;
 }
 .contribution h4 {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.6;
   font-weight: 650;
   margin-bottom: 8px;
 }
 .contribution p {
   color: #617387;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.95;
 }
 .project-callout {
@@ -1526,11 +1527,11 @@ kbd {
   margin-top: 2px;
 }
 .project-callout strong {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.7;
 }
 .project-callout p {
-  font-size: 10px;
+  font-size: 13px;
   color: #5d7891;
   margin-top: 5px;
 }
@@ -1543,7 +1544,7 @@ kbd {
 }
 .project-inspect {
   width: 100%;
-  font-size: 10px;
+  font-size: 13px;
   padding: 13px 10px;
 }
 .project-inspect .icon:last-child {
@@ -1608,7 +1609,7 @@ kbd {
   margin-bottom: 12px;
 }
 .milestone-meta time {
-  font: 500 10px var(--mono);
+  font: 500 13px var(--mono);
   color: #4e7298;
 }
 .milestone-meta .micro-label {
@@ -1617,7 +1618,7 @@ kbd {
   padding: 3px 7px;
   background: #f9fbfd;
   color: #617b96;
-  font-size: 8px;
+  font-size: 13px;
 }
 .milestone-meta .micro-label.selected {
   color: #315d85;
@@ -1625,7 +1626,7 @@ kbd {
   border-color: #b8ccdd;
 }
 .milestone-list h3 {
-  font-size: 15px;
+  font-size: 18px;
   margin-bottom: 8px;
 }
 .milestone-list h3 a:hover {
@@ -1633,13 +1634,13 @@ kbd {
   text-decoration: underline;
 }
 .milestone-list p {
-  font-size: 11px;
+  font-size: 14px;
   color: #62778d;
   line-height: 1.95;
   max-width: 430px;
 }
 .timeline-caption {
-  font-size: 9px;
+  font-size: 13px;
   color: #6a7d91;
   margin: 24px 0 0 45px;
 }
@@ -1649,7 +1650,7 @@ kbd {
   margin-bottom: 10px;
 }
 .document-tabs button {
-  font-size: 10px;
+  font-size: 13px;
   padding: 7px 10px;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -1688,7 +1689,7 @@ kbd {
 }
 .notes-content > .micro-label {
   color: #75899d;
-  font-size: 8px;
+  font-size: 13px;
 }
 .notes-content > h3 {
   font-size: 19px;
@@ -1697,13 +1698,13 @@ kbd {
 }
 .notes-content > p {
   color: #65778a;
-  font-size: 11px;
+  font-size: 14px;
 }
 .notes-content blockquote {
   margin: 18px 0;
   border-left: 2px solid #a8bfd4;
   padding: 0 0 0 12px;
-  font-size: 10px;
+  font-size: 13px;
   color: #688098;
   line-height: 1.9;
 }
@@ -1719,18 +1720,18 @@ kbd {
   justify-content: space-between;
   color: #6b8198;
   padding: 8px 12px;
-  font: 8px var(--mono);
+  font: 13px var(--mono);
   border-bottom: 1px solid #e0e7ee;
 }
 .code-note > div > span {
-  font-size: 7px;
+  font-size: 13px;
 }
 .code-note pre {
   padding: 13px;
   margin: 0;
   color: #54708e;
   overflow: auto;
-  font: 9px/2 var(--mono);
+  font: 13px/2 var(--mono);
 }
 .code-note code {
   font: inherit;
@@ -1745,7 +1746,7 @@ kbd {
   color: #52826c;
 }
 .notes-content h4 {
-  font: 500 11px/1.7 var(--mono);
+  font: 500 14px/1.7 var(--mono);
   margin: 20px 0 12px;
 }
 .check-list {
@@ -1759,7 +1760,7 @@ kbd {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.9;
   color: #617c91;
   word-break: keep-all;
@@ -1781,7 +1782,7 @@ kbd {
   padding-top: 17px;
 }
 .notes-content .copy-status {
-  font-size: 10px;
+  font-size: 13px;
   color: #476f63;
   margin-top: 8px;
 }
@@ -1797,7 +1798,7 @@ kbd {
 }
 .standalone-heading > p:last-child {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
   margin-top: 20px;
 }
 .timeline-full {
@@ -1822,7 +1823,7 @@ kbd {
 }
 .contact-banner p:not(.eyebrow) {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 16px;
   margin-top: 15px;
 }
 .contact-banner .button {
@@ -1863,7 +1864,7 @@ kbd {
 }
 .contact-links .micro-label {
   color: #66829c;
-  font-size: 9px;
+  font-size: 13px;
 }
 .contact-links strong {
   display: block;
@@ -1872,7 +1873,7 @@ kbd {
   overflow-wrap: anywhere;
 }
 .contact-links p {
-  font-size: 11px;
+  font-size: 14px;
   color: #637c93;
   margin-top: 8px;
 }
@@ -1883,7 +1884,7 @@ kbd {
   margin-top: 25px;
 }
 .contact-location .mono {
-  font-size: 10px;
+  font-size: 13px;
   color: #62768b;
 }
 .site-footer {
@@ -1898,7 +1899,7 @@ kbd {
   gap: 20px;
   padding-top: 30px;
   padding-bottom: 30px;
-  font-size: 10px;
+  font-size: 13px;
   color: #66798f;
 }
 .footer-inner > a,
@@ -1906,7 +1907,7 @@ kbd {
   display: flex;
   align-items: center;
   gap: 7px;
-  font: 9px var(--mono);
+  font: 13px var(--mono);
 }
 .footer-inner .icon {
   width: 13px;
@@ -1922,7 +1923,7 @@ kbd {
   display: inline-flex;
   gap: 8px;
   align-items: center;
-  font-size: 11px;
+  font-size: 14px;
   color: #5f7c98;
 }
 .back-link .icon {
@@ -1949,7 +1950,7 @@ kbd {
 }
 .detail-hero > div > p:not(.eyebrow) {
   margin-top: 18px;
-  font-size: 16px;
+  font-size: 18px;
   color: #5e748c;
 }
 .detail-hero .role-tags {
@@ -1965,7 +1966,7 @@ kbd {
 }
 .detail-meta > .mono {
   color: #627b95;
-  font-size: 10px;
+  font-size: 13px;
 }
 .detail-overview {
   display: grid;
@@ -1979,7 +1980,7 @@ kbd {
   margin-bottom: 22px;
 }
 .detail-overview > div > p:not(.eyebrow) {
-  font-size: 12px;
+  font-size: 16px;
   color: #63768b;
   margin-bottom: 12px;
   line-height: 2;
@@ -2007,14 +2008,14 @@ kbd {
 }
 .detail-role-grid .micro-label {
   color: #6b849d;
-  font-size: 9px;
+  font-size: 13px;
 }
 .detail-role-grid h3 {
   font-size: 17px;
   margin: 14px 0 12px;
 }
 .detail-role-grid p {
-  font-size: 12px;
+  font-size: 16px;
   line-height: 2;
   color: #60778d;
 }
@@ -2030,7 +2031,7 @@ kbd {
   border-radius: 7px;
 }
 .metric-grid figcaption {
-  font: 9px var(--mono);
+  font: 13px var(--mono);
   color: #617f9d;
 }
 .metric-grid strong {
@@ -2041,14 +2042,14 @@ kbd {
   color: #365c84;
 }
 .metric-grid p {
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.9;
   color: #657f96;
   margin-top: 12px;
 }
 .metric-note {
   margin: 15px 0 0;
-  font-size: 10px;
+  font-size: 13px;
 }
 .pipeline {
   display: grid;
@@ -2076,14 +2077,14 @@ kbd {
 }
 .pipeline .micro-label {
   color: #6b88a3;
-  font-size: 9px;
+  font-size: 13px;
 }
 .pipeline h3 {
-  font-size: 15px;
+  font-size: 18px;
   margin: 16px 0 12px;
 }
 .pipeline p {
-  font-size: 11px;
+  font-size: 14px;
   color: #647b91;
 }
 .improvements {
@@ -2110,7 +2111,7 @@ kbd {
 }
 .before p {
   margin-top: 12px;
-  font-size: 12px;
+  font-size: 16px;
   color: #758494;
 }
 .improvement-arrow {
@@ -2127,14 +2128,14 @@ kbd {
   color: #527d67;
 }
 .after h3 {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.8;
   margin-top: 12px;
 }
 .after p {
   color: #64846f;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.9;
   margin-top: 12px;
   display: flex;
@@ -2169,7 +2170,7 @@ kbd {
 }
 .empty-state {
   padding: 32px 20px;
-  font-size: 13px;
+  font-size: 16px;
   text-align: center;
   color: #61778d;
 }
@@ -2196,7 +2197,7 @@ kbd {
   gap: 10px;
 }
 .command-heading h2 {
-  font-size: 16px;
+  font-size: 18px;
 }
 .command-heading .icon-button {
   margin-left: auto;
@@ -2208,7 +2209,7 @@ kbd {
   border: 1px solid #cddce9;
   border-radius: 6px;
   padding: 13px;
-  font-size: 13px;
+  font-size: 16px;
   background: #fff;
 }
 .command-results {
@@ -2222,7 +2223,7 @@ kbd {
   align-items: center;
   gap: 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.7;
   padding: 13px 14px;
 }
@@ -2243,7 +2244,7 @@ kbd {
   gap: 7px;
   padding: 13px 22px;
   border-top: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 13px;
   color: #60758c;
 }
 .command-hint > span {
@@ -2272,13 +2273,13 @@ kbd {
   }
   .navigation a {
     padding-inline: 10px;
-    font-size: 10px;
+    font-size: 13px;
   }
   .header-actions {
     gap: 7px;
   }
   .wordmark {
-    font-size: 14px;
+    font-size: 18px;
     gap: 8px;
   }
   .hero {
@@ -2292,17 +2293,17 @@ kbd {
     gap: 7px;
   }
   .hero .button {
-    font-size: 10px;
+    font-size: 13px;
     padding: 11px 12px;
   }
   .pillar-card {
     padding-inline: 17px;
   }
   .pillar-top .micro-label {
-    font-size: 7px;
+    font-size: 13px;
   }
   .pillar-caption {
-    font-size: 8px;
+    font-size: 13px;
   }
   .stack-card {
     padding: 16px;
@@ -2311,7 +2312,7 @@ kbd {
     flex-wrap: wrap;
   }
   .stack-heading h3 {
-    font-size: 12px;
+    font-size: 16px;
   }
   .projects-heading {
     gap: 20px;
@@ -2331,17 +2332,17 @@ kbd {
     column-gap: 14px;
   }
   .architecture-node strong {
-    font-size: 8px;
+    font-size: 13px;
   }
   .architecture-node > span {
-    font-size: 6.5px;
+    font-size: 13px;
   }
   .contribution {
     padding: 16px 13px;
     gap: 9px;
   }
   .contribution h4 {
-    font-size: 12px;
+    font-size: 16px;
   }
   .project-contributions > h3 > span {
     display: none;
@@ -2350,7 +2351,7 @@ kbd {
     gap: 35px;
   }
   .summary-evidence strong {
-    font-size: 16px;
+    font-size: 18px;
   }
   .detail-overview {
     gap: 30px;
@@ -2373,7 +2374,7 @@ kbd {
     gap: 0;
   }
   .navigation a {
-    font-size: 9px;
+    font-size: 13px;
     padding: 10px 8px;
   }
   .hero {
@@ -2385,7 +2386,7 @@ kbd {
     font-size: 32px;
   }
   .hero-description {
-    font-size: 12px;
+    font-size: 16px;
   }
   .hero-badges {
     gap: 10px;
@@ -2404,7 +2405,7 @@ kbd {
     font-size: 29px;
   }
   .snapshot-grid span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .pillar-grid,
   .stack-grid-four {
@@ -2414,10 +2415,10 @@ kbd {
     padding-inline: 22px;
   }
   .pillar-top .micro-label {
-    font-size: 9px;
+    font-size: 13px;
   }
   .pillar-caption {
-    font-size: 9px;
+    font-size: 13px;
   }
   .stack-heading {
     flex-wrap: nowrap;
@@ -2453,7 +2454,7 @@ kbd {
     display: block;
   }
   .contribution h4 {
-    font-size: 13px;
+    font-size: 16px;
   }
   .contribution {
     padding: 19px;
@@ -2463,17 +2464,17 @@ kbd {
     column-gap: 40px;
   }
   .architecture-node strong {
-    font-size: 10px;
+    font-size: 13px;
   }
   .architecture-node > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .project-facts {
     grid-template-columns: 1fr 1fr;
   }
   .project-facts strong,
   .project-facts .role-tags > span {
-    font-size: 11px;
+    font-size: 14px;
   }
   .timeline-layout {
     gap: 25px;
@@ -2494,10 +2495,10 @@ kbd {
     padding-inline: 9px;
   }
   .summary-evidence span {
-    font-size: 7px;
+    font-size: 13px;
   }
   .summary-evidence strong {
-    font-size: 14px;
+    font-size: 18px;
   }
   .summary-bottom {
     flex-wrap: wrap;
@@ -2536,7 +2537,7 @@ kbd {
     padding: 22px;
   }
   .record-banner strong {
-    font-size: 12px;
+    font-size: 16px;
   }
   .record-banner .square-icon {
     display: none;
@@ -2559,7 +2560,7 @@ kbd {
     padding-inline: 20px;
   }
   .wordmark {
-    font-size: 15px;
+    font-size: 18px;
   }
   .logo-icon {
     height: 34px;
@@ -2593,7 +2594,7 @@ kbd {
     display: flex;
   }
   .navigation a {
-    font-size: 12px;
+    font-size: 16px;
     padding: 13px 14px;
   }
   .terminal-shell {
@@ -2611,15 +2612,15 @@ kbd {
     gap: 6px;
   }
   .terminal-form label {
-    font-size: 10px;
+    font-size: 13px;
   }
   .terminal-form input {
-    font-size: 10px;
+    font-size: 13px;
     padding: 6px 3px;
   }
   .terminal-run {
     padding: 6px 7px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .terminal-run span {
     display: none;
@@ -2627,7 +2628,7 @@ kbd {
   .terminal-output {
     padding: 0 12px 13px;
     gap: 8px;
-    font-size: 8px;
+    font-size: 13px;
   }
   .terminal-output-label {
     display: none;
@@ -2648,12 +2649,12 @@ kbd {
     margin-bottom: 18px;
   }
   .hero-description {
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.95;
   }
   .hero .button {
     padding: 12px 13px;
-    font-size: 10px;
+    font-size: 13px;
   }
   .hero .button.quiet {
     padding-inline: 7px;
@@ -2676,15 +2677,15 @@ kbd {
     font-size: 24px;
   }
   .snapshot-grid span {
-    font-size: 7px;
+    font-size: 13px;
     line-height: 1.6;
   }
   .snapshot-bottom {
     margin-top: 15px;
-    font-size: 8px;
+    font-size: 13px;
   }
   .snapshot > p {
-    font-size: 8px;
+    font-size: 13px;
   }
   .section {
     padding-top: 38px;
@@ -2700,14 +2701,14 @@ kbd {
     line-height: 1.5;
   }
   .section-heading .eyebrow {
-    font-size: 8px;
+    font-size: 13px;
   }
   .section-heading > a {
-    font-size: 10px;
+    font-size: 13px;
   }
   .section-description {
     margin-top: -9px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .summary-grid,
   .experience-grid {
@@ -2721,7 +2722,7 @@ kbd {
     min-height: 0;
   }
   .summary-evidence span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .summary-evidence strong {
     font-size: 18px;
@@ -2740,21 +2741,21 @@ kbd {
     flex-wrap: wrap;
   }
   .pillar-top .micro-label {
-    font-size: 7px;
+    font-size: 13px;
   }
   .pillar-card h3 {
-    font-size: 16px;
+    font-size: 18px;
   }
   .pillar-card .pillar-english {
-    font-size: 7px;
+    font-size: 13px;
   }
   .pillar-card > p:not(.pillar-english) {
-    font-size: 11px;
+    font-size: 14px;
     padding-bottom: 18px;
   }
   .pillar-caption {
     align-items: flex-start;
-    font-size: 8px;
+    font-size: 13px;
     gap: 4px;
   }
   .pillar-caption .icon {
@@ -2771,11 +2772,11 @@ kbd {
     flex-wrap: wrap;
   }
   .stack-card li {
-    font-size: 9px;
+    font-size: 13px;
   }
   .stack-card > p {
     min-height: 38px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .record-banner {
     margin: 38px 0 45px;
@@ -2800,14 +2801,14 @@ kbd {
     display: block;
   }
   .projects-heading .eyebrow {
-    font-size: 8px;
+    font-size: 13px;
   }
   .intro-note {
     margin-top: 22px;
     padding-left: 12px;
   }
   .intro-note p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .projects-filter-line {
     margin-top: 24px;
@@ -2817,7 +2818,7 @@ kbd {
   }
   .filter-row button {
     padding: 10px 9px;
-    font-size: 9px;
+    font-size: 13px;
     gap: 5px;
   }
   .project-list {
@@ -2832,16 +2833,16 @@ kbd {
     gap: 8px;
   }
   .engineering-card-bar .badge {
-    font-size: 8px;
+    font-size: 13px;
   }
   .engineering-card-bar .mono {
-    font-size: 8px;
+    font-size: 13px;
   }
   .card-category {
     display: none;
   }
   .award-label {
-    font-size: 8px;
+    font-size: 13px;
   }
   .engineering-card-grid {
     padding: 23px 18px;
@@ -2854,10 +2855,10 @@ kbd {
     font-size: 29px;
   }
   .project-name > span {
-    font-size: 7px;
+    font-size: 13px;
   }
   .project-subtitle {
-    font-size: 11px;
+    font-size: 14px;
     margin-bottom: 20px;
   }
   .architecture-heading {
@@ -2865,11 +2866,11 @@ kbd {
     gap: 6px;
   }
   .architecture-heading > span:first-child {
-    font-size: 7px;
+    font-size: 13px;
     gap: 4px;
   }
   .architecture-heading .mono {
-    font-size: 7px;
+    font-size: 13px;
   }
   .architecture-canvas {
     height: 270px;
@@ -2881,16 +2882,16 @@ kbd {
     padding: 9px 5px;
   }
   .architecture-node strong {
-    font-size: 8px;
+    font-size: 13px;
   }
   .architecture-node > span {
-    font-size: 6.5px;
+    font-size: 13px;
   }
   .architecture-node small {
-    font-size: 7px;
+    font-size: 13px;
   }
   .architecture-footer {
-    font-size: 7px;
+    font-size: 13px;
     padding: 9px 10px;
     gap: 5px;
   }
@@ -2901,41 +2902,41 @@ kbd {
     padding: 12px 10px;
   }
   .project-facts > div > span {
-    font-size: 7px;
+    font-size: 13px;
   }
   .project-facts strong,
   .project-facts .role-tags > span {
-    font-size: 8px;
+    font-size: 13px;
   }
   .project-facts small {
-    font-size: 8px;
+    font-size: 13px;
   }
   .tag-list > span {
-    font-size: 8px;
+    font-size: 13px;
     padding: 4px 7px;
   }
   .project-contributions > h3 {
-    font-size: 13px;
+    font-size: 16px;
     gap: 7px;
   }
   .project-contributions > h3 > span {
-    font-size: 7px;
+    font-size: 13px;
   }
   .contribution {
     padding: 16px 12px;
     gap: 10px;
   }
   .contribution h4 {
-    font-size: 12px;
+    font-size: 16px;
   }
   .contribution p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .project-callout {
     padding: 13px;
   }
   .project-inspect {
-    font-size: 9px;
+    font-size: 13px;
     gap: 7px;
   }
   .project-inspect .icon {
@@ -2966,21 +2967,21 @@ kbd {
     padding-bottom: 28px;
   }
   .milestone-list h3 {
-    font-size: 15px;
+    font-size: 18px;
   }
   .milestone-list p {
-    font-size: 11px;
+    font-size: 14px;
     max-width: none;
   }
   .timeline-caption {
     margin-left: 31px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .notes-content {
     padding: 21px;
   }
   .code-note pre {
-    font-size: 8px;
+    font-size: 13px;
   }
   .standalone-heading {
     padding-top: 35px;
@@ -2989,7 +2990,7 @@ kbd {
     font-size: 34px;
   }
   .standalone-heading > p:last-child {
-    font-size: 12px;
+    font-size: 16px;
   }
   .contact-banner {
     padding: 40px 0 45px;
@@ -3025,10 +3026,10 @@ kbd {
     text-align: center;
     padding-block: 25px;
     gap: 15px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .footer-inner > a {
-    font-size: 8px;
+    font-size: 13px;
   }
   .detail-page {
     padding-top: 27px;
@@ -3042,11 +3043,11 @@ kbd {
     font-size: 43px;
   }
   .detail-hero > div > p:not(.eyebrow) {
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.9;
   }
   .detail-hero .eyebrow {
-    font-size: 9px;
+    font-size: 13px;
   }
   .detail-overview {
     padding-top: 32px;
@@ -3055,7 +3056,7 @@ kbd {
     font-size: 24px;
   }
   .detail-overview > div > p:not(.eyebrow) {
-    font-size: 12px;
+    font-size: 16px;
   }
   .detail-overview .architecture-canvas {
     height: 285px;
@@ -3071,7 +3072,7 @@ kbd {
     font-size: 17px;
   }
   .detail-role-grid p {
-    font-size: 12px;
+    font-size: 16px;
   }
   .metric-grid {
     gap: 12px;
@@ -3083,10 +3084,10 @@ kbd {
     font-size: 25px;
   }
   .metric-grid p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .metric-grid figcaption {
-    font-size: 8px;
+    font-size: 13px;
   }
   .pipeline {
     grid-template-columns: 1fr;
@@ -3099,7 +3100,7 @@ kbd {
     margin: 10px 0;
   }
   .pipeline p {
-    font-size: 12px;
+    font-size: 16px;
   }
   .improvements article {
     grid-template-columns: 1fr;
@@ -3112,10 +3113,10 @@ kbd {
     padding: 21px;
   }
   .after h3 {
-    font-size: 13px;
+    font-size: 16px;
   }
   .after p {
-    font-size: 11px;
+    font-size: 14px;
   }
   .detail-timeline .milestone-list {
     grid-template-columns: 1fr;
@@ -3155,7 +3156,7 @@ kbd {
     grid-template-columns: 1fr;
   }
   .pillar-card > p:not(.pillar-english) {
-    font-size: 12px;
+    font-size: 16px;
   }
   .stack-heading {
     flex-wrap: nowrap;
@@ -3181,16 +3182,16 @@ kbd {
     flex-wrap: wrap;
   }
   .architecture-node strong {
-    font-size: 7px;
+    font-size: 13px;
   }
   .architecture-node > span {
-    font-size: 6px;
+    font-size: 13px;
   }
   .project-contributions > h3 > span {
     display: none;
   }
   .summary-evidence strong {
-    font-size: 15px;
+    font-size: 18px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3391,10 +3392,69 @@ kbd {
 .generic-architecture ol{list-style:none;margin:0;padding:18px 22px;display:grid;gap:14px}
 .generic-architecture li{display:flex;gap:16px;align-items:flex-start}
 .generic-architecture li>span{padding-top:3px;color:#6384a8}
-.generic-architecture strong{font-size:11px;letter-spacing:.06em}
-.generic-architecture p{font-size:12px;line-height:1.7;margin:3px 0 0;color:#61778c}
+.generic-architecture strong{font-size:14px;letter-spacing:.06em}
+.generic-architecture p{font-size:16px;line-height:1.7;margin:3px 0 0;color:#61778c}
 .document-tabs{flex-wrap:wrap}
 .summary-card>p{flex:1}
 .editable-text{cursor:text;outline:1px dashed #5786d8;outline-offset:3px;border-radius:2px;transition:background .12s}
 .editable-text:hover,.editable-text:focus-visible{background:#e6efff;outline:2px solid #3777db;outline-offset:3px}
-.site-footer .admin-link{font-size:11px;color:#5f7892}
+.site-footer .admin-link{font-size:14px;color:#5f7892}
+
+/* Keep copy readable without shrinking it to fit narrow layouts. */
+@media screen {
+  .hero-description, .detail-hero > div > p { font-size: 18px; }
+  .summary-card > p, .project-subtitle, .contribution p,
+  .pillar-card > p, .stack-card > p, .section-description,
+  .detail-overview > div > p, .detail-contributions p,
+  .pipeline p, .metric-grid p, .improvements p,
+  .notes-content > p, .notes-content blockquote, .milestone-list p,
+  .experience-card p { font-size: 16px; line-height: 1.85; }
+  .summary-card, .hero > *, .detail-overview > *, .engineering-card-grid > *,
+  .timeline-layout > *, .summary-top > *, .snapshot-grid > * { min-width: 0; }
+  .summary-top, .summary-bottom, .architecture-heading, .engineering-card-bar > div { flex-wrap: wrap; }
+  .summary-evidence { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px 0; }
+  .summary-evidence span, .snapshot-grid span, .architecture-node { overflow-wrap: anywhere; }
+  .architecture-canvas, .detail-overview .architecture-canvas { height: auto; min-height: 370px; grid-template-rows: repeat(3, auto); }
+  .architecture-node { min-width: 0; min-height: 90px; }
+  .architecture-node > span { line-height: 1.6; }
+  .architecture-node small { line-height: 1.6; }
+  .architecture-heading .mono { white-space: normal; }
+  .section-heading { flex-wrap: wrap; }
+  .terminal-form input { font-size: 16px; min-width: 0; }
+  .terminal-output { flex-wrap: wrap; }
+  .terminal-form label { flex-shrink: 0; }
+  .snapshot-grid strong { font-size: 30px; }
+}
+@media screen and (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; gap: 32px; }
+  .snapshot { max-width: 700px; }
+  .pillar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .engineering-card-grid { grid-template-columns: 1fr; }
+  .header-inner { gap: 14px; }
+  .wordmark small { display: none; }
+  .header-github { display: none; }
+  .navigation a { font-size: 14px; padding-inline: 10px; }
+}
+@media screen and (max-width: 900px) {
+  .mobile-toggle { display: grid; }
+  .navigation { display: none; position: absolute; top: calc(100% - 1px); left: 20px; right: 20px; flex-direction: column; gap: 4px; padding: 8px; background: var(--paper); box-shadow: 0 8px 20px #16335415; }
+  .navigation.is-open { display: flex; }
+  .navigation a { font-size: 16px; padding: 13px 14px; }
+  .timeline-layout { grid-template-columns: 1fr; }
+}
+@media screen and (max-width: 700px) {
+  .hero-description, .detail-hero > div > p { font-size: 17px; }
+  .summary-card h3 { font-size: 22px; }
+  .summary-grid, .pillar-grid { grid-template-columns: minmax(0, 1fr); }
+  .summary-bottom, .snapshot-bottom { gap: 12px; }
+  .snapshot-grid { gap: 10px; }
+  .snapshot-grid > div { padding: 14px 12px; }
+  .architecture-canvas { padding: 18px 12px; gap: 18px 12px; }
+  .architecture-node.node-2 { width: 85%; }
+  .project-facts { grid-template-columns: 1fr; }
+  .stack-grid:not(.stack-grid-four), .stack-grid-four { grid-template-columns: 1fr; }
+  .button, .button.small, .text-link { font-size: 14px; }
+  .wordmark { font-size: 17px; gap: 8px; }
+  .header-actions { gap: 6px; }
+  .summary-card { padding: 22px; }
+}

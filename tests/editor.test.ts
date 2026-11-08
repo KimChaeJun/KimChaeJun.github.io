@@ -35,6 +35,23 @@ const content = {
   experiences: [],
   copy: { hero: "아이디어를 서비스로" },
 };
+
+test("AI collaboration accepts legacy content and validates editable case fields", () => {
+  assert.ok(isPortfolioContent(content));
+  const ai = JSON.parse(readFileSync(new URL('../src/data/aiCollaboration.json', import.meta.url), 'utf8'));
+  const next = structuredClone(content);
+  next.projects[0].aiCollaboration = ai['119-ars'];
+  assert.ok(isPortfolioContent(next));
+  const edited = setText(next, ['projects', 0, 'aiCollaboration', 0, 'humanReview'], '직접 비교한 결과');
+  assert.equal(edited.projects[0].aiCollaboration[0].humanReview, '직접 비교한 결과');
+  assert.notEqual(next.projects[0].aiCollaboration[0].humanReview, '직접 비교한 결과');
+  assert.ok(textFields(next).some(field => field.path.includes('aiCollaboration')));
+  for (const bad of [null, {}, [{title:'missing fields'}], [{...ai['119-ars'][0], tools: ['Codex']}]]) {
+    const invalid = structuredClone(next);
+    invalid.projects[0].aiCollaboration = bad;
+    assert.equal(isPortfolioContent(invalid), false);
+  }
+});
 test("8 verified records preserve unknown role, period, award and metrics", () => {
   assert.equal(projects.length, 8);
   for (const p of projects) {

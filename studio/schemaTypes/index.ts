@@ -67,6 +67,7 @@ export const portfolioType = defineType({
                   stringList,
                 ),
                 list("roles", ["title", "description"]),
+                list("aiCollaboration", ["title", "tools", "stage", "problem", "approach", "humanReview", "outcome", "evidence"]),
                 {
                   name: "technologyStack",
                   type: "array",
@@ -110,6 +111,7 @@ export const portfolioType = defineType({
                   stringList,
                 ),
                 list("roles", ["title", "description"]),
+                list("aiCollaboration", ["title", "tools", "stage", "problem", "approach", "humanReview", "outcome", "evidence"]),
                 {
                   name: "technologyStack",
                   type: "array",

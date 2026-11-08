@@ -8,6 +8,7 @@ import {
 import { fallbackContent } from "./data/fallback";
 import { technologyStack, type TechnologyGroup } from "./data/engineering";
 import { TechnologyBadge } from "./components/TechnologyBadge";
+import { AIWorkbench, AICollaborationDetail, AICollaborationSummary } from "./components/AICollaboration";
 import { getRoleTags } from "./data/roleTags";
 import { type TimelineProject } from "./data/timelineProjects";
 import { getPortfolioContent, subscribePortfolio } from "./lib/sanity";
@@ -894,6 +895,7 @@ function ProjectSummary({ project }: { project: TimelineProject }) {
           상세 보기 <Icon name="arrow" />
         </a>
       </div>
+      <AICollaborationSummary project={project} />
     </article>
   );
 }
@@ -1069,6 +1071,10 @@ function notesMarkdown(project: TimelineProject) {
       project.technologyStack
         .map((g) => "- " + g.category + ": " + g.technologies.join(", "))
         .join("\n"),
+    project.aiCollaboration?.length
+      ? "## AI collaboration\n" + project.aiCollaboration.map(item =>
+        `### ${item.title}\n- 도구: ${item.tools}\n- 활용 단계: ${item.stage}\n- 문제 상황: ${item.problem}\n- AI와 진행한 작업: ${item.approach}\n- 나의 판단·검토: ${item.humanReview}\n- 결과와 한계: ${item.outcome}\n- 확인 근거: ${item.evidence}`
+      ).join("\n\n") : "",
     project.metrics.length
       ? "## Evidence\n" +
         project.metrics
@@ -1328,6 +1334,7 @@ function Home({
     <>
       <div className="page-width">
         <Hero profile={profile} projects={projects} />
+        <AIWorkbench projects={projects} />
         <section className="section">
           <SectionTitle
             label="PROJECTS / SELECTED RECORDS"
@@ -1639,6 +1646,7 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </div>
         </section>
       )}
+      <AICollaborationDetail project={project} />
       {project.technologyStack.length > 0 && (
         <section className="section">
           <SectionTitle

@@ -1,8 +1,21 @@
 import { developerRole, technologyStack, type TechnologyGroup } from './engineering'
 import { lyrikanaProject } from './lyrikana'
 import verifiedProjects from './verifiedProjects.json'
+import aiCollaboration from './aiCollaboration.json'
+
+export interface AICollaborationCase {
+  title: string
+  tools: string
+  stage: string
+  problem: string
+  approach: string
+  humanReview: string
+  outcome: string
+  evidence: string
+}
 
 export interface TimelineProject {
+  aiCollaboration?: AICollaborationCase[]
   timelineBasis?: string
   slug: string
   title: string
@@ -24,7 +37,7 @@ export interface TimelineProject {
   timeline: Array<{ date: string; title: string; description: string }>
 }
 
-export const timelineProjects: TimelineProject[] = [
+const projects: TimelineProject[] = [
   {
     slug: 'sanjae-oneshot',
     title: '산재원샷',
@@ -85,3 +98,8 @@ export const timelineProjects: TimelineProject[] = [
   { ...lyrikanaProject, timelineBasis: 'code' },
   ...verifiedProjects,
 ]
+
+export const timelineProjects: TimelineProject[] = projects.map(project => ({
+  ...project,
+  aiCollaboration: (aiCollaboration as Record<string, AICollaborationCase[]>)[project.slug] ?? [],
+}))

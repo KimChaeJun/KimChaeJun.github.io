@@ -80,6 +80,12 @@ export function isPortfolioContent(value: unknown): boolean {
     if (!/^[a-z0-9-]+$/.test(project.slug as string) || slugs.has(project.slug))
       return false;
     slugs.add(project.slug);
+    if (project.aiCollaboration !== undefined && (
+      !Array.isArray(project.aiCollaboration) || project.aiCollaboration.length > 30 ||
+      !project.aiCollaboration.every(item => record(item) &&
+        ["title", "tools", "stage", "problem", "approach", "humanReview", "outcome", "evidence"]
+          .every(key => typeof item[key] === "string" && item[key].length <= 12000))
+    )) return false;
     for (const key of ["summaryLines", "overviewLines", "tags", "roleTags"]) {
       if (
         !Array.isArray(project[key]) ||

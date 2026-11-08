@@ -6,7 +6,7 @@
   background: #edf2f8;
   color: #233a51;
   font:
-    14px/1.6 system-ui,
+    16px/1.6 system-ui,
     sans-serif;
 }
 .cms-toolbar {
@@ -24,7 +24,7 @@
 }
 .cms-toolbar span {
   color: #63798d;
-  font-size: 12px;
+  font-size: 16px;
 }
 .cms-actions {
   display: flex;
@@ -75,7 +75,7 @@
   margin: 0 0 8px;
 }
 .cms-sidebar p {
-  font-size: 13px;
+  font-size: 16px;
 }
 .cms-sidebar label {
   display: block;
@@ -90,7 +90,7 @@
 }
 .cms-sidebar textarea {
   font:
-    14px/1.8 system-ui,
+    16px/1.8 system-ui,
     sans-serif;
   color: #233a51;
   border: 1px solid #b9cddd;
@@ -102,7 +102,7 @@
 .cms-sidebar small {
   display: block;
   color: #718397;
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 10px;
 }
 .cms-editor :focus-visible {
@@ -136,7 +136,7 @@
   gap: 8px;
 }
 .cms-preview-toolbar label {
-  font-size: 12px;
+  font-size: 16px;
 }
 .cms-preview-toolbar select {
   margin-left: 8px;
@@ -157,7 +157,7 @@
   max-width: 100%;
 }
 .cms-reload {
-  font-size: 12px !important;
+  font-size: 16px !important;
   margin-top: 15px;
 }
 @media (max-width: 850px) {
@@ -200,7 +200,7 @@
   padding: 12px;
 }
 .cms-role-tags legend {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 650;
 }
 .cms-role-tags label {
@@ -208,7 +208,7 @@
   gap: 8px;
   align-items: center;
   margin: 6px 0;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .cms-mode-tabs {
@@ -220,7 +220,7 @@
 }
 .cms-mode-tabs button {
   flex: 1;
-  font-size: 12px;
+  font-size: 16px;
   padding: 8px;
 }
 .cms-mode-tabs button[aria-selected="true"] {
@@ -236,7 +236,7 @@
   gap: 10px;
 }
 .cms-manager-heading span {
-  font-size: 11px;
+  font-size: 14px;
   white-space: nowrap;
   color: #63798d;
 }
@@ -265,7 +265,7 @@
   gap: 9px;
 }
 .cms-order {
-  font-size: 11px;
+  font-size: 14px;
   color: #66809a;
   min-width: 16px;
   line-height: 28px;
@@ -274,7 +274,7 @@
   border: 0;
   padding: 3px 0;
   background: transparent;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 650;
   text-align: left;
   overflow-wrap: anywhere;
@@ -286,7 +286,7 @@
   margin-top: 10px;
 }
 .cms-row-actions button {
-  font-size: 11px;
+  font-size: 14px;
   padding: 5px 8px;
 }
 .cms-project-manager .cms-delete {
@@ -299,7 +299,7 @@
   padding-top: 8px;
 }
 .cms-delete-confirm p {
-  font-size: 12px;
+  font-size: 16px;
 }
 .cms-project-form {
   padding: 14px;
@@ -309,10 +309,10 @@
 }
 .cms-project-form h3 {
   margin: 0;
-  font-size: 15px;
+  font-size: 18px;
 }
 .cms-project-form label {
-  font-size: 12px;
+  font-size: 16px;
   margin-top: 14px;
 }
 .cms-project-form input {
@@ -325,11 +325,11 @@
   background: #fff;
   color: #233a51;
   font: inherit;
-  font-size: 13px;
+  font-size: 16px;
 }
 .cms-project-form textarea {
   min-height: 120px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .cms-trash {
   border-top: 1px solid #d9e3ee;
@@ -341,7 +341,7 @@
   font-weight: 650;
 }
 .cms-trash p {
-  font-size: 12px;
+  font-size: 16px;
   color: #63798d;
 }
 .cms-trash-row {
@@ -350,17 +350,17 @@
   justify-content: space-between;
   gap: 8px;
   padding: 9px 0;
-  font-size: 12px;
+  font-size: 16px;
 }
 .cms-trash-row span {
   overflow-wrap: anywhere;
 }
 .cms-trash-row button {
-  font-size: 11px;
+  font-size: 14px;
   padding: 5px 9px;
 }
 .cms-form-note,
 .cms-empty {
-  font-size: 12px;
+  font-size: 16px;
   color: #63798d;
 }
