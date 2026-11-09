@@ -10,7 +10,7 @@
     "studio:dev": "npm --prefix studio run dev",
     "studio:deploy": "npm --prefix studio run deploy",
     "build:site": "tsc -b && vite build",
-    "studio:check": "tsc --noEmit -p studio/tsconfig.json",
+    "studio:check": "tsc --noEmit -p studio/tsconfig.json && npm --prefix studio run schema:check",
     "studio:build": "npm --prefix studio run build -- ../dist/admin --yes",
     "test": "node --experimental-strip-types --test tests/editor.test.ts tests/media.test.ts"
   },

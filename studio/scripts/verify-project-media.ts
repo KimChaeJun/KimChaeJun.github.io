@@ -44,7 +44,7 @@ async function main() {
       title: "검증용 이미지",
       description: "업로드·저장 검증",
       alt: "테스트 패턴",
-      asset: { _type: "reference", _ref: image._id },
+      image: { _type: "image", asset: { _type: "reference", _ref: image._id } },
     };
     const videoItem: ProjectMedia = {
       _key: "qa-video",
@@ -53,7 +53,7 @@ async function main() {
       title: "검증용 영상",
       description: "업로드·재생 검증",
       alt: "꽃 영상",
-      asset: { _type: "reference", _ref: video._id },
+      video: { _type: "file", asset: { _type: "reference", _ref: video._id } },
     };
     let content = upsertProjectMedia(
       upsertProjectMedia(base, base.projects[0].slug, imageItem),

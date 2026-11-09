@@ -89,7 +89,10 @@ export function MediaManager({
     onUploading(true);
     try {
       let src = input.src.trim(),
-        asset = editing?.src === src ? editing.asset : undefined;
+        asset =
+          editing?.src === src && editing.kind === input.kind
+            ? (editing.image?.asset ?? editing.video?.asset)
+            : undefined;
       if (file) {
         validateMediaFile(file, input.kind);
         const uploaded = await upload(file, input.kind);
@@ -105,7 +108,11 @@ export function MediaManager({
         title: input.title.trim(),
         alt: input.alt.trim(),
         _key: editing?._key ?? "media-" + crypto.randomUUID(),
-        ...(asset ? { asset } : {}),
+        ...(asset
+          ? input.kind === "image"
+            ? { image: { _type: "image" as const, asset } }
+            : { video: { _type: "file" as const, asset } }
+          : {}),
       };
       const next = upsertProjectMedia(content, project.slug, item);
       onChange(next, "자료를 미리보기에 반영했습니다. 확인 후 발행해 주세요.");

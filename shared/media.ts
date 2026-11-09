@@ -5,7 +5,8 @@ export interface ProjectMedia {
   title: string;
   description: string;
   alt: string;
-  asset?: { _type: "reference"; _ref: string };
+  image?: { _type: "image"; asset: { _type: "reference"; _ref: string } };
+  video?: { _type: "file"; asset: { _type: "reference"; _ref: string } };
 }
 export const MAX_MEDIA = 40;
 export function safeMediaUrl(value: unknown): value is string {
@@ -55,11 +56,19 @@ export function validProjectMedia(value: unknown): value is ProjectMedia[] {
     )
       return false;
     if (!item.title.trim() || !item.alt.trim()) return false;
-    return (
-      item.asset === undefined ||
-      (item.asset?._type === "reference" &&
-        /^(image|file)-[a-zA-Z0-9-]+$/.test(item.asset._ref))
-    );
+    if (item.asset !== undefined) return false;
+    return ["image", "video"].every((kind) => {
+      const wrapper = item[kind];
+      return (
+        wrapper === undefined ||
+        (item.kind === kind &&
+          wrapper?._type === (kind === "image" ? "image" : "file") &&
+          wrapper.asset?._type === "reference" &&
+          new RegExp(
+            "^" + (kind === "image" ? "image" : "file") + "-[a-zA-Z0-9-]+$",
+          ).test(wrapper.asset._ref))
+      );
+    });
   });
 }
 type MediaContent = {

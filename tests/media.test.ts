@@ -71,6 +71,54 @@ test("legacy content and empty media stay valid; malformed lists are rejected", 
     );
   }
 });
+test("Sanity image and video wrappers match their media kind", () => {
+  assert.ok(
+    validProjectMedia([
+      {
+        ...one,
+        image: {
+          _type: "image",
+          asset: { _type: "reference", _ref: "image-abcd-96x64-png" },
+        },
+      },
+    ]),
+  );
+  assert.ok(
+    validProjectMedia([
+      {
+        ...two,
+        video: {
+          _type: "file",
+          asset: { _type: "reference", _ref: "file-abcd-mp4" },
+        },
+      },
+    ]),
+  );
+  assert.equal(
+    validProjectMedia([
+      {
+        ...one,
+        image: {
+          _type: "image",
+          asset: { _type: "reference", _ref: "portfolio" },
+        },
+      },
+    ]),
+    false,
+  );
+  assert.equal(
+    validProjectMedia([
+      {
+        ...two,
+        image: {
+          _type: "image",
+          asset: { _type: "reference", _ref: "image-abcd-96x64-png" },
+        },
+      },
+    ]),
+    false,
+  );
+});
 test("media URLs reject executable schemes, credentials, traversal and protocol-relative URLs", () => {
   for (const url of [
     "javascript:alert(1)",
