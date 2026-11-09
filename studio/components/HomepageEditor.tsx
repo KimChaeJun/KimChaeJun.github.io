@@ -1,3 +1,4 @@
+import { MediaManager } from "./MediaManager";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useClient, useCurrentUser } from "sanity";
 import { cmsConfig } from "../../src/lib/cmsConfig";
@@ -89,11 +90,14 @@ export function HomepageEditor() {
   const [group, setGroup] = useState("profile");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [working, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const busy = working || uploading;
+  const [mediaFormPending, setMediaFormPending] = useState(false);
   const [text, setTextInput] = useState("");
   const [route, setRoute] = useState("/");
   const [mobile, setMobile] = useState(false);
-  const [mode, setMode] = useState<"text" | "projects">("text");
+  const [mode, setMode] = useState<"text" | "projects" | "media">("text");
   const [projectFormPending, setProjectFormPending] = useState(false);
   const [managerVersion, setManagerVersion] = useState(0);
   const [previewVersion, setPreviewVersion] = useState(0);
@@ -147,6 +151,7 @@ export function HomepageEditor() {
         return;
       if (event.data?.type === "portfolio:ready") preview();
       if (event.data?.type === "portfolio:select") {
+        if (busy || mediaFormPending || projectFormPending) return;
         const id = fieldId(event.data.path);
         const match = fields.find((f) => fieldId(f.path) === id);
         if (match) {
@@ -168,17 +173,17 @@ export function HomepageEditor() {
     };
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
-  }, [preview, fields, draft]);
+  }, [preview, fields, draft, busy, mediaFormPending, projectFormPending]);
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
-      if (dirty || projectFormPending) {
+      if (dirty || projectFormPending || mediaFormPending) {
         event.preventDefault();
         event.returnValue = "";
       }
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
-  }, [dirty, projectFormPending]);
+  }, [dirty, projectFormPending, mediaFormPending]);
   function change(value: string) {
     setTextInput(value);
     setError("");
@@ -191,7 +196,15 @@ export function HomepageEditor() {
     }
   }
   async function publish() {
-    if (!saved || !draft || !dirty || error || projectFormPending) return;
+    if (
+      !saved ||
+      !draft ||
+      !dirty ||
+      error ||
+      projectFormPending ||
+      mediaFormPending
+    )
+      return;
     setBusy(true);
     setError("");
     try {
@@ -304,12 +317,15 @@ export function HomepageEditor() {
             사이트 열기 ↗
           </a>
           <button
-            disabled={busy || (!dirty && !projectFormPending)}
+            disabled={
+              busy || (!dirty && !projectFormPending && !mediaFormPending)
+            }
             onClick={() => {
               if (saved) {
                 applyProjects(saved.content, "발행 전 변경을 취소했습니다.");
                 setManagerVersion((v) => v + 1);
                 setProjectFormPending(false);
+                setMediaFormPending(false);
                 setError("");
                 setStatus("발행 전 변경을 취소했습니다.");
               }
@@ -319,7 +335,13 @@ export function HomepageEditor() {
           </button>
           <button
             className="cms-publish"
-            disabled={busy || !dirty || !!error || projectFormPending}
+            disabled={
+              busy ||
+              !dirty ||
+              !!error ||
+              projectFormPending ||
+              mediaFormPending
+            }
             onClick={publish}
           >
             {busy ? "처리 중…" : "발행"}
@@ -338,6 +360,7 @@ export function HomepageEditor() {
               id="cms-text-tab"
               aria-selected={mode === "text"}
               aria-controls="cms-text-panel"
+              disabled={busy || mediaFormPending || projectFormPending}
               onClick={() => setMode("text")}
             >
               문구 편집
@@ -347,10 +370,47 @@ export function HomepageEditor() {
               id="cms-projects-tab"
               aria-selected={mode === "projects"}
               aria-controls="cms-projects-panel"
+              disabled={busy || mediaFormPending || projectFormPending}
               onClick={() => setMode("projects")}
             >
               프로젝트 관리
             </button>
+            <button
+              role="tab"
+              id="cms-media-tab"
+              aria-selected={mode === "media"}
+              aria-controls="cms-media-panel"
+              disabled={busy || mediaFormPending || projectFormPending}
+              onClick={() => setMode("media")}
+            >
+              이미지·영상
+            </button>
+          </div>
+          <div
+            role="tabpanel"
+            id="cms-media-panel"
+            aria-labelledby="cms-media-tab"
+            hidden={mode !== "media"}
+          >
+            {draft && (
+              <MediaManager
+                key={managerVersion}
+                content={draft}
+                disabled={busy}
+                onChange={applyProjects}
+                onRoute={setRoute}
+                onPending={setMediaFormPending}
+                onUploading={setUploading}
+                upload={async (file, kind) => {
+                  const asset = await client.assets.upload(
+                    kind === "image" ? "image" : "file",
+                    file,
+                    { filename: file.name, contentType: file.type },
+                  );
+                  return { url: asset.url, _id: asset._id };
+                }}
+              />
+            )}
           </div>
           <div
             role="tabpanel"
@@ -464,9 +524,9 @@ export function HomepageEditor() {
               </>
             )}
           </div>
-          {projectFormPending && (
+          {(projectFormPending || mediaFormPending) && (
             <p className="cms-form-note">
-              작성 중인 프로젝트를 추가하거나 취소한 뒤 발행해 주세요.
+              작성 중인 프로젝트·자료를 반영하거나 입력 취소한 뒤 발행해 주세요.
             </p>
           )}
           {error && (
@@ -479,7 +539,7 @@ export function HomepageEditor() {
           </p>
           <button
             className="cms-reload"
-            disabled={busy || dirty || projectFormPending}
+            disabled={busy || dirty || projectFormPending || mediaFormPending}
             onClick={load}
           >
             최신 콘텐츠 다시 불러오기

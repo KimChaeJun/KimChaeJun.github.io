@@ -364,3 +364,80 @@
   font-size: 16px;
   color: #63798d;
 }
+
+.cms-body {
+  grid-template-columns: 360px minmax(0, 1fr);
+}
+.cms-mode-tabs {
+  flex-wrap: wrap;
+}
+.cms-mode-tabs button {
+  font-size: 14px;
+  white-space: nowrap;
+}
+.cms-media-manager .cms-add-project {
+  width: 100%;
+  margin: 16px 0;
+  border-style: dashed;
+  color: #2459df;
+}
+.cms-media-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.cms-media-fields small {
+  display: block;
+  margin-top: 6px;
+}
+.cms-media-fields input[type="file"] {
+  padding: 8px;
+  font-size: 14px;
+}
+.cms-media-list > li > img,
+.cms-media-list > li > video {
+  display: block;
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  background: #edf2f8;
+  border-radius: 5px;
+}
+.cms-media-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 12px;
+}
+.cms-media-heading strong {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.cms-cover-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  background: #e3eeff;
+  color: #2459df;
+  font-size: 12px;
+}
+.cms-media-list p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+.cms-media-list .cms-row-actions button {
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .cms-body {
+    grid-template-columns: 1fr;
+  }
+  .cms-sidebar {
+    max-height: 52vh;
+  }
+  .cms-preview {
+    min-height: 45vh;
+  }
+}

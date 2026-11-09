@@ -12,7 +12,7 @@
     "build:site": "tsc -b && vite build",
     "studio:check": "tsc --noEmit -p studio/tsconfig.json",
     "studio:build": "npm --prefix studio run build -- ../dist/admin --yes",
-    "test": "node --experimental-strip-types --test tests/editor.test.ts"
+    "test": "node --experimental-strip-types --test tests/editor.test.ts tests/media.test.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.0.0",

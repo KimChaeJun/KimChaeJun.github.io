@@ -66,8 +66,45 @@ export const portfolioType = defineType({
                 ...["summaryLines", "overviewLines", "tags", "roleTags"].map(
                   stringList,
                 ),
+                {
+                  name: "media",
+                  title: "이미지·영상",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      name: "projectMedia",
+                      fields: [
+                        {
+                          name: "kind",
+                          type: "string",
+                          options: { list: ["image", "video"] },
+                        },
+                        ...strings(["src", "title", "description", "alt"]),
+                        {
+                          name: "asset",
+                          type: "reference",
+                          to: [
+                            { type: "sanity.imageAsset" },
+                            { type: "sanity.fileAsset" },
+                          ],
+                        },
+                      ],
+                      preview: { select: { title: "title", subtitle: "kind" } },
+                    },
+                  ],
+                },
                 list("roles", ["title", "description"]),
-                list("aiCollaboration", ["title", "tools", "stage", "problem", "approach", "humanReview", "outcome", "evidence"]),
+                list("aiCollaboration", [
+                  "title",
+                  "tools",
+                  "stage",
+                  "problem",
+                  "approach",
+                  "humanReview",
+                  "outcome",
+                  "evidence",
+                ]),
                 {
                   name: "technologyStack",
                   type: "array",
@@ -110,8 +147,45 @@ export const portfolioType = defineType({
                 ...["summaryLines", "overviewLines", "tags", "roleTags"].map(
                   stringList,
                 ),
+                {
+                  name: "media",
+                  title: "이미지·영상",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      name: "projectMedia",
+                      fields: [
+                        {
+                          name: "kind",
+                          type: "string",
+                          options: { list: ["image", "video"] },
+                        },
+                        ...strings(["src", "title", "description", "alt"]),
+                        {
+                          name: "asset",
+                          type: "reference",
+                          to: [
+                            { type: "sanity.imageAsset" },
+                            { type: "sanity.fileAsset" },
+                          ],
+                        },
+                      ],
+                      preview: { select: { title: "title", subtitle: "kind" } },
+                    },
+                  ],
+                },
                 list("roles", ["title", "description"]),
-                list("aiCollaboration", ["title", "tools", "stage", "problem", "approach", "humanReview", "outcome", "evidence"]),
+                list("aiCollaboration", [
+                  "title",
+                  "tools",
+                  "stage",
+                  "problem",
+                  "approach",
+                  "humanReview",
+                  "outcome",
+                  "evidence",
+                ]),
                 {
                   name: "technologyStack",
                   type: "array",

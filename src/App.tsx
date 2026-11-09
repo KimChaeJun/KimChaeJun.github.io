@@ -1,3 +1,4 @@
+import { ProjectIntro, ProjectShowcase } from "./components/ProjectShowcase";
 import {
   useCallback,
   useEffect,
@@ -8,7 +9,11 @@ import {
 import { fallbackContent } from "./data/fallback";
 import { technologyStack, type TechnologyGroup } from "./data/engineering";
 import { TechnologyBadge } from "./components/TechnologyBadge";
-import { AIWorkbench, AICollaborationDetail, AICollaborationSummary } from "./components/AICollaboration";
+import {
+  AIWorkbench,
+  AICollaborationDetail,
+  AICollaborationSummary,
+} from "./components/AICollaboration";
 import { getRoleTags } from "./data/roleTags";
 import { type TimelineProject } from "./data/timelineProjects";
 import { getPortfolioContent, subscribePortfolio } from "./lib/sanity";
@@ -1072,9 +1077,14 @@ function notesMarkdown(project: TimelineProject) {
         .map((g) => "- " + g.category + ": " + g.technologies.join(", "))
         .join("\n"),
     project.aiCollaboration?.length
-      ? "## AI collaboration\n" + project.aiCollaboration.map(item =>
-        `### ${item.title}\n- 도구: ${item.tools}\n- 활용 단계: ${item.stage}\n- 문제 상황: ${item.problem}\n- AI와 진행한 작업: ${item.approach}\n- 나의 판단·검토: ${item.humanReview}\n- 결과와 한계: ${item.outcome}\n- 확인 근거: ${item.evidence}`
-      ).join("\n\n") : "",
+      ? "## AI collaboration\n" +
+        project.aiCollaboration
+          .map(
+            (item) =>
+              `### ${item.title}\n- 도구: ${item.tools}\n- 활용 단계: ${item.stage}\n- 문제 상황: ${item.problem}\n- AI와 진행한 작업: ${item.approach}\n- 나의 판단·검토: ${item.humanReview}\n- 결과와 한계: ${item.outcome}\n- 확인 근거: ${item.evidence}`,
+          )
+          .join("\n\n")
+      : "",
     project.metrics.length
       ? "## Evidence\n" +
         project.metrics
@@ -1564,69 +1574,41 @@ function Projects({ projects }: { projects: TimelineProject[] }) {
 function ProjectDetail({ project }: { project: TimelineProject }) {
   return (
     <div
-      className={`page-width detail-page${project.slug === "lyrikana" ? " detail-mint" : ""}`}
+      className={`page-width detail-page project-story${project.slug === "lyrikana" ? " detail-mint" : ""}`}
     >
       <a className="back-link" href="#/projects">
         <Icon name="back" />
         프로젝트 목록
       </a>
-      <section className="detail-hero">
+
+      <ProjectIntro
+        project={project}
+        architecture={<Architecture project={project} />}
+        onDownload={() => downloadNotes(project)}
+      />
+      <ProjectShowcase project={project} />
+      <section className="story-overview" id="project-problem">
         <div>
-          <p className="eyebrow">
-            <Icon name="code" />
-            PROJECT DEEP DIVE{project.year ? " / " + project.year : ""}
-          </p>
-          <h1>
-            <Editable scope={project.slug} value={project.title} />
-            <span className="blue-dot">.</span>
-          </h1>
-          <p>
-            <Editable scope={project.slug} value={project.subtitle} />
-          </p>
-          <Roles role={project.role} tags={project.roleTags} />
+          <p className="eyebrow">PROBLEM & APPROACH</p>
+          <h2>
+            어떤 문제를
+            <br />
+            해결했나요?
+          </h2>
         </div>
-        <div className="detail-meta">
-          {project.award && (
-            <Badge mint>
-              <Editable scope={project.slug} value={project.award} />
-            </Badge>
-          )}
-          {project.period && (
-            <span className="mono">
-              <Editable scope={project.slug} value={project.period} />
-            </span>
-          )}
-          <button
-            className="button small"
-            onClick={() => downloadNotes(project)}
-          >
-            <Icon name="download" />
-            프로젝트 기록 .md
-          </button>
-        </div>
-      </section>
-      <section className="detail-overview">
-        <div>
-          <p className="eyebrow">01 / PROBLEM & APPROACH</p>
-          <h2>어떤 문제를 해결했나요?</h2>
+        <div className="story-overview-copy">
           {project.overviewLines.map((line) => (
             <p key={line}>
               <Editable scope={project.slug} value={line} />
             </p>
           ))}
-          <div className="tag-list">
-            {project.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </div>
         </div>
-        <Architecture project={project} />
       </section>
       {project.roles.length > 0 && (
         <section className="section">
           <SectionTitle
-            label="02 / ROLE & CONTRIBUTIONS"
-            title="서비스의 처음부터 끝까지, 직접 구현한 것"
+            label="ROLE & CONTRIBUTIONS"
+            title="직접 맡아 구현한 부분"
             icon="layers"
           />
           <div className="detail-role-grid">
@@ -1646,13 +1628,52 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </div>
         </section>
       )}
-      <AICollaborationDetail project={project} />
-      {project.technologyStack.length > 0 && (
+      {project.improvements.length > 0 && (
         <section className="section">
           <SectionTitle
-            label="03 / TECHNOLOGY IN CONTEXT"
+            label="PROBLEM SOLVING / ITERATION & VERIFICATION"
+            title="막히는 순간을 더 나은 흐름으로"
+            icon="shield"
+          />
+          <div className="improvements">
+            {project.improvements.map((item) => (
+              <article key={item.after}>
+                <div className="before">
+                  <span className="micro-label">BEFORE</span>
+                  <p>
+                    <Editable scope={project.slug} value={item.before} />
+                  </p>
+                </div>
+                <div className="improvement-arrow">
+                  <Icon name="arrow" />
+                </div>
+                <div className="after">
+                  <span className="micro-label">AFTER</span>
+                  <h3>
+                    <Editable scope={project.slug} value={item.after} />
+                  </h3>
+                  <p>
+                    <Icon name="check" />
+                    <Editable scope={project.slug} value={item.evidence} />
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+      <div id="project-ai">
+        <AICollaborationDetail project={project} />
+      </div>
+      {project.technologyStack.length > 0 && (
+        <section className="section" id="project-technology">
+          <SectionTitle
+            label="TECHNOLOGY IN CONTEXT"
             title="이 프로젝트에 사용한 기술"
           />
+          <div className="story-technical">
+            <Architecture project={project} />
+          </div>
           <Stack groups={project.technologyStack} />
         </section>
       )}
@@ -1687,7 +1708,7 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
       {project.pipeline.length > 0 && (
         <section className="section">
           <SectionTitle
-            label="04 / HOW IT WORKS"
+            label="HOW IT WORKS"
             title="사용자 경험을 연결하는 처리 흐름"
             icon="branch"
           />
@@ -1708,44 +1729,10 @@ function ProjectDetail({ project }: { project: TimelineProject }) {
           </ol>
         </section>
       )}
-      {project.improvements.length > 0 && (
-        <section className="section">
-          <SectionTitle
-            label="05 / ITERATION & VERIFICATION"
-            title="막히는 순간을 더 나은 흐름으로"
-            icon="shield"
-          />
-          <div className="improvements">
-            {project.improvements.map((item) => (
-              <article key={item.after}>
-                <div className="before">
-                  <span className="micro-label">BEFORE</span>
-                  <p>
-                    <Editable scope={project.slug} value={item.before} />
-                  </p>
-                </div>
-                <div className="improvement-arrow">
-                  <Icon name="arrow" />
-                </div>
-                <div className="after">
-                  <span className="micro-label">AFTER</span>
-                  <h3>
-                    <Editable scope={project.slug} value={item.after} />
-                  </h3>
-                  <p>
-                    <Icon name="check" />
-                    <Editable scope={project.slug} value={item.evidence} />
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
       {project.timeline.length > 0 && (
-        <section className="section detail-timeline">
+        <section className="section detail-timeline" id="project-history">
           <SectionTitle
-            label="06 / PROJECT MILESTONES"
+            label="PROJECT MILESTONES"
             title="만들고, 확인하고, 다시 다듬은 기록"
             icon="branch"
           />
@@ -2013,9 +2000,11 @@ function App() {
         onCommand={() => setCommandOpen(true)}
       />
       <main id="main-content" tabIndex={-1}>
-        <div className="terminal-shell page-width">
-          <Terminal route={route} />
-        </div>
+        {!slug && (
+          <div className="terminal-shell page-width">
+            <Terminal route={route} />
+          </div>
+        )}
         {loadState !== "ready" ? (
           <section className="page-width not-found" role="status">
             <p>

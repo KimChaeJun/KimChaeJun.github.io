@@ -1,0 +1,52 @@
+{
+  "sanjae-oneshot": [
+    {
+      "_key": "product-dashboard",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-dashboard.svg",
+      "title": "신청 현황을 한눈에",
+      "description": "신청 대시보드에서 진행 중인 신청을 확인하고, 이전에 작성하던 단계부터 이어갑니다.",
+      "alt": "산재원샷 신청 대시보드와 이어서 작성 버튼"
+    },
+    {
+      "_key": "product-step1",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-step1.svg",
+      "title": "쉬운 질문으로 정보를 정리합니다",
+      "description": "신청인·사업장·사고 정보를 차례로 입력합니다. 복잡한 신청 준비를 단계별 질문으로 나눴습니다.",
+      "alt": "신청인과 사고 정보를 입력하는 산재원샷 화면"
+    },
+    {
+      "_key": "product-step2",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-step2.svg",
+      "title": "증빙을 올리고 내용을 확인합니다",
+      "description": "문서를 업로드하고 OCR로 읽은 내용을 확인합니다. 입력한 사실과 증빙을 함께 검토할 수 있도록 연결했습니다.",
+      "alt": "증빙 업로드와 OCR 인식 내용을 확인하는 산재원샷 화면"
+    },
+    {
+      "_key": "product-step3",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-step3.svg",
+      "title": "AI 초안을 직접 검토합니다",
+      "description": "AI가 작성한 사고경위서 초안을 읽고 사실과 다른 부분을 확인합니다. 사용자가 검토하고 수정한 내용을 다음 단계로 전달합니다.",
+      "alt": "AI가 생성한 사고경위서를 검토하는 산재원샷 화면"
+    },
+    {
+      "_key": "product-step4",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-step4.svg",
+      "title": "제출할 문서를 한곳에 모읍니다",
+      "description": "최종 확인한 정보를 PDF와 ZIP 패키지로 연결합니다. 입력부터 문서 생성까지 하나의 흐름에서 이어집니다.",
+      "alt": "산재원샷의 최종 문서와 PDF·ZIP 준비 화면"
+    },
+    {
+      "_key": "product-ai-review",
+      "kind": "image",
+      "src": "/media/sanjae-oneshot/product-ai-review.svg",
+      "title": "빠진 사실까지 다시 살펴봅니다",
+      "description": "날짜·장소·작업 내용 같은 핵심 사실을 초안과 대조하고 보완할 항목을 확인합니다.",
+      "alt": "AI 사고경위서 초안과 사실 일치 검토를 보여주는 산재원샷 화면"
+    }
+  ]
+}
