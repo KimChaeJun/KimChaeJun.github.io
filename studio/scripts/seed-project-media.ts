@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 import { getCliClient } from "sanity/cli";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { cmsConfig } from "../../src/lib/cmsConfig";
@@ -55,14 +56,14 @@ async function main() {
   const reviewed = JSON.parse(
     readFileSync("../.project-showcase.local/cms-plan.json", "utf8"),
   );
-  if (JSON.stringify(plan) !== JSON.stringify(reviewed))
+  if (!isDeepStrictEqual(plan, reviewed))
     throw Error("Review changed content again");
   const result = await client
     .patch(cmsConfig.documentId)
     .ifRevisionId(doc._rev)
     .set(sets)
     .commit();
-  if (JSON.stringify(result.content) !== JSON.stringify(next))
+  if (!isDeepStrictEqual(result.content, next))
     throw Error("Unexpected content after publication");
   writeFileSync(
     "../.project-showcase.local/cms-after.json",
