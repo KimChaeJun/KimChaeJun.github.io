@@ -114,7 +114,7 @@
   width: 100%;
   height: auto;
   max-height: 720px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: top;
   background: #f8fafc;
 }
@@ -436,4 +436,9 @@
   max-width: 560px;
   font-size: 14px;
   line-height: 1.8;
+}
+
+.story-roles:empty,
+.story-facts:empty {
+  display: none;
 }

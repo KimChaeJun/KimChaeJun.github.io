@@ -19,7 +19,7 @@ export function MediaFrame({
       <div className="showcase-browser" aria-hidden="true">
         <span>● ● ●</span>
         <span>
-          {item.kind === "video" ? "PRODUCT WALKTHROUGH" : "PRODUCT SCREEN"}
+          {item.kind === "video" ? "PROJECT WALKTHROUGH" : "PROJECT MEDIA"}
         </span>
         <span>↗</span>
       </div>
@@ -97,14 +97,12 @@ export function ProjectIntro({
   const media = project.media ?? [],
     lead = media[0];
   const scroll = (id: string) =>
-    document
-      .getElementById(id)
-      ?.scrollIntoView({
-        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-        block: "start",
-      });
+    document.getElementById(id)?.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+      block: "start",
+    });
   return (
     <>
       <section className={"story-hero" + (lead ? " story-has-media" : "")}>
@@ -146,7 +144,7 @@ export function ProjectIntro({
                 className="button primary"
                 onClick={() => scroll("project-screens")}
               >
-                작동 화면 보기 ↓
+                화면·결과 보기 ↓
               </button>
             )}
             <button className="button" onClick={onDownload}>
@@ -173,7 +171,7 @@ export function ProjectIntro({
       <nav className="story-nav" aria-label="프로젝트 상세 목차">
         <span>EXPLORE PROJECT</span>
         {media.length > 1 && (
-          <button onClick={() => scroll("project-screens")}>작동 화면</button>
+          <button onClick={() => scroll("project-screens")}>화면·결과</button>
         )}
         <button onClick={() => scroll("project-problem")}>문제와 접근</button>
         {!!project.aiCollaboration?.length && (
@@ -202,11 +200,11 @@ export function ProjectShowcase({ project }: { project: TimelineProject }) {
     >
       <div className="story-section-heading">
         <div>
-          <p className="eyebrow">THE PRODUCT IN ACTION</p>
-          <h2 id="project-screens-heading">화면으로 따라가는 사용 경험</h2>
+          <p className="eyebrow">PROJECT VISUALS</p>
+          <h2 id="project-screens-heading">화면과 결과로 보는 프로젝트</h2>
         </div>
         <p>
-          각 화면에 담긴 기능과 흐름을 살펴보세요.
+          각 자료에 담긴 기능과 결과를 살펴보세요.
           <br />
           이미지를 누르면 크게 볼 수 있습니다.
         </p>
@@ -219,7 +217,7 @@ export function ProjectShowcase({ project }: { project: TimelineProject }) {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <p className="eyebrow">
-                {item.kind === "video" ? "WALKTHROUGH" : "SCREEN STORY"}
+                {item.kind === "video" ? "WALKTHROUGH" : "VISUAL STORY"}
               </p>
               <h3>{item.title}</h3>
               <p>{item.description}</p>

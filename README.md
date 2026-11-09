@@ -94,3 +94,9 @@ npx sanity exec scripts/seed.ts --with-user-token
 프로젝트의 media 배열은 순서를 보존하며 명시적인 빈 배열도 그대로 반영합니다. 구조 변경은 전용 편집기를 이용합니다. 미디어가 등록된 프로젝트의 보관·복원은 자료를 함께 보존합니다. seed-project-media.ts는 기존 media 필드가 없는 산재원샷에만 검토된 자료 6종을 추가하며 기존 문구·순서·보관함은 유지합니다.
 
 파일 저장은 [Sanity 공식 자산 API](https://www.sanity.io/docs/apis-and-sdks/js-client-assets)를 사용합니다. 브라우저 코드에 쓰기 토큰을 넣지 않습니다.
+
+### 저장소의 실제 화면 자료
+
+- `docs/project-media-checklist.md`: 확보한 화면과 프로젝트별 추가 촬영 목록.
+- `docs/project-media-sources.json`: 원본 저장소·커밋·파일 경로와 SHA 검증 기록.
+- `studio/scripts/import-repository-media.ts`: 현재 CMS의 기존 자료·순서·설명을 보존하며 검토한 자료만 추가. `studio`에서 `node node_modules/sanity/bin/sanity exec scripts/import-repository-media.ts --with-user-token`으로 반영안을 생성하고, 검토 후 같은 명령 뒤에 `-- --apply`를 붙여 반영합니다.

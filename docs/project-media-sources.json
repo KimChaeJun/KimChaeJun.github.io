@@ -1,0 +1,263 @@
+{
+  "checkedAt": "2026-11-09",
+  "items": [
+    {
+      "slug": "mini-bodycheck",
+      "key": "repo-health-dashboard",
+      "file": "public/media/mini-bodycheck/health-dashboard.png",
+      "repository": "KimChaeJun/mini_BodyCheck",
+      "commit": "8a6a4f51f55e641f5e2d2a74d3e4f3cbfbc23833",
+      "source": "assets/dashboard.png",
+      "blobSha": "0e62306703e478dbac637340bcf9ba11b6f3b461",
+      "sha256": "31135420f75b19b2fad90d5e9c28604368ef6bbdb9c7121773f6cd90b2ed0483",
+      "sourceUrl": "https://github.com/KimChaeJun/mini_BodyCheck/blob/8a6a4f51f55e641f5e2d2a74d3e4f3cbfbc23833/assets/dashboard.png"
+    },
+    {
+      "slug": "ai-healthcare-pjt1",
+      "key": "repo-bmi-notebook-output",
+      "file": "public/media/ai-healthcare-pjt1/bmi-notebook-output.png",
+      "repository": "KimChaeJun/AI_Healthcare_pjt1",
+      "commit": "2efa7aee68d7ec903acf4e2bcde32555bd4f7636",
+      "source": "dashboard-fe-vue/public/assets/cell30_03.png",
+      "blobSha": "3d91c14b52d577d1d67aa378972d0923a6570ae9",
+      "sha256": "38b0b37669216e0f9b3044b330d065f33092f90f814b6cd0332854f9bc29ea91",
+      "sourceUrl": "https://github.com/KimChaeJun/AI_Healthcare_pjt1/blob/2efa7aee68d7ec903acf4e2bcde32555bd4f7636/dashboard-fe-vue/public/assets/cell30_03.png"
+    },
+    {
+      "slug": "metabolic-check",
+      "key": "repo-lifestyle-shap",
+      "file": "public/media/metabolic-check/lifestyle-shap.png",
+      "repository": "KimChaeJun/minipjt_Metabolic_check",
+      "commit": "5f5695b2b034752434b274f2a9c79522f57d6e5e",
+      "source": "docs/life_style/shap_summary.png",
+      "blobSha": "4cb17a679b3266a5654e9e64fc800059d4330f33",
+      "sha256": "c6ec242bf678e7e17a0ea129cabdadd1b85df6695c44ca8eea2923ed319b0030",
+      "sourceUrl": "https://github.com/KimChaeJun/minipjt_Metabolic_check/blob/5f5695b2b034752434b274f2a9c79522f57d6e5e/docs/life_style/shap_summary.png"
+    },
+    {
+      "slug": "metabolic-check",
+      "key": "repo-lifestyle-roc",
+      "file": "public/media/metabolic-check/lifestyle-roc.png",
+      "repository": "KimChaeJun/minipjt_Metabolic_check",
+      "commit": "5f5695b2b034752434b274f2a9c79522f57d6e5e",
+      "source": "docs/life_style/roc_curve.png",
+      "blobSha": "73d8feec348e816a5e729b010e192d69660e8696",
+      "sha256": "9f4f18979f66400dbe301f578eb4a2add2bbd0b8cae310f8410b7fdb3407edee",
+      "sourceUrl": "https://github.com/KimChaeJun/minipjt_Metabolic_check/blob/5f5695b2b034752434b274f2a9c79522f57d6e5e/docs/life_style/roc_curve.png"
+    },
+    {
+      "slug": "metabolic-check",
+      "key": "repo-lifestyle-importance",
+      "file": "public/media/metabolic-check/lifestyle-importance.png",
+      "repository": "KimChaeJun/minipjt_Metabolic_check",
+      "commit": "5f5695b2b034752434b274f2a9c79522f57d6e5e",
+      "source": "docs/life_style/xgb_feature_importance.png",
+      "blobSha": "196331d5a2d580faf0564c5362b3d334d49cb070",
+      "sha256": "643347dfcde8439fe5077dacee8867d65c645e54f4d3c20e5884c56d31ed6a77",
+      "sourceUrl": "https://github.com/KimChaeJun/minipjt_Metabolic_check/blob/5f5695b2b034752434b274f2a9c79522f57d6e5e/docs/life_style/xgb_feature_importance.png"
+    },
+    {
+      "slug": "metabolic-check",
+      "key": "repo-checkup-importance",
+      "file": "public/media/metabolic-check/checkup-importance.png",
+      "repository": "KimChaeJun/minipjt_Metabolic_check",
+      "commit": "5f5695b2b034752434b274f2a9c79522f57d6e5e",
+      "source": "docs/with_HE/xgb_feature_importance.png",
+      "blobSha": "10335c376bef6567e5e5afefb1fb4503f5085d66",
+      "sha256": "771321e1aec8e27eddac9d34fa3d44de18f166cfb1843d4eb1527fa99e42c213",
+      "sourceUrl": "https://github.com/KimChaeJun/minipjt_Metabolic_check/blob/5f5695b2b034752434b274f2a9c79522f57d6e5e/docs/with_HE/xgb_feature_importance.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-patient-list",
+      "file": "public/media/oz-codingschool/patient-list.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/02_로그인_성공_환자목록.png",
+      "blobSha": "513da6efc8ba1fa8de46572be16b4167e09cccf4",
+      "sha256": "ffcbf099bd0dae78fb180ec7236af617aee718e44016a5a5e568170e3691b480",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/02_%EB%A1%9C%EA%B7%B8%EC%9D%B8_%EC%84%B1%EA%B3%B5_%ED%99%98%EC%9E%90%EB%AA%A9%EB%A1%9D.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-patient-filter",
+      "file": "public/media/oz-codingschool/patient-filter.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/05_환자_검색필터.png",
+      "blobSha": "a019d11b93173db89a507ca1ccc3e555831db6b2",
+      "sha256": "ac4763bbe487a0383b45f3e98c8500f56b4b92f33818b3ef482950339d659453",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/05_%ED%99%98%EC%9E%90_%EA%B2%80%EC%83%89%ED%95%84%ED%84%B0.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-patient-detail",
+      "file": "public/media/oz-codingschool/patient-detail.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/07_환자_상세.png",
+      "blobSha": "cf67783a6b5475934467a45f3a2860e70154deb7",
+      "sha256": "fcffdf1b9824485377d85a59830c68f8b768d4df1d5be594baa9ac219476e1e8",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/07_%ED%99%98%EC%9E%90_%EC%83%81%EC%84%B8.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-record-detail",
+      "file": "public/media/oz-codingschool/record-detail.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/10_진료기록_상세.png",
+      "blobSha": "b74810d35b0c2d36e2e673e9f1716a705003cd65",
+      "sha256": "45013cb1077ab00ae4ca19608f1f8f5871f76c679922b24bad4ec36923610a97",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/10_%EC%A7%84%EB%A3%8C%EA%B8%B0%EB%A1%9D_%EC%83%81%EC%84%B8.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-prediction-result",
+      "file": "public/media/oz-codingschool/prediction-result.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/12_AI_예측결과_조회.png",
+      "blobSha": "f544ac03ae615324e2d06674875d36eafd03bcfb",
+      "sha256": "41927d08fbb619352a24809d16088b69ae88d53eb89d2954412ab69f69c17f96",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/12_AI_%EC%98%88%EC%B8%A1%EA%B2%B0%EA%B3%BC_%EC%A1%B0%ED%9A%8C.png"
+    },
+    {
+      "slug": "oz-codingschool",
+      "key": "repo-admin-role",
+      "file": "public/media/oz-codingschool/admin-role.png",
+      "repository": "KimChaeJun/Oz_codingSchool",
+      "commit": "87da24d0ecee3037f1bcc879ea392d61dd24ddd6",
+      "source": "docs/images/day7/18_관리자_권한변경결과.png",
+      "blobSha": "2c7e201ece53109d78291e81766432faf8de6fec",
+      "sha256": "9c4dac48cf2bd9724d6d78a5d8b64181d9bf9251f473422544400a88bad1217d",
+      "sourceUrl": "https://github.com/KimChaeJun/Oz_codingSchool/blob/87da24d0ecee3037f1bcc879ea392d61dd24ddd6/docs/images/day7/18_%EA%B4%80%EB%A6%AC%EC%9E%90_%EA%B6%8C%ED%95%9C%EB%B3%80%EA%B2%BD%EA%B2%B0%EA%B3%BC.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-community-surveys",
+      "file": "public/media/pocket-ssafy/community-surveys.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image-11.png",
+      "blobSha": "0c284bf6386a1c04839f0f2d4fc5037a2b5c860f",
+      "sha256": "a2cb812619e76a51df1789f5ff66b54d8e74e07d71c0b5525afef1ffd4f7e35c",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image-11.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-meal-status",
+      "file": "public/media/pocket-ssafy/meal-status.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image-5.png",
+      "blobSha": "f84a15a1fbd04288f29f1531e6f38897f68ad955",
+      "sha256": "a2abeee47331cc22ee55e0a6dac0eda411bd2f9ecf9257d87543f0e17a3c41b6",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image-5.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-meal-editor",
+      "file": "public/media/pocket-ssafy/meal-editor.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image-8.png",
+      "blobSha": "927ea1c88c08a381c3d9ac9a4285405e99bde23b",
+      "sha256": "717648ccbb29b71bb38152cef1b7d2b72d5427c68bdb1cdf9e2c1f926285fde5",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image-8.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-chat",
+      "file": "public/media/pocket-ssafy/chat.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image-10.png",
+      "blobSha": "ef4944cad329d926fe973c263a6f50691d092f21",
+      "sha256": "a1fca10f6f3dfbaf828cf64c5be3965d641edcacae9c92964ed2825d288b5725",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image-10.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-post-detail",
+      "file": "public/media/pocket-ssafy/post-detail.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image-12.png",
+      "blobSha": "c7544e9a2a5b9c2e439f242c1d5dca60152c9cb5",
+      "sha256": "cc6470d3e488d6d8f35e6309b2a0563a9b4e6d520b52c3661244d3dbcc07a566",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image-12.png"
+    },
+    {
+      "slug": "pocket-ssafy",
+      "key": "repo-calendar",
+      "file": "public/media/pocket-ssafy/calendar.png",
+      "repository": "KimChaeJun/POCKET_SSAFY",
+      "commit": "6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca",
+      "source": "exec/images/image20.png",
+      "blobSha": "a494f2b369c26940ad904f3263c7ace6bc6724bf",
+      "sha256": "c10c0c3438743d39807eb63ea5b0c9f65d0a8094ac05af363216d45be736f096",
+      "sourceUrl": "https://github.com/KimChaeJun/POCKET_SSAFY/blob/6a89ba5dfb663b7df5ebd0e9ddc69d398744f0ca/exec/images/image20.png"
+    },
+    {
+      "slug": "spoany",
+      "key": "repo-movie-catalog",
+      "file": "public/media/spoany/movie-catalog.png",
+      "repository": "KimChaeJun/SPOANY",
+      "commit": "ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d",
+      "source": "exec/spoAny_포팅메뉴얼.pdf",
+      "blobSha": "8ae6c29eb8e0d046821441c3cfeaff84e3499613",
+      "pdfPage": 25,
+      "sha256": "59c8040826067fc4e6cd688bae243694ce2a47c433d099e8fbf3dbb9d7c5d3fa",
+      "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    },
+    {
+      "slug": "spoany",
+      "key": "repo-login",
+      "file": "public/media/spoany/login.png",
+      "repository": "KimChaeJun/SPOANY",
+      "commit": "ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d",
+      "source": "exec/spoAny_포팅메뉴얼.pdf",
+      "blobSha": "8ae6c29eb8e0d046821441c3cfeaff84e3499613",
+      "pdfPage": 25,
+      "sha256": "7c9ab71184e29858513ae2bf6a3ef7d1c9bffc32544ee7b4501f46d6233997af",
+      "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    },
+    {
+      "slug": "spoany",
+      "key": "repo-movie-detail",
+      "file": "public/media/spoany/movie-detail.png",
+      "repository": "KimChaeJun/SPOANY",
+      "commit": "ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d",
+      "source": "exec/spoAny_포팅메뉴얼.pdf",
+      "blobSha": "8ae6c29eb8e0d046821441c3cfeaff84e3499613",
+      "pdfPage": 26,
+      "sha256": "719c95c7253fb991e454104b98ca11a2886f7c914f6a293fd051118e594083fe",
+      "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    },
+    {
+      "slug": "spoany",
+      "key": "repo-review-editor",
+      "file": "public/media/spoany/review-editor.png",
+      "repository": "KimChaeJun/SPOANY",
+      "commit": "ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d",
+      "source": "exec/spoAny_포팅메뉴얼.pdf",
+      "blobSha": "8ae6c29eb8e0d046821441c3cfeaff84e3499613",
+      "pdfPage": 27,
+      "sha256": "9a142080485ff0ad73ed647b9a554ffce7e4e42a0d1af2ad17f5371c9cd034f4",
+      "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    },
+    {
+      "slug": "spoany",
+      "key": "repo-my-reviews",
+      "file": "public/media/spoany/my-reviews.png",
+      "repository": "KimChaeJun/SPOANY",
+      "commit": "ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d",
+      "source": "exec/spoAny_포팅메뉴얼.pdf",
+      "blobSha": "8ae6c29eb8e0d046821441c3cfeaff84e3499613",
+      "pdfPage": 27,
+      "sha256": "083ff1c2e31e7bb10d2f0b7478ec24161457fb61bdd93b2ccfaa9b0ff03f372d",
+      "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    }
+  ]
+}
