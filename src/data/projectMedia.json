@@ -244,5 +244,57 @@
       "description": "프로필과 작성한 리뷰를 한곳에서 확인하는 마이페이지 화면입니다. 원본 시연용 닉네임과 화면 구성을 그대로 보존했습니다.",
       "alt": "프로필 설정과 작성한 리뷰 목록을 보여주는 마이페이지"
     }
+  ],
+  "lyrikana": [
+    {
+      "_key": "runtime-overlay-korean",
+      "kind": "image",
+      "src": "/media/lyrikana/overlay-korean.jpg",
+      "title": "원문과 발음을 한 창에서 읽습니다",
+      "description": "실제 Electron 앱에 자작 시연 가사를 로컬 API로 전달해 촬영했습니다. 원문·일본어 읽기·한글 발음·다음 줄 표시를 확인했습니다. 이번 캡처의 검증 범위는 로컬 오버레이 표시이며, YouTube Music 연동 재생은 미검증입니다.",
+      "alt": "LyriKana 실제 데스크톱 창의 일본어 원문, 읽기, 한글 발음과 다음 줄"
+    },
+    {
+      "_key": "runtime-overlay-romanized",
+      "kind": "image",
+      "src": "/media/lyrikana/overlay-romanized.jpg",
+      "title": "발음 언어와 테마를 바꿉니다",
+      "description": "동일한 자작 시연문에 영문 발음 표시와 밝은 테마 설정을 적용한 실제 실행 창입니다. 로마자 문자열은 시연 입력으로 제공했으며, 표시 설정 반영을 확인했습니다.",
+      "alt": "밝은 테마의 LyriKana 실제 창에 표시된 일본어 읽기와 로마자 발음"
+    }
+  ],
+  "119-ars": [
+    {
+      "_key": "runtime-operator-connected",
+      "kind": "image",
+      "src": "/media/119-ars/operator-connected.jpg",
+      "title": "상황요원과 신고자를 연결합니다",
+      "description": "FastAPI와 Vue를 로컬 실행해 만든 데모 세션입니다. 신고자 연결과 1/4에서 2/4로의 단계 동기화를 확인했습니다. 화면의 추천율·위험도·출동 정보는 앱의 시연용 표시입니다.",
+      "alt": "데모 신고 내용과 연결 상태, 영상 선택 및 단계 제어가 보이는 119 ARS 상황요원 화면"
+    },
+    {
+      "_key": "runtime-session-form",
+      "kind": "image",
+      "src": "/media/119-ars/session-form.jpg",
+      "title": "신고 정보를 입력해 세션을 시작합니다",
+      "description": "시연용 전화번호·위치·전달 내용으로 실제 세션 생성 API를 호출한 접수 화면입니다. 별도의 테스트 DB를 사용했으며 문자 발송은 수행하지 않았습니다.",
+      "alt": "시연용 교육센터 위치와 테스트 문구가 입력된 119 ARS 신고 접수 양식"
+    },
+    {
+      "_key": "runtime-caller-video",
+      "kind": "image",
+      "src": "/media/119-ars/caller-video.jpg",
+      "title": "모바일 화면에서 같은 안내 단계를 봅니다",
+      "description": "신고자 링크를 모바일 너비 390px에서 열어 촬영했습니다. 실제 WebSocket 연결로 2/4 단계가 반영되고 로컬 안내 영상이 로드된 상태입니다. 실제 휴대폰·카메라 연결은 이번 검증에 포함하지 않았습니다.",
+      "alt": "실시간 연결 상태와 2/4 단계, 가슴압박 안내 영상이 표시된 119 ARS 신고자 모바일 화면"
+    },
+    {
+      "_key": "runtime-video-library",
+      "kind": "image",
+      "src": "/media/119-ars/video-library.jpg",
+      "title": "등록 영상을 한곳에서 관리합니다",
+      "description": "로컬 DB에 등록된 영상 7개와 영상 정보·타임라인 입력 양식을 보여주는 실제 관리 화면입니다. 이번 실행은 로컬 카탈로그를 사용했으며 중앙 저장소 연결과 새 파일 업로드는 미검증입니다.",
+      "alt": "119 ARS 영상관리의 등록 영상 목록과 업로드·타임라인 입력 양식"
+    }
   ]
 }

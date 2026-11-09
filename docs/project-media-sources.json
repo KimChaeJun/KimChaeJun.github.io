@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-09",
+  "checkedAt": "2026-11-10",
   "items": [
     {
       "slug": "mini-bodycheck",
@@ -258,6 +258,84 @@
       "pdfPage": 27,
       "sha256": "083ff1c2e31e7bb10d2f0b7478ec24161457fb61bdd93b2ccfaa9b0ff03f372d",
       "sourceUrl": "https://github.com/KimChaeJun/SPOANY/blob/ce4425d486f7ca6dfa3b2aa1a0094f6b8c52f40d/exec/spoAny_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf"
+    },
+    {
+      "slug": "lyrikana",
+      "key": "runtime-overlay-korean",
+      "file": "public/media/lyrikana/overlay-korean.jpg",
+      "repository": "KimChaeJun/LyriKana",
+      "commit": "55d6f0636a027c522101e3d1e6cf2b18a21cc5a2",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "4fdbc2364ec13c5b6f9001b31c37516eae311ffd9966f69de081900087d311a3",
+      "sourceUrl": "https://github.com/KimChaeJun/LyriKana/tree/55d6f0636a027c522101e3d1e6cf2b18a21cc5a2"
+    },
+    {
+      "slug": "lyrikana",
+      "key": "runtime-overlay-romanized",
+      "file": "public/media/lyrikana/overlay-romanized.jpg",
+      "repository": "KimChaeJun/LyriKana",
+      "commit": "55d6f0636a027c522101e3d1e6cf2b18a21cc5a2",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "1216a0233df34aaafbd1287886671ff1fc1e9ec033a7350a63ec66c0009d9b3e",
+      "sourceUrl": "https://github.com/KimChaeJun/LyriKana/tree/55d6f0636a027c522101e3d1e6cf2b18a21cc5a2"
+    },
+    {
+      "slug": "119-ars",
+      "key": "runtime-operator-connected",
+      "file": "public/media/119-ars/operator-connected.jpg",
+      "repository": "KimChaeJun/119_ARS",
+      "commit": "69fad937d3ed087b95e77b5627dd73c8826f1a15",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "0562386c2ad9b73bad28459493a8f568678ede8edcd414121d8f5ddccf6d7cc2",
+      "sourceUrl": "https://github.com/KimChaeJun/119_ARS/tree/69fad937d3ed087b95e77b5627dd73c8826f1a15"
+    },
+    {
+      "slug": "119-ars",
+      "key": "runtime-session-form",
+      "file": "public/media/119-ars/session-form.jpg",
+      "repository": "KimChaeJun/119_ARS",
+      "commit": "69fad937d3ed087b95e77b5627dd73c8826f1a15",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "0f7464d839358b467cab18cb797faf867598d577827dab3d290403cf40ca7446",
+      "sourceUrl": "https://github.com/KimChaeJun/119_ARS/tree/69fad937d3ed087b95e77b5627dd73c8826f1a15"
+    },
+    {
+      "slug": "119-ars",
+      "key": "runtime-caller-video",
+      "file": "public/media/119-ars/caller-video.jpg",
+      "repository": "KimChaeJun/119_ARS",
+      "commit": "69fad937d3ed087b95e77b5627dd73c8826f1a15",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "e4a23043af744853d93053788eb08931a2d0c15c64f110d55423e2cec0e7ae0d",
+      "sourceUrl": "https://github.com/KimChaeJun/119_ARS/tree/69fad937d3ed087b95e77b5627dd73c8826f1a15"
+    },
+    {
+      "slug": "119-ars",
+      "key": "runtime-video-library",
+      "file": "public/media/119-ars/video-library.jpg",
+      "repository": "KimChaeJun/119_ARS",
+      "commit": "69fad937d3ed087b95e77b5627dd73c8826f1a15",
+      "workingTreeModified": true,
+      "captureType": "local-runtime",
+      "capturedAt": "2026-11-10",
+      "source": "Running local working copy; see project-runtime-captures.md",
+      "sha256": "9f25043120e231ca51b63e981fe181248ea29ef9d71242c0991c398e5fea2388",
+      "sourceUrl": "https://github.com/KimChaeJun/119_ARS/tree/69fad937d3ed087b95e77b5627dd73c8826f1a15"
     }
   ]
 }

@@ -1,0 +1,68 @@
+{
+  "capturedAt": "2026-11-10",
+  "timezone": "Asia/Seoul",
+  "projects": {
+    "lyrikana": {
+      "repository": "KimChaeJun/LyriKana",
+      "baseCommit": "55d6f0636a027c522101e3d1e6cf2b18a21cc5a2",
+      "workingTreeModified": true,
+      "files": [
+        {
+          "path": "ElectronOverlay/src/main.js",
+          "sha256": "e675c604a599bda10414da02195e8822b1b880fe4c172d9eede4a6da65f8ce25"
+        },
+        {
+          "path": "ElectronOverlay/src/renderer.js",
+          "sha256": "4aa4527f3a4870cf941d856e56965d9b5b79a7f1898035450e1098bb529a9cac"
+        },
+        {
+          "path": "ElectronOverlay/src/overlay.html",
+          "sha256": "0dc0731d1430d9bf3389e4457405193590590e59ded126b58890d2946fbce531"
+        },
+        {
+          "path": "ElectronOverlay/src/overlay.css",
+          "sha256": "18513fd77f7c299f10b06b496bae7b140112622bfdad9dff924670e9e8a4d83a"
+        },
+        {
+          "path": "ElectronOverlay/src/sudachi.js",
+          "sha256": "e6042b881c52164577d0891aa73432a05a22881a51e5e451680af821138da771"
+        }
+      ]
+    },
+    "119-ars": {
+      "repository": "KimChaeJun/119_ARS",
+      "baseCommit": "69fad937d3ed087b95e77b5627dd73c8826f1a15",
+      "workingTreeModified": true,
+      "files": [
+        {
+          "path": "frontend/src/views/OperatorDashboardView.vue",
+          "sha256": "e02c25c25bfc1c353150db390ab22d5b65c664cb30e36dd34afe2335351d899c"
+        },
+        {
+          "path": "frontend/src/components/caller/MobileCallerScreen.vue",
+          "sha256": "1b0f58f00a7b04a2cd973d3fca00a1ff6a71c0eec693e1e2aad07b30d92ce0b3"
+        },
+        {
+          "path": "frontend/src/components/operator/VideoManagerDialog.vue",
+          "sha256": "bb4d320c9b50cf183d6a7e996faafb689f10319d1efa9b3c6d82d343485d2acd"
+        },
+        {
+          "path": "backend/app/main.py",
+          "sha256": "67b1a4dec3076c97822cc3e6665d4166d6b16abf69a8631ee039eed4d6183d87"
+        },
+        {
+          "path": "backend/app/api/routes/sessions.py",
+          "sha256": "e5bb4af157287ed5b8081f94321c8c9a8c48d64984b129ec750ad11152e0dacb"
+        },
+        {
+          "path": "backend/app/websocket/session_socket.py",
+          "sha256": "15691495fc1a65c3de8926a4c6cfb7e0c8f99d9be1f57ce39139546a827dfbef"
+        },
+        {
+          "path": "data/videos.json",
+          "sha256": "3371567afed852a348cb476d3a7a35f6364c79a86c4d161327939497ec79b98c"
+        }
+      ]
+    }
+  }
+}
